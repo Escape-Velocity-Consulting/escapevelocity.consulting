@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .letter-e { fill: #000000; }
+    .letter-v { fill: #E8865A; }
+    @media (prefers-color-scheme: dark) {
+      .letter-e { fill: #ffffff; }
+    }
+  </style>
+  <g transform="translate(0,50) scale(0.052,-0.052)">
+    <path class="letter-e" d="M66 0V700H516V580H198V413H488V293H198V120H522V0Z"/>
+    <g transform="translate(554,0)">
+      <path class="letter-v" d="M196 0 18 700H154L302 85H316L464 700H600L422 0Z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escape Velocity — KI & Automatisierung für Unternehmen</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #F9F7F4; color: #1A1816; }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(30,28,26,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 16px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700;
+    color: #F5F3F0; text-decoration: none;
+  }
+  .nav-logo .accent { color: #E8865A; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 500;
+    color: #C4BEB8; text-decoration: none;
+  }
+  .nav-links a:hover { color: #F5F3F0; }
+  .nav-cta {
+    padding: 8px 20px; background: #D4784A; color: #fff !important;
+    border-radius: 6px; font-weight: 600 !important;
+  }
+
+  /* ===== SECTION 1: HERO ===== */
+  .hero {
+    background: #1E1C1A; position: relative;
+    padding-top: 60px; /* nav offset */
+    padding-bottom: 0;
+  }
+  .hero-bg {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 0; width: 100%;
+    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 15%, rgba(0,0,0,0.4) 28%, transparent 38%, transparent 62%, rgba(0,0,0,0.4) 72%, rgba(0,0,0,0.8) 85%, rgba(0,0,0,1) 100%);
+    mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 15%, rgba(0,0,0,0.4) 28%, transparent 38%, transparent 62%, rgba(0,0,0,0.4) 72%, rgba(0,0,0,0.8) 85%, rgba(0,0,0,1) 100%);
+    z-index: 0; overflow: hidden;
+  }
+  .hero-bg svg {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 2200px; height: 600px; opacity: 0.55;
+  }
+  .hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-bg::before {
+    content: ''; position: absolute; top: 30%; left: 50%; transform: translateX(-50%); width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(212,120,74,0.06) 0%, transparent 65%);
+    z-index: -1;
+  }
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto; padding: 120px 40px 60px;
+    position: relative; z-index: 1;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 2px; color: #D4784A; margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 72px; font-weight: 700;
+    line-height: 1.05; margin-bottom: 32px; color: #F5F3F0;
+  }
+  .hero h1 .accent { color: #E8865A; }
+  .hero .hero-sub {
+    font-size: 20px; line-height: 1.7; color: #C4BEB8; max-width: 600px; margin: 0 auto 48px;
+  }
+  .hero .hero-enemy {
+    font-size: 15px; line-height: 1.6; color: #807A74; max-width: 520px; margin-bottom: 40px;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 8px; padding: 15px 34px;
+    background: #D4784A; color: #fff; border-radius: 8px; font-family: 'Manrope', sans-serif;
+    font-weight: 600; font-size: 16px; text-decoration: none;
+  }
+  .hero-cta:hover { background: #C2653A; }
+  .hero-cta-secondary {
+    display: inline-flex; align-items: center; gap: 8px; padding: 15px 34px;
+    background: transparent; color: #F5F3F0; border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px; font-family: 'Manrope', sans-serif; font-weight: 500;
+    font-size: 16px; text-decoration: none; margin-left: 12px;
+  }
+  /* ===== SECTION 2: VALUE CAPTURE (overlaps hero) ===== */
+  .hero-vc-overlap {
+    position: relative; z-index: 2;
+    max-width: 900px; margin: 0 auto;
+    margin-top: 80px;
+    margin-bottom: -120px; /* pull into next section */
+  }
+  .vc-wrapper {
+    background: #FFFFFF; border-radius: 16px; padding: 40px 48px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+  .vc-header {
+    text-align: center; margin-bottom: 24px;
+  }
+  .vc-header h2 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700;
+    color: #1A1816; line-height: 1.2; margin-bottom: 8px;
+  }
+  .vc-header h2 .accent { color: #D4784A; }
+  .vc-header p {
+    font-size: 15px; line-height: 1.6; color: #5C5650;
+  }
+  .vc-pillars {
+    display: flex; gap: 12px; justify-content: center; margin-bottom: 24px;
+  }
+  .vc-pillar {
+    padding: 5px 14px; border-radius: 6px; font-family: 'Manrope', sans-serif;
+    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+  }
+  .vc-pillar.geht { background: rgba(212,120,74,0.1); color: #D4784A; }
+  .vc-pillar.kommt { background: rgba(59,130,246,0.08); color: #3B82F6; }
+  .vc-pillar.tun { background: rgba(34,197,94,0.08); color: #16A34A; }
+  .vc-input-row {
+    display: flex; gap: 8px; max-width: 480px; margin: 0 auto;
+  }
+  .vc-input {
+    flex: 1; padding: 14px 18px; border-radius: 8px; border: 1px solid #E0DCD8;
+    background: #F9F7F4; color: #1A1816; font-size: 15px;
+    font-family: 'Inter', sans-serif;
+  }
+  .vc-input::placeholder { color: #A09A94; }
+  .vc-submit {
+    padding: 14px 28px; background: #D4784A; color: #fff; border: none;
+    border-radius: 8px; font-family: 'Manrope', sans-serif; font-weight: 600;
+    font-size: 15px; cursor: pointer;
+  }
+  .vc-submit:hover { background: #C2653A; }
+  .vc-privacy {
+    font-size: 12px; color: #A09A94; margin-top: 10px; line-height: 1.5; text-align: center;
+  }
+
+  /* ===== SECTION 3: PORTFOLIO ===== */
+  .portfolio {
+    max-width: 1100px; margin: 0 auto; padding: 120px 40px 80px;
+  }
+  .section-eyebrow {
+    font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 2px; color: #D4784A; margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700;
+    color: #1A1816; line-height: 1.15; margin-bottom: 12px;
+  }
+  .section-subtitle {
+    font-size: 17px; line-height: 1.7; color: #5C5650; max-width: 600px; margin-bottom: 48px;
+  }
+  .portfolio-grid { display: grid; grid-template-columns: 0.9fr 1.2fr 0.9fr; gap: 20px; }
+  .p-card {
+    background: #FFFFFF; border-radius: 12px; padding: 32px;
+    border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    transition: all 0.2s;
+  }
+  .p-card:hover { border-color: #D4784A; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+  .p-card.featured {
+    background: #1E1C1A; border-color: rgba(212,120,74,0.3);
+  }
+  .p-card.featured h3 { color: #F5F3F0; }
+  .p-card.featured p { color: #C4BEB8; }
+  .p-card .badge {
+    display: inline-block; padding: 3px 10px; border-radius: 4px;
+    background: rgba(212,120,74,0.15); color: #D4784A;
+    font-family: 'Manrope', sans-serif; font-size: 11px;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+  }
+  .p-card h3 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 600;
+    margin-bottom: 10px; color: #1A1816;
+  }
+  .p-card p { font-size: 15px; line-height: 1.6; color: #5C5650; }
+  .p-card .card-link {
+    display: inline-block; margin-top: 16px; font-family: 'Manrope', sans-serif;
+    font-size: 14px; font-weight: 600; color: #D4784A; text-decoration: none;
+  }
+  .p-card.featured .card-link { color: #E8865A; }
+
+  /* How we work */
+  .how-we-work {
+    margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  }
+  .hw-step {
+    text-align: center; padding: 32px 24px;
+  }
+  .hw-number {
+    font-family: 'Space Grotesk', sans-serif; font-size: 40px; font-weight: 700;
+    color: #D4784A; opacity: 0.3; margin-bottom: 12px;
+  }
+  .hw-step h4 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600;
+    color: #1A1816; margin-bottom: 8px;
+  }
+  .hw-step p { font-size: 14px; line-height: 1.6; color: #5C5650; }
+
+  /* ===== SECTION 4: ÜBER TOMMI ===== */
+  .about {
+    background: #1E1C1A; padding: 80px 0;
+  }
+  .about-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 40px;
+    display: grid; grid-template-columns: 280px 1fr; gap: 60px; align-items: start;
+  }
+  .about-photo {
+    width: 280px; height: 340px; border-radius: 12px; background: #2A2826;
+    border: 1px solid rgba(212,120,74,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Manrope', sans-serif; font-size: 13px; color: #807A74;
+  }
+  .about-text {}
+  .about-text .section-eyebrow { color: #D4784A; }
+  .about-text h2 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700;
+    color: #F5F3F0; line-height: 1.15; margin-bottom: 20px;
+  }
+  .about-text p {
+    font-size: 17px; line-height: 1.8; color: #C4BEB8; margin-bottom: 16px;
+  }
+  .about-text p strong { color: #F5F3F0; font-weight: 600; }
+  .about-quote {
+    background: rgba(212,120,74,0.06); border-left: 3px solid #D4784A;
+    padding: 20px 24px; border-radius: 0 8px 8px 0; margin-top: 24px;
+  }
+  .about-quote p {
+    font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 500;
+    color: #F5F3F0; line-height: 1.5; font-style: italic; margin-bottom: 0;
+  }
+
+  /* ===== SECTION 5: TRUST SIGNALS ===== */
+  .trust {
+    max-width: 1100px; margin: 0 auto; padding: 80px 40px;
+    text-align: center;
+  }
+  .trust .section-eyebrow { text-align: center; }
+  .trust-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+    margin-top: 48px;
+  }
+  .trust-card {
+    background: #fff; border-radius: 12px; padding: 32px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .trust-card .trust-number {
+    font-family: 'Space Grotesk', sans-serif; font-size: 36px; font-weight: 700;
+    color: #D4784A; margin-bottom: 8px;
+  }
+  .trust-card h4 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600;
+    color: #1A1816; margin-bottom: 8px;
+  }
+  .trust-card p { font-size: 14px; line-height: 1.5; color: #5C5650; }
+  .trust-card .trust-source {
+    font-size: 11px; color: #999; margin-top: 8px;
+    font-family: 'Manrope', sans-serif; text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  /* ===== SECTION 6: NEWSLETTER CTA ===== */
+  .newsletter-cta {
+    max-width: 1100px; margin: 0 auto; padding: 0 40px 80px;
+  }
+  .nl-cta-wrapper {
+    background: #F5F3F0; border-radius: 16px; padding: 48px 56px;
+    display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .nl-cta-text h3 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700;
+    color: #1A1816; margin-bottom: 8px;
+  }
+  .nl-cta-text p { font-size: 15px; line-height: 1.6; color: #5C5650; }
+  .nl-cta-btn {
+    padding: 14px 32px; background: #D4784A; color: #fff; border: none;
+    border-radius: 8px; font-family: 'Manrope', sans-serif; font-weight: 600;
+    font-size: 15px; cursor: pointer; text-decoration: none; white-space: nowrap;
+  }
+
+  /* ===== SECTION 7: FOOTER ===== */
+  .footer {
+    background: #1E1C1A; padding: 64px 0 32px;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 40px;
+  }
+  .footer-cta-section {
+    text-align: center; padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    margin-bottom: 32px;
+  }
+  .footer-cta-section h2 {
+    font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700;
+    color: #F5F3F0; margin-bottom: 12px;
+  }
+  .footer-cta-section p {
+    font-size: 16px; color: #C4BEB8; margin-bottom: 28px;
+  }
+  .footer-cta-btn {
+    display: inline-flex; padding: 16px 40px; background: #D4784A; color: #fff;
+    border-radius: 8px; font-family: 'Manrope', sans-serif; font-weight: 600;
+    font-size: 16px; text-decoration: none;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px; color: #807A74;
+  }
+  .footer-bottom a { color: #807A74; text-decoration: none; }
+  .footer-bottom a:hover { color: #C4BEB8; }
+  .footer-links { display: flex; gap: 24px; }
+
+  /* Hamburger menu (hidden on desktop) */
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px; background: #F5F3F0;
+    margin: 5px 0; transition: all 0.3s;
+  }
+
+  /* ===== TABLET: 768px ===== */
+  @media (max-width: 768px) {
+    /* Nav */
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none; flex-direction: column; position: absolute;
+      top: 100%; left: 0; right: 0; background: rgba(30,28,26,0.98);
+      padding: 20px 40px; gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-links.open { display: flex; }
+    .nav-cta { text-align: center; }
+
+    /* Hero */
+    .hero h1 { font-size: 48px; }
+    .hero .hero-sub { font-size: 18px; }
+    .hero-inner { padding: 80px 24px 40px; }
+    .hero-bg svg { width: 1400px; height: 400px; }
+
+    /* Hero CTA buttons */
+    .hero-cta, .hero-cta-secondary { padding: 12px 24px; font-size: 15px; }
+    .hero-cta-secondary { margin-left: 0; margin-top: 8px; }
+
+    /* Value Capture */
+    .hero-vc-overlap { margin-top: 48px; margin-bottom: -80px; }
+    .vc-wrapper { padding: 28px 24px; }
+    .vc-header h2 { font-size: 22px; }
+    .vc-input-row { flex-direction: column; }
+    .vc-input, .vc-submit { width: 100%; }
+
+    /* Portfolio */
+    .portfolio { padding: 100px 24px 60px; }
+    .section-title { font-size: 28px; }
+    .portfolio-grid { grid-template-columns: 1fr; gap: 16px; }
+    .how-we-work { grid-template-columns: 1fr; gap: 16px; }
+
+    /* About */
+    .about-inner {
+      grid-template-columns: 1fr; gap: 32px; padding: 0 24px;
+      text-align: center;
+    }
+    .about-photo { width: 200px; height: 240px; margin: 0 auto; }
+    .about-text h2 { font-size: 28px; }
+    .about-quote { text-align: left; }
+
+    /* Trust */
+    .trust { padding: 60px 24px; }
+    .trust-grid { grid-template-columns: 1fr; gap: 16px; }
+
+    /* Newsletter CTA */
+    .newsletter-cta { padding: 0 24px 60px; }
+    .nl-cta-wrapper {
+      grid-template-columns: 1fr; text-align: center; padding: 32px 24px;
+    }
+    .nl-cta-btn { width: 100%; text-align: center; }
+
+    /* Footer */
+    .footer-inner { padding: 0 24px; }
+    .footer-cta-section h2 { font-size: 24px; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+
+  /* ===== MOBILE: 480px ===== */
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 36px; }
+    .hero .hero-sub { font-size: 16px; }
+    .hero-inner { padding: 70px 16px 32px; }
+    .hero-bg svg { width: 1000px; height: 300px; }
+
+    .vc-wrapper { padding: 24px 16px; }
+    .vc-header h2 { font-size: 20px; }
+    .vc-pillars { gap: 6px; }
+    .vc-pillar { font-size: 11px; padding: 4px 10px; }
+
+    .portfolio { padding: 80px 16px 48px; }
+    .section-title { font-size: 24px; }
+    .p-card { padding: 24px; }
+
+    .about-inner { padding: 0 16px; }
+    .about-photo { width: 160px; height: 200px; }
+
+    .trust { padding: 48px 16px; }
+    .trust-card { padding: 24px; }
+    .trust-card .trust-number { font-size: 28px; }
+
+    .newsletter-cta { padding: 0 16px 48px; }
+    .nl-cta-wrapper { padding: 24px 16px; }
+
+    .footer-inner { padding: 0 16px; }
+    .footer-cta-section h2 { font-size: 22px; }
+    .footer-cta-btn { padding: 14px 28px; font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Escape <span class="accent">Velocity</span></a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="#portfolio">Leistungen</a>
+      <a href="#about">Über mich</a>
+      <a href="#newsletter">Newsletter</a>
+      <a href="#contact" class="nav-cta">Erstgespräch →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- SECTION 1: HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <svg viewBox="0 0 2200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- ===== LEFT SIDE — data intake flow ===== -->
+
+      <!-- L: Source card (far left) -->
+      <rect x="40" y="180" width="95" height="52" rx="8" fill="rgba(212,120,74,0.12)" stroke="rgba(212,120,74,0.35)" stroke-width="1.5"/>
+      <circle cx="58" cy="206" r="6" fill="rgba(212,120,74,0.5)"/>
+      <rect x="72" y="198" width="48" height="5" rx="2" fill="rgba(212,120,74,0.4)"/>
+      <rect x="72" y="208" width="34" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
+
+      <!-- L: Connections from source -->
+      <path d="M 135 195 C 190 195, 200 130, 250 130" stroke="rgba(212,120,74,0.3)" stroke-width="2" fill="none"/>
+      <path d="M 135 210 C 190 210, 210 250, 260 250" stroke="rgba(212,120,74,0.25)" stroke-width="2" fill="none"/>
+      <path d="M 135 215 C 175 220, 200 340, 250 350" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+
+      <!-- L: Upper card -->
+      <rect x="250" y="105" width="125" height="50" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+      <rect x="264" y="119" width="12" height="12" rx="2" fill="rgba(212,120,74,0.3)"/>
+      <rect x="282" y="121" width="58" height="5" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <rect x="282" y="131" width="40" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
+
+      <!-- L: Lower card -->
+      <rect x="260" y="225" width="125" height="50" rx="8" fill="rgba(212,120,74,0.08)" stroke="rgba(212,120,74,0.25)" stroke-width="1.5"/>
+      <rect x="274" y="239" width="12" height="12" rx="6" fill="rgba(212,120,74,0.35)"/>
+      <rect x="292" y="241" width="68" height="5" rx="2" fill="rgba(255,255,255,0.12)"/>
+      <rect x="292" y="251" width="48" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
+
+      <!-- L: Ghost card (dashed) -->
+      <rect x="220" y="330" width="115" height="48" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="3 3"/>
+      <rect x="234" y="343" width="12" height="12" rx="2" fill="rgba(255,255,255,0.08)"/>
+      <rect x="252" y="345" width="58" height="5" rx="2" fill="rgba(255,255,255,0.08)"/>
+
+      <!-- L: Merge connections to hub -->
+      <path d="M 375 130 C 420 130, 430 195, 470 195" stroke="rgba(212,120,74,0.2)" stroke-width="2" fill="none"/>
+      <path d="M 385 250 C 420 250, 440 210, 470 210" stroke="rgba(212,120,74,0.2)" stroke-width="2" fill="none"/>
+
+      <!-- L: Hub node -->
+      <rect x="470" y="175" width="65" height="65" rx="12" fill="rgba(212,120,74,0.1)" stroke="rgba(212,120,74,0.3)" stroke-width="1.5"/>
+      <circle cx="502" cy="200" r="9" fill="none" stroke="rgba(212,120,74,0.4)" stroke-width="1.5"/>
+      <circle cx="502" cy="200" r="3.5" fill="rgba(212,120,74,0.5)"/>
+      <rect x="484" y="218" width="38" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+
+      <!-- L: Small result cards off hub -->
+      <path d="M 535 190 C 570 190, 575 150, 600 150" stroke="rgba(212,120,74,0.2)" stroke-width="1.5" fill="none"/>
+      <path d="M 535 210 C 570 210, 580 265, 610 265" stroke="rgba(255,255,255,0.07)" stroke-width="1.5" fill="none"/>
+      <rect x="600" y="132" width="100" height="38" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <rect x="612" y="144" width="8" height="8" rx="2" fill="rgba(34,197,94,0.3)"/>
+      <rect x="626" y="146" width="52" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+
+      <rect x="610" y="248" width="100" height="38" rx="7" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="622" y="260" width="8" height="8" rx="2" fill="rgba(59,130,246,0.25)"/>
+      <rect x="636" y="262" width="46" height="4" rx="2" fill="rgba(255,255,255,0.07)"/>
+
+      <!-- L: Trailing connections fading toward center -->
+      <path d="M 700 150 C 750 150, 780 190, 830 195" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+      <path d="M 710 265 C 750 265, 770 230, 810 225" stroke="rgba(255,255,255,0.03)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+
+      <!-- ===== RIGHT SIDE — different topology ===== -->
+
+      <!-- R: Incoming faded connections from center -->
+      <path d="M 1380 220 C 1420 220, 1440 175, 1480 170" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+      <path d="M 1400 260 C 1430 260, 1450 300, 1480 305" stroke="rgba(255,255,255,0.03)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
+
+      <!-- R: Processing hub (different shape — wider, flatter) -->
+      <rect x="1480" y="155" width="90" height="50" rx="8" fill="rgba(212,120,74,0.1)" stroke="rgba(212,120,74,0.3)" stroke-width="1.5"/>
+      <rect x="1496" y="168" width="14" height="14" rx="3" fill="rgba(212,120,74,0.35)"/>
+      <rect x="1516" y="170" width="38" height="5" rx="2" fill="rgba(255,255,255,0.12)"/>
+      <rect x="1516" y="180" width="28" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
+
+      <!-- R: Fan-out from hub -->
+      <path d="M 1570 168 C 1610 168, 1620 110, 1660 108" stroke="rgba(212,120,74,0.3)" stroke-width="2" fill="none"/>
+      <path d="M 1570 178 C 1610 178, 1630 200, 1660 200" stroke="rgba(212,120,74,0.25)" stroke-width="2" fill="none"/>
+      <path d="M 1570 190 C 1610 195, 1640 290, 1680 295" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+
+      <!-- R: Upper branch — two stacked small cards -->
+      <rect x="1660" y="85" width="110" height="44" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+      <rect x="1674" y="98" width="10" height="10" rx="2" fill="rgba(212,120,74,0.3)"/>
+      <rect x="1690" y="100" width="50" height="5" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <rect x="1690" y="110" width="35" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
+
+      <rect x="1680" y="140" width="110" height="44" rx="7" fill="rgba(212,120,74,0.06)" stroke="rgba(212,120,74,0.2)" stroke-width="1"/>
+      <rect x="1694" y="153" width="10" height="10" rx="2" fill="rgba(212,120,74,0.25)"/>
+      <rect x="1710" y="155" width="55" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+
+      <!-- R: Middle card -->
+      <rect x="1660" y="185" width="130" height="52" rx="8" fill="rgba(212,120,74,0.08)" stroke="rgba(212,120,74,0.25)" stroke-width="1.5"/>
+      <circle cx="1680" cy="211" r="7" fill="rgba(212,120,74,0.35)"/>
+      <rect x="1694" y="200" width="72" height="5" rx="2" fill="rgba(255,255,255,0.12)"/>
+      <rect x="1694" y="210" width="55" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
+      <rect x="1694" y="220" width="40" height="4" rx="2" fill="rgba(255,255,255,0.04)"/>
+
+      <!-- R: Ghost card bottom -->
+      <rect x="1680" y="275" width="115" height="48" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="3 3"/>
+      <rect x="1694" y="288" width="12" height="12" rx="2" fill="rgba(255,255,255,0.06)"/>
+      <rect x="1712" y="290" width="55" height="5" rx="2" fill="rgba(255,255,255,0.06)"/>
+
+      <!-- R: Output connections from cards -->
+      <path d="M 1790 200 C 1830 200, 1840 165, 1870 165" stroke="rgba(212,120,74,0.2)" stroke-width="1.5" fill="none"/>
+      <path d="M 1790 215 C 1830 215, 1850 250, 1880 250" stroke="rgba(255,255,255,0.07)" stroke-width="1.5" fill="none"/>
+      <path d="M 1770 108 C 1810 108, 1820 130, 1850 135" stroke="rgba(212,120,74,0.15)" stroke-width="1.5" fill="none"/>
+
+      <!-- R: Final result node (far right) -->
+      <rect x="1870" y="140" width="70" height="55" rx="10" fill="rgba(212,120,74,0.1)" stroke="rgba(212,120,74,0.3)" stroke-width="1.5"/>
+      <circle cx="1905" cy="160" r="8" fill="none" stroke="rgba(212,120,74,0.35)" stroke-width="1.5"/>
+      <circle cx="1905" cy="160" r="3" fill="rgba(212,120,74,0.4)"/>
+      <rect x="1884" y="176" width="42" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
+
+      <!-- R: Tiny output from final node -->
+      <path d="M 1940 158 C 1970 158, 1975 140, 2000 140" stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none"/>
+      <path d="M 1940 168 C 1970 168, 1980 185, 2010 185" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
+      <rect x="2000" y="125" width="80" height="32" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <rect x="2012" y="136" width="6" height="6" rx="1" fill="rgba(34,197,94,0.2)"/>
+      <rect x="2024" y="137" width="40" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
+
+      <!-- R: Lower output card -->
+      <rect x="1880" y="232" width="95" height="40" rx="7" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="1894" y="245" width="8" height="8" rx="2" fill="rgba(59,130,246,0.2)"/>
+      <rect x="1908" y="247" width="45" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
+
+      <!-- ===== JUNCTION DOTS ===== -->
+      <circle cx="135" cy="206" r="3" fill="rgba(212,120,74,0.5)"/>
+      <circle cx="250" cy="130" r="3" fill="rgba(255,255,255,0.15)"/>
+      <circle cx="260" cy="250" r="3" fill="rgba(212,120,74,0.35)"/>
+      <circle cx="470" cy="200" r="3" fill="rgba(212,120,74,0.3)"/>
+      <circle cx="1570" cy="178" r="3" fill="rgba(212,120,74,0.3)"/>
+      <circle cx="1660" cy="108" r="3" fill="rgba(255,255,255,0.15)"/>
+      <circle cx="1660" cy="200" r="3" fill="rgba(212,120,74,0.35)"/>
+      <circle cx="1870" cy="165" r="3" fill="rgba(212,120,74,0.25)"/>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <h1><span class="accent">KI!</span> Aber wie?</h1>
+    <p class="hero-sub">Wir helfen Unternehmen, mit KI & Automatisierung Zeit zu sparen.</p>
+    <a href="#contact" class="hero-cta">Erstgespräch buchen →</a>
+
+    <!-- VALUE CAPTURE: overlapping white card -->
+    <div class="hero-vc-overlap">
+      <div class="vc-wrapper">
+        <div class="vc-header">
+          <h2>Wo mit <span class="accent">KI</span> anfangen?</h2>
+          <p>Jeden Dienstag: ein konkreter Hebel für Ihr Unternehmen. 5 Minuten. Kein Hype.</p>
+        </div>
+        <div class="vc-pillars">
+          <span class="vc-pillar geht">Trends</span>
+          <span class="vc-pillar kommt">Tools</span>
+          <span class="vc-pillar tun">Taktiken</span>
+        </div>
+        <div class="vc-input-row">
+          <input type="email" class="vc-input" placeholder="ihre@email.at">
+          <button class="vc-submit">Anmelden →</button>
+        </div>
+        <div class="vc-privacy">Kein Spam. Jederzeit abmelden. DSGVO-konform.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="section-eyebrow">Angebote</div>
+  <h2 class="section-title">Von der KI-Revolution profitieren</h2>
+  <p class="section-subtitle">Egal wo Sie heute stehen: Wir begleiten Sie bei Strategie und Implementierung.</p>
+
+  <div class="portfolio-grid">
+    <div class="p-card">
+      <h3>KI-Schulungen</h3>
+      <p>Ihr Team nutzt ChatGPT schon und Sie wollen mehr rausholen? Wir schulen hands-on, anhand von Prozessen aus Ihrem Büroalltag.</p>
+      <a href="#" class="card-link">Mehr erfahren →</a>
+    </div>
+    <div class="p-card featured">
+      <div class="badge">Flagship</div>
+      <h3>Das Back-Office Upgrade</h3>
+      <p>In 6 Wochen: Zeitfresser finden, automatisieren, 2–4 Stunden pro Mitarbeiter und Woche sparen.</p>
+      <a href="#" class="card-link">Mehr erfahren →</a>
+    </div>
+    <div class="p-card">
+      <h3>CIO as a Service</h3>
+      <p>Zu früh für einen IT-Lead, aber zu viele Tech-Entscheidungen für nebenbei? Strategische IT-Führung, wenn Sie sie brauchen.</p>
+      <a href="#" class="card-link">Mehr erfahren →</a>
+    </div>
+  </div>
+
+  <div class="how-we-work">
+    <div class="hw-step">
+      <div class="hw-number">01</div>
+      <h4>Analyse</h4>
+      <p>Wir finden die Hebel in Ihrem Unternehmen. Zeitfresser, Engpässe, ungenutztes Potenzial.</p>
+    </div>
+    <div class="hw-step">
+      <div class="hw-number">02</div>
+      <h4>Build</h4>
+      <p>Wir bauen die Lösung. Workflows, Automations, Systeme. Parallel zu Ihrem Tagesgeschäft.</p>
+    </div>
+    <div class="hw-step">
+      <div class="hw-number">03</div>
+      <h4>Übergabe</h4>
+      <p>Ihr Team kann es. Dokumentation, Schulung, SOPs. Wir gehen erst, wenn es läuft.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: ÜBER TOMMI -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-photo">Foto Platzhalter</div>
+    <div class="about-text">
+      <div class="section-eyebrow">Über mich</div>
+      <h2 style="color: #F5F3F0;">Tommi Enenkel</h2>
+      <p>17 Jahre als <strong>Tech Lead, Marketing Lead und Organisationsentwickler</strong>. Ich habe IT-Systeme aufgebaut, Teams durch Transformationen geführt und Technologie-Strategie auf jeder Ebene gemacht — vom Startup bis zur internationalen Organisation.</p>
+      <p>Heute helfe ich Unternehmen, mit KI & Automatisierung Zeit zu sparen. Nicht mit PowerPoints, sondern mit Workflows die laufen.</p>
+      <div class="about-quote">
+        <p>„Ein erfahrener Kollege, der schon mal da war wo Sie hinwollen — und der anpackt statt Folien zu machen."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: TRUST SIGNALS -->
+<section class="trust">
+  <div class="section-eyebrow">Branchenkontext</div>
+  <h2 class="section-title">Warum jetzt?</h2>
+  <p class="section-subtitle" style="margin: 0 auto 0; text-align: center;">Die Zahlen zeigen: DACH-Unternehmen haben ein Umsetzungsproblem, kein Technologie-Problem.</p>
+  <div class="trust-grid">
+    <div class="trust-card">
+      <div class="trust-number">59%</div>
+      <h4>Können offene Stellen nicht besetzen</h4>
+      <p>Fachkräftemangel zwingt vorhandene Teams in Überstunden — Automatisierung wird zur Notwendigkeit.</p>
+      <div class="trust-source">Bundessteuerberaterkammer</div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-number">54%</div>
+      <h4>Wissen nicht wo anfangen</h4>
+      <p>Die Hälfte der KMU kann nicht identifizieren, welche AI-Anwendungen für sie relevant sind.</p>
+      <div class="trust-source">KI-Studie 2025 · maximal.digital</div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-number">#1</div>
+      <h4>Blocker: Zeitmangel</h4>
+      <p>Nicht Budget, nicht Technik — fehlende Zeit ist der häufigste Grund warum Digitalisierung scheitert.</p>
+      <div class="trust-source">SELLWERK Mittelstands-Studie</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: NEWSLETTER CTA (second capture) -->
+<section class="newsletter-cta" id="newsletter">
+  <div class="nl-cta-wrapper">
+    <div class="nl-cta-text">
+      <h3>Dranbleiben — ohne Zeitaufwand.</h3>
+      <p>Jeden Dienstag sortieren wir für Sie: was in KI jetzt relevant ist und was Sie sofort umsetzen können.</p>
+    </div>
+    <a href="#" class="nl-cta-btn">Newsletter abonnieren →</a>
+  </div>
+</section>
+
+<!-- SECTION 7: FOOTER -->
+<footer class="footer" id="contact">
+  <div class="footer-inner">
+    <div class="footer-cta-section">
+      <h2>Bereit für das Erstgespräch?</h2>
+      <p>30 Minuten. Kostenlos. Wir schauen gemeinsam, wo Ihr größter Hebel liegt.</p>
+      <a href="#" class="footer-cta-btn">Erstgespräch vereinbaren →</a>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Escape Velocity · KI & Automatisierung für Unternehmen</span>
+      <div class="footer-links">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
