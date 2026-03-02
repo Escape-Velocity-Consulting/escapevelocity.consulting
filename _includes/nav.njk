@@ -1,0 +1,56 @@
+<style>
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(30,28,26,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 16px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: var(--font-headline); font-size: 20px; font-weight: 700;
+    color: var(--color-light); text-decoration: none;
+  }
+  .nav-logo .accent { color: var(--color-accent); }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a {
+    font-family: var(--font-ui); font-size: 14px; font-weight: 500;
+    color: var(--color-muted); text-decoration: none;
+  }
+  .nav-links a:hover { color: var(--color-light); }
+  .nav-cta {
+    padding: 8px 20px; background: var(--color-terracotta); color: #fff !important;
+    border-radius: 6px; font-weight: 600 !important;
+  }
+  .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px; background: var(--color-light);
+    margin: 5px 0; transition: all 0.3s;
+  }
+  @media (max-width: 768px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none; flex-direction: column; position: absolute;
+      top: 100%; left: 0; right: 0; background: rgba(30,28,26,0.98);
+      padding: 20px 40px; gap: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-links.open { display: flex; }
+    .nav-cta { text-align: center; }
+  }
+</style>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Escape <span class="accent">Velocity</span></a>
+    <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="/#portfolio">Leistungen</a>
+      <a href="/#about">Über mich</a>
+      <a href="/#newsletter">Newsletter</a>
+      <a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="nav-cta">Erstgespräch →</a>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,28 @@
+<style>
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(30,28,26,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto; padding: 16px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: var(--font-headline); font-size: 20px; font-weight: 700;
+    color: var(--color-light); text-decoration: none;
+  }
+  .nav-logo .accent { color: var(--color-accent); }
+  .nav-cta {
+    padding: 8px 20px; background: var(--color-terracotta); color: #fff;
+    border-radius: 6px; font-family: var(--font-ui); font-weight: 600;
+    font-size: 14px; text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--color-terracotta-hover); }
+</style>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">Escape <span class="accent">Velocity</span></a>
+    <a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="nav-cta">Erstgespräch anfragen →</a>
+  </div>
+</nav>

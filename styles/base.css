@@ -1,0 +1,61 @@
+/* ===== ESCAPE VELOCITY — SHARED DESIGN TOKENS ===== */
+
+:root {
+  --color-cream: #F9F7F4;
+  --color-black: #1E1C1A;
+  --color-terracotta: #D4784A;
+  --color-terracotta-hover: #C2653A;
+  --color-accent: #E8865A;
+  --color-light: #F5F3F0;
+  --color-muted: #C4BEB8;
+  --color-subtle: #807A74;
+  --color-body: #5C5650;
+  --color-text: #1A1816;
+  --font-headline: 'Space Grotesk', sans-serif;
+  --font-ui: 'Manrope', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* ===== RESET + BASE ===== */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-body); background: var(--color-cream); color: var(--color-text); }
+
+/* ===== SHARED HERO BASE ===== */
+
+.hero { background: var(--color-black); position: relative; }
+
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-ui); font-size: 13px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 2px; color: var(--color-terracotta); margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: var(--font-headline); font-weight: 700;
+  color: var(--color-light);
+}
+.hero h1 .accent { color: var(--color-accent); }
+
+/* ===== SHARED CTA BUTTONS ===== */
+
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 8px; padding: 15px 34px;
+  background: var(--color-terracotta); color: #fff; border-radius: 8px;
+  font-family: var(--font-ui); font-weight: 600; font-size: 16px; text-decoration: none;
+}
+.hero-cta:hover { background: var(--color-terracotta-hover); }
+
+.hero-cta-secondary {
+  display: inline-flex; align-items: center; gap: 8px; padding: 15px 34px;
+  background: transparent; color: var(--color-light); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px; font-family: var(--font-ui); font-weight: 500;
+  font-size: 16px; text-decoration: none; margin-left: 12px;
+}

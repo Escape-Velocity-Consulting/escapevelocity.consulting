@@ -1,0 +1,660 @@
+---
+layout: base.njk
+title: "Das Back-Office Upgrade — Escape Velocity"
+---
+<style>
+  /* ===== GENERAL ===== */
+  .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+  .section-label {
+    font-family: var(--font-ui); font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 2px; color: var(--color-subtle);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--font-headline); font-weight: 700; color: var(--color-text);
+    font-size: clamp(24px, 4vw, 32px); line-height: 1.2; margin-bottom: 16px;
+  }
+  .prose { font-size: 17px; line-height: 1.7; color: var(--color-body); }
+
+  /* ===== HERO ===== */
+  .offer-hero {
+    background: var(--color-black); padding: 120px 0 80px; position: relative;
+  }
+  .offer-hero .container { text-align: center; position: relative; z-index: 1; }
+  .offer-hero .hero-eyebrow {
+    font-family: var(--font-ui); font-size: 12px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 2.5px;
+    color: var(--color-terracotta); margin-bottom: 24px;
+  }
+  .offer-hero h1 {
+    font-family: var(--font-headline); font-size: clamp(30px, 5vw, 42px);
+    font-weight: 700; color: var(--color-light); line-height: 1.2; margin-bottom: 24px;
+  }
+  .offer-hero .hero-sub {
+    font-size: 19px; line-height: 1.7; color: var(--color-muted);
+    max-width: 580px; margin: 0 auto 40px;
+  }
+  .cta-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 16px 36px; background: var(--color-terracotta); color: #fff;
+    border-radius: 8px; font-family: var(--font-ui); font-weight: 600;
+    font-size: 16px; text-decoration: none; transition: background 0.2s;
+  }
+  .cta-link:hover { background: var(--color-terracotta-hover); }
+  .hero-note {
+    font-size: 14px; color: var(--color-subtle); margin-top: 16px;
+  }
+
+  /* ===== BRIDGE ===== */
+  .bridge { padding: 64px 0; }
+  .bridge-inner {
+    background: rgba(212,120,74,0.05); border-left: 3px solid var(--color-terracotta);
+    padding: 28px 32px; border-radius: 0 10px 10px 0;
+  }
+  .bridge-inner p { font-size: 17px; line-height: 1.7; color: var(--color-body); }
+
+  /* ===== SITUATION ===== */
+  .situation { padding: 0 0 64px; }
+  .pain-items { list-style: none; padding: 0; margin: 24px 0; }
+  .pain-items li {
+    padding: 14px 0 14px 28px; border-bottom: 1px solid rgba(0,0,0,0.04);
+    font-size: 16px; line-height: 1.6; color: var(--color-body); position: relative;
+  }
+  .pain-items li::before {
+    content: ''; position: absolute; left: 0; top: 22px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--color-terracotta); opacity: 0.5;
+  }
+  .quant-box {
+    background: var(--color-black); border-radius: 10px; padding: 28px 32px; margin-top: 28px;
+  }
+  .quant-box p {
+    font-size: 16px; line-height: 1.7; color: var(--color-muted);
+  }
+  .quant-box strong { color: var(--color-light); }
+
+  /* ===== APPROACH ===== */
+  .approach { padding: 64px 0; background: var(--color-light); }
+  .timeline-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin: 32px 0; padding: 20px 0; position: relative;
+  }
+  .timeline-bar::before {
+    content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px;
+    background: rgba(212,120,74,0.2); transform: translateY(-50%);
+  }
+  .timeline-dot {
+    position: relative; z-index: 1; text-align: center;
+    background: var(--color-light); padding: 0 8px;
+  }
+  .timeline-dot .week {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--color-terracotta); color: #fff;
+    font-family: var(--font-ui); font-size: 12px; font-weight: 700;
+  }
+  .timeline-dot .label {
+    display: block; font-size: 12px; color: var(--color-subtle);
+    margin-top: 6px; white-space: nowrap;
+  }
+  .phase {
+    background: #fff; border-radius: 10px; padding: 28px 32px;
+    border: 1px solid rgba(0,0,0,0.06); margin-bottom: 16px;
+  }
+  .phase-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .phase-num {
+    font-family: var(--font-headline); font-size: 14px; font-weight: 700;
+    color: var(--color-terracotta);
+  }
+  .phase-title {
+    font-family: var(--font-headline); font-size: 18px; font-weight: 600;
+    color: var(--color-text);
+  }
+  .phase-desc { font-size: 16px; line-height: 1.7; color: var(--color-body); margin-bottom: 16px; }
+  .phase-detail {
+    list-style: none; padding: 0; margin: 0;
+  }
+  .phase-detail li {
+    padding: 6px 0 6px 20px; font-size: 15px; color: var(--color-body);
+    position: relative;
+  }
+  .phase-detail li::before {
+    content: ''; position: absolute; left: 0; top: 14px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--color-terracotta); opacity: 0.4;
+  }
+  .del-tag {
+    display: inline-block; margin-top: 12px; padding: 4px 12px; border-radius: 6px;
+    background: rgba(212,120,74,0.08); color: var(--color-terracotta);
+    font-family: var(--font-ui); font-size: 12px; font-weight: 600;
+  }
+
+  /* ===== SCOPE ===== */
+  .scope { padding: 64px 0; }
+  .scope-group { margin-bottom: 28px; }
+  .scope-group h3 {
+    font-family: var(--font-ui); font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.5px; color: var(--color-subtle);
+    margin-bottom: 12px;
+  }
+  .scope-list { list-style: none; padding: 0; }
+  .scope-list li {
+    padding: 10px 0 10px 28px; border-bottom: 1px solid rgba(0,0,0,0.04);
+    font-size: 15px; color: var(--color-body); position: relative;
+  }
+  .scope-list li::before {
+    content: '\2713'; position: absolute; left: 0; color: var(--color-terracotta);
+    font-weight: 700; font-size: 14px;
+  }
+
+  /* ===== INVESTMENT ===== */
+  .investment { padding: 64px 0; background: var(--color-light); }
+  .invest-box {
+    background: #fff; border-radius: 12px; border: 1px solid rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .invest-header {
+    background: var(--color-black); padding: 28px 32px;
+  }
+  .invest-header .section-label { color: var(--color-subtle); margin-bottom: 8px; }
+  .invest-header h2 {
+    font-family: var(--font-headline); font-size: 24px; font-weight: 700;
+    color: var(--color-light);
+  }
+  .invest-body { padding: 32px; }
+  .invest-price {
+    font-family: var(--font-headline); font-size: 36px; font-weight: 700;
+    color: var(--color-terracotta); margin-bottom: 8px;
+  }
+  .invest-note { font-size: 15px; color: var(--color-body); line-height: 1.6; margin-bottom: 28px; }
+
+  /* Calculator */
+  .calc-dynamic { margin-top: 32px; }
+  .calc-dynamic h3 {
+    font-family: var(--font-headline); font-size: 18px; font-weight: 600;
+    color: var(--color-text); margin-bottom: 16px;
+  }
+  .calc-inputs { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .calc-field { flex: 1; min-width: 200px; }
+  .calc-field label {
+    display: block; font-size: 13px; color: var(--color-subtle);
+    margin-bottom: 6px; font-family: var(--font-ui); font-weight: 500;
+  }
+  .calc-field input {
+    width: 100%; padding: 12px 16px; border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.1); background: var(--color-cream);
+    font-size: 16px; font-family: var(--font-body); color: var(--color-text);
+  }
+  .calc-field input:focus { outline: none; border-color: var(--color-terracotta); }
+  .calc-results {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  }
+  .calc-result-card {
+    background: var(--color-cream); border-radius: 8px; padding: 16px;
+  }
+  .calc-result-card .value {
+    font-family: var(--font-headline); font-size: 22px; font-weight: 700;
+    color: var(--color-terracotta);
+  }
+  .calc-result-card .desc {
+    font-size: 13px; color: var(--color-subtle); margin-top: 2px;
+  }
+
+  /* Pilot option */
+  .note-box {
+    margin-top: 28px; padding: 20px 24px; background: rgba(212,120,74,0.05);
+    border-radius: 8px; border-left: 3px solid var(--color-terracotta);
+  }
+  .note-box p { font-size: 15px; line-height: 1.6; color: var(--color-body); }
+  .note-box strong { color: var(--color-text); }
+
+  /* ===== ABOUT ===== */
+  .about-me { padding: 64px 0; }
+  .about-me-inner {
+    display: flex; gap: 32px; align-items: start;
+  }
+  .about-me-photo {
+    width: 140px; height: 140px; border-radius: 50%; background: #E8E4E0;
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: var(--color-subtle);
+  }
+  .about-me-body h3 {
+    font-family: var(--font-headline); font-size: 20px; font-weight: 600;
+    color: var(--color-text); margin-bottom: 12px;
+  }
+  .about-me-body p { font-size: 16px; line-height: 1.7; color: var(--color-body); }
+
+  /* ===== GUARANTEE ===== */
+  .guarantee { padding: 64px 0; background: var(--color-light); }
+  .guarantee-box {
+    background: #fff; border-radius: 12px; padding: 36px 40px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .guarantee-box h3 {
+    font-family: var(--font-headline); font-size: 20px; font-weight: 700;
+    color: var(--color-text); margin-bottom: 16px;
+  }
+  .guarantee-box > p { font-size: 17px; line-height: 1.7; color: var(--color-body); margin-bottom: 20px; }
+  .guarantee-conditions h4 {
+    font-family: var(--font-ui); font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--color-subtle); margin-bottom: 10px;
+  }
+  .guarantee-conditions ul { list-style: none; padding: 0; }
+  .guarantee-conditions li {
+    padding: 6px 0 6px 20px; font-size: 15px; color: var(--color-body); position: relative;
+  }
+  .guarantee-conditions li::before {
+    content: ''; position: absolute; left: 0; top: 14px;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--color-terracotta); opacity: 0.4;
+  }
+
+  /* ===== FAQ ===== */
+  .faq { padding: 64px 0; }
+  .faq-list { margin-top: 24px; }
+  .faq-item {
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .faq-q {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 0; cursor: pointer; gap: 16px;
+  }
+  .faq-q span {
+    font-family: var(--font-headline); font-size: 17px; font-weight: 600;
+    color: var(--color-text);
+  }
+  .faq-q::after {
+    content: '+'; font-size: 24px; color: var(--color-subtle);
+    flex-shrink: 0; transition: transform 0.2s;
+  }
+  .faq-item.open .faq-q::after { content: '\2212'; }
+  .faq-a {
+    max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+  }
+  .faq-a-inner {
+    padding: 0 0 18px; font-size: 16px; line-height: 1.7; color: var(--color-body);
+  }
+
+  /* ===== PROCESS NOTE ===== */
+  .process-note { padding: 64px 0; background: var(--color-light); }
+  .steps-list { margin-top: 24px; }
+  .step-item {
+    display: flex; gap: 20px; align-items: start; padding: 16px 0;
+  }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--color-terracotta); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-ui); font-size: 14px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .step-item h4 {
+    font-family: var(--font-headline); font-size: 16px; font-weight: 600;
+    color: var(--color-text); margin-bottom: 4px;
+  }
+  .step-item p { font-size: 15px; color: var(--color-body); line-height: 1.5; }
+
+  /* ===== FINAL CTA ===== */
+  .final-cta {
+    padding: 80px 0; background: var(--color-black); text-align: center;
+  }
+  .final-cta h2 {
+    font-family: var(--font-headline); font-size: clamp(24px, 4vw, 32px);
+    font-weight: 700; color: var(--color-light); margin-bottom: 12px;
+  }
+  .final-cta .sub {
+    font-size: 17px; color: var(--color-muted); max-width: 520px; margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+  .final-cta .reassurance {
+    font-size: 13px; color: var(--color-subtle); margin-top: 16px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .offer-hero { padding: 100px 0 56px; }
+    .offer-hero .hero-sub { font-size: 17px; }
+    .cta-link { padding: 14px 28px; font-size: 15px; }
+    .bridge-inner { padding: 20px 24px; }
+    .timeline-bar { flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .timeline-dot .label { font-size: 11px; }
+    .phase { padding: 20px 24px; }
+    .calc-inputs { flex-direction: column; }
+    .calc-results { grid-template-columns: 1fr; }
+    .about-me-inner { flex-direction: column; align-items: center; text-align: center; }
+    .guarantee-box { padding: 24px; }
+    .invest-body { padding: 24px; }
+    .invest-price { font-size: 28px; }
+  }
+</style>
+
+{% include "nav-landing.njk" %}
+
+<!-- HERO -->
+<section class="offer-hero" id="kontakt">
+  <div class="container">
+    <div class="hero-eyebrow">KI & Automatisierung für Steuerberater & Buchhalter in Österreich</div>
+    <h1>Was könnte Ihr Team leisten, wenn es 2–4 Stunden pro Woche mehr hätte?</h1>
+    <p class="hero-sub">Daten abtippen, Belege sortieren, Excel hin und her. Ihre Mitarbeiter sind zu qualifiziert dafür. In 6 Wochen bauen wir KI-gestützte Automationen, die auf Ihre Systeme zugeschnitten sind. Damit mehr Zeit bleibt für Beratung, Mandanten, Wachstum.</p>
+    <a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="cta-link">Erstgespräch anfragen →</a>
+    <p class="hero-note">Im Gespräch identifizieren wir Ihre 3 größten Zeitfresser. In 30 Minuten, unverbindlich.</p>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="bridge">
+  <div class="container">
+    <div class="bridge-inner">
+      <p>Das Back-Office Upgrade ist ein 6-Wochen-Projekt, bei dem wir Ihre manuellen Routineprozesse analysieren und durch maßgeschneiderte KI- und Automatisierungslösungen ersetzen. Done-for-you, nahtlos in Ihren bestehenden Kanzleialltag eingebettet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SITUATION -->
+<section class="situation">
+  <div class="container">
+    <div class="section-label">Ausgangslage</div>
+    <h2 class="section-title">Was ich in Kanzleien immer wieder sehe</h2>
+    <p class="prose">Die meisten Steuerberatungs- und Buchhaltungsbüros arbeiten mit bewährten Systemen wie BMD, RZL, Excel. Das funktioniert. Aber zwischen diesen Systemen entstehen Lücken, die Ihr Team jeden Tag manuell überbrückt. Das sind keine Fehler, das ist gewachsene Praxis. Nur: Diese Praxis kostet mittlerweile mehr, als sie müsste.</p>
+    <ul class="pain-items">
+      <li>Manuelle Datenübertragung zwischen BMD, RZL, Excel und E-Mail bindet qualifizierte Kapazität</li>
+      <li>Belegverarbeitung, Kontoauszüge und Dokumente werden händisch sortiert und zugeordnet</li>
+      <li>Qualifizierte Mitarbeiter verbringen Stunden mit Aufgaben, die unter ihrer Qualifikation liegen</li>
+      <li>KI und Automatisierung sind Thema, aber es fehlt das Wissen, wie man sie konkret in bestehende Abläufe integriert. Und die Zeit, sich strukturiert damit zu befassen</li>
+    </ul>
+    <div class="quant-box">
+      <p>Pro Mitarbeiter gehen so <strong>2–4 Stunden pro Woche</strong> an Arbeit verloren, die automatisiert werden könnte. Bei einem Team von 5 Personen sind das <strong>10–20 Stunden pro Woche</strong>, über <strong>500 Stunden im Jahr</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach">
+  <div class="container">
+    <div class="section-label">Mein Vorgehen</div>
+    <h2 class="section-title">Erste Ergebnisse in Woche 1. Volles System in sechs.</h2>
+    <p class="prose">Erst verstehen, was wirklich Zeit kostet. Dann die Abläufe mit dem größten Hebel automatisieren. Dann sicherstellen, dass Ihr Team die neuen Prozesse souverän nutzt. Systematisch, in fester Reihenfolge, mit klaren Meilensteinen.</p>
+
+    <div class="timeline-bar">
+      <div class="timeline-dot"><span class="week">W1</span><span class="label">Roadmap steht</span></div>
+      <div class="timeline-dot"><span class="week">W3</span><span class="label">Erste Automation live</span></div>
+      <div class="timeline-dot"><span class="week">W5</span><span class="label">Team geschult</span></div>
+      <div class="timeline-dot"><span class="week">W6</span><span class="label">Go-Live & Übergabe</span></div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-num">Phase 1</span>
+        <span class="phase-title">Woche 1 — Prozessanalyse & Automatisierungs-Roadmap</span>
+      </div>
+      <p class="phase-desc">Wir führen gemeinsam eine strukturierte Bestandsaufnahme durch. Jede repetitive Aufgabe wird erfasst und nach Automatisierungspotenzial bewertet. Das Ergebnis ist eine priorisierte Roadmap.</p>
+      <ul class="phase-detail">
+        <li>1:1 Tiefenanalyse Ihrer Abläufe (2–3 Stunden Ihres Zeitaufwands)</li>
+        <li>Bewertung jeder Aufgabe nach Einsparpotenzial und Umsetzbarkeit</li>
+        <li>Priorisierte Empfehlung: was zuerst, was kann warten</li>
+      </ul>
+      <div class="del-tag">Ergebnis: Priorisierte Automatisierungs-Roadmap</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-num">Phase 2</span>
+        <span class="phase-title">Woche 2–5 — Automatisierungs-Aufbau & KI-Integration</span>
+      </div>
+      <p class="phase-desc">Ich baue 3 bis 5 Automationen, maßgeschneidert für Ihre Systeme. Alles läuft im Parallelbetrieb. Ihre bestehenden Abläufe bleiben unberührt, bis Sie eine Automation freigeben.</p>
+      <ul class="phase-detail">
+        <li>Automatisierte Belegverarbeitung, Datenaufbereitung und Übergabe an BMD, RZL, Excel oder Ihr CRM</li>
+        <li>KI-gestützte Belegerfassung, Datenextraktion und Berichtsaufbereitung</li>
+        <li>Parallelbetrieb: nichts geht live ohne Ihre Freigabe</li>
+      </ul>
+      <div class="del-tag">Ergebnis: Erste Automation läuft im Testbetrieb</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-num">Phase 3</span>
+        <span class="phase-title">Woche 5–6 — Team-Schulung & Go-Live-Begleitung</span>
+      </div>
+      <p class="phase-desc">Ihr Team wird geschult und begleitet, bis jeder neue Ablauf sitzt. Dazu gehören Live-Schulungen, aufgezeichnete Anleitungen und Kurzreferenzen für den Alltag. Zusätzlich zeige ich ausgewählten Mitarbeitern, wie sie selbst einfache KI-Workflows erstellen und anpassen können.</p>
+      <ul class="phase-detail">
+        <li>Live-Schulungen zu jedem neuen Workflow</li>
+        <li>Video-Anleitungen (SOPs) zum Nachschauen</li>
+        <li>Kurzanleitungen für den Schreibtisch</li>
+        <li>Change-Management-Begleitung für die Umstellungsphase</li>
+        <li>Einführung in die eigenständige Erstellung einfacher KI-Workflows</li>
+      </ul>
+      <div class="del-tag">Ergebnis: Dokumentation übergeben, Support aktiv</div>
+    </div>
+  </div>
+</section>
+
+<!-- SCOPE -->
+<section class="scope">
+  <div class="container">
+    <div class="section-label">Leistungsumfang</div>
+    <h2 class="section-title">Was im Paket enthalten ist</h2>
+    <p class="prose" style="margin-bottom: 28px;">Alles Folgende ist Bestandteil jedes Projekts. Keine versteckten Zusatzkosten.</p>
+
+    <div class="scope-group">
+      <h3>Kernleistungen</h3>
+      <ul class="scope-list">
+        <li>Strukturierte Prozessanalyse mit priorisierter Roadmap</li>
+        <li>3–5 maßgeschneiderte Automationen für Ihre Systeme</li>
+        <li>KI-Integration (Dokumentenverarbeitung, Dateneingabe, Berichterstellung)</li>
+        <li>Live-Schulungen und aufgezeichnete Video-Anleitungen</li>
+        <li>Change-Management-Begleitung für die Umstellungsphase</li>
+      </ul>
+    </div>
+
+    <div class="scope-group">
+      <h3>Inklusive Extras</h3>
+      <ul class="scope-list">
+        <li>Vorher/Nachher-Messung der eingesparten Stunden</li>
+        <li>Wartungshandbuch, Fehlerbehebungs-Leitfaden, Kurzreferenzen</li>
+        <li>30 Tage Support nach Go-Live</li>
+        <li>3 Monate monatliche Sprechstunde (Gruppentermin)</li>
+        <li>Kuratierte Tool-Empfehlungen für den österreichischen Markt</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTMENT -->
+<section class="investment">
+  <div class="container">
+    <div class="invest-box">
+      <div class="invest-header">
+        <div class="section-label">Investment</div>
+        <h2>Was es kostet — und was es bringt</h2>
+      </div>
+      <div class="invest-body">
+        <div class="section-label" style="margin-bottom: 4px;">Einmaliges Projekthonorar</div>
+        <div class="invest-price">7.500 – 12.000 €</div>
+        <p class="invest-note">Abhängig vom Umfang (Anzahl Systeme, Komplexität der Abläufe). Schrittweise Umsetzung möglich.</p>
+
+        <div class="calc-dynamic">
+          <h3>Ihre individuelle Rechnung</h3>
+          <div class="calc-inputs">
+            <div class="calc-field">
+              <label for="calc-hours">Eingesparte Stunden pro Woche</label>
+              <input type="number" id="calc-hours" value="12" min="1" max="100">
+            </div>
+            <div class="calc-field">
+              <label for="calc-rate">Vollkosten pro Stunde (€)</label>
+              <input type="number" id="calc-rate" value="35" min="10" max="200">
+            </div>
+          </div>
+          <div class="calc-results">
+            <div class="calc-result-card">
+              <div class="value" id="calc-weekly">420 €</div>
+              <div class="desc">Einsparung pro Woche</div>
+            </div>
+            <div class="calc-result-card">
+              <div class="value" id="calc-monthly">1.820 €</div>
+              <div class="desc">Einsparung pro Monat</div>
+            </div>
+            <div class="calc-result-card">
+              <div class="value" id="calc-annual">21.840 €</div>
+              <div class="desc">Jährliche Einsparung</div>
+            </div>
+            <div class="calc-result-card">
+              <div class="value" id="calc-roi">ca. 5 Monate</div>
+              <div class="desc">Amortisation bei 7.500 €</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <p><strong>Pilotprojekt möglich:</strong> Wenn Sie zunächst mit einem kleineren Umfang starten möchten, schnüre ich ein Pilotpaket mit 1–2 Automationen. So sehen Sie den Nutzen, bevor Sie sich für das volle Projekt entscheiden.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-me">
+  <div class="container">
+    <div class="section-label">Über mich</div>
+    <div class="about-me-inner">
+      <div class="about-me-photo">Foto</div>
+      <div class="about-me-body">
+        <h3>Tommi Enenkel</h3>
+        <p>17 Jahre als Tech Lead, Marketing Lead und Organisationsentwickler. Ich habe 4 Jahre lang die IT einer Organisation mit 250 Mitarbeitern und 2.000 Freiwilligen geleitet. Danach 2 Jahre Marketing, dann 2 Jahre strategische Organisationsentwicklung im Web3-Bereich. Was sich durch alle Stationen zieht: Prozesse finden, die Teams ausbremsen, und sie so vereinfachen, dass die Leute sich auf die Arbeit konzentrieren können, für die sie eigentlich da sind.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guarantee">
+  <div class="container">
+    <div class="section-label">Meine Zusage</div>
+    <h2 class="section-title">Messbare Ergebnisse oder ich arbeite weiter</h2>
+    <p class="prose" style="margin-bottom: 24px;">Ich binde mein Honorar an konkrete Ergebnisse. Das ist keine Marketing-Floskel, sondern Teil des Vertrags.</p>
+
+    <div class="guarantee-box">
+      <h3>Leistungszusage</h3>
+      <p>Wenn Ihr Team nach 60 Tagen nicht mindestens 2 Stunden pro Mitarbeiter und Woche einspart, arbeite ich ohne zusätzliche Kosten weiter, bis dieses Ziel erreicht ist.</p>
+      <div class="guarantee-conditions">
+        <h4>Voraussetzungen</h4>
+        <ul>
+          <li>Die aufgebauten Workflows werden im Alltag genutzt</li>
+          <li>Ihr Team nimmt an den vorgesehenen Schulungen teil</li>
+          <li>Gemeinsam definierte Prozesse werden nicht einseitig verändert</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-label">Häufige Fragen</div>
+    <h2 class="section-title">Was Interessenten oft fragen</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px'"><span>Wir haben keine IT-Abteilung. Ist das ein Problem?</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Nein. Die Umsetzung übernehme ich komplett. Ihr Zeitaufwand beschränkt sich auf die Analyse (2–3 Stunden) und kurze Freigaben während des Projekts. Technisches Vorwissen ist nicht erforderlich.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px'"><span>Funktioniert das mit BMD / RZL?</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Ja. Ich arbeite speziell mit den in Österreich gängigen Systemen. Die Automationen werden an Ihre bestehende Infrastruktur angepasst, nicht umgekehrt.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px'"><span>Was passiert mit unseren bestehenden Abläufen während der Umstellung?</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Nichts. Alle Automationen laufen im Parallelbetrieb neben Ihren bestehenden Prozessen. Erst wenn Sie eine Automation freigeben, wird sie in den Regelbetrieb übernommen. Es gibt keinen Umstellungstag, an dem alles auf einmal wechselt.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px'"><span>Meine Mitarbeiter sind skeptisch gegenüber neuen Tools.</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Das ist nachvollziehbar und normal. Deshalb ist die Schulung und Begleitung ein fester Bestandteil des Projekts. Meine Erfahrung: Wenn Mitarbeiter sehen, dass ihnen eine unangenehme Aufgabe tatsächlich abgenommen wird, dreht sich die Skepsis schnell.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px'"><span>Können die Automationen danach selbst gepflegt werden?</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Ja, das ist das Ziel. Im Lieferumfang sind Wartungshandbuch, Fehlerbehebungs-Leitfaden und Video-Anleitungen enthalten. Zusätzlich stehe ich 30 Tage nach Go-Live für Rückfragen zur Verfügung und biete 3 Monate lang eine monatliche Sprechstunde an.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px'"><span>Wo liegen unsere Daten?</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Bei Ihnen. Ich arbeite auf Ihrer Infrastruktur oder mit Tools, die Sie freigeben. Sie entscheiden, welche Systeme zum Einsatz kommen und wo Daten verarbeitet werden. Nichts verlässt Ihre Umgebung ohne Ihre ausdrückliche Zustimmung.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px'"><span>Wir sind mitten in der Bilanzierungssaison. Ist jetzt der richtige Zeitpunkt?</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Das Erstgespräch dauert 30 Minuten. Die Analyse kann flexibel gelegt werden. Viele Kanzleien starten das Projekt bewusst in ruhigeren Phasen, aber die Planung kann jederzeit beginnen, und Sie sind vorbereitet, wenn Kapazität da ist.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px'"><span>Wie viele Kunden betreuen Sie gleichzeitig?</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Maximal drei neue Projekte pro Monat. Das ist eine bewusste Entscheidung zugunsten der Betreuungsqualität. Wenn der aktuelle Monat ausgebucht ist, reserviere ich Ihnen einen Platz im Folgemonat.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS NOTE -->
+<section class="process-note">
+  <div class="container">
+    <h2 class="section-title">Nächste Schritte</h2>
+    <p class="prose">So geht es weiter:</p>
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Erstgespräch (30 Min.)</h4>
+          <p>Ihre Situation, die größten Hebel, erste Einschätzung.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Konkretes Angebot (Tag 2–3)</h4>
+          <p>Umfang, Zeitplan und Investment. Keine Folgetermine, kein Druck.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Projektstart</h4>
+          <p>Bei Interesse: Projektstart innerhalb von 2 Wochen.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <h2>Lassen Sie uns herausfinden, ob ich Ihnen helfen kann.</h2>
+    <p class="sub">30 Minuten, eine ehrliche Bestandsaufnahme, und danach wissen Sie, wo die größten Hebel in Ihrem Back-Office liegen.</p>
+    <a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="cta-link">Erstgespräch anfragen →</a>
+    <p class="reassurance">Unverbindlich · Keine Folgeverpflichtung · Max. 3 Projekte/Monat</p>
+  </div>
+</section>
+
+{% include "footer.njk" %}
+
+<script>
+(function() {
+  var hoursEl = document.getElementById('calc-hours');
+  var rateEl = document.getElementById('calc-rate');
+  var fmt = new Intl.NumberFormat('de-AT', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+
+  function update() {
+    var h = parseFloat(hoursEl.value) || 0;
+    var r = parseFloat(rateEl.value) || 0;
+    var weekly = h * r;
+    var monthly = Math.round(weekly * 4.33);
+    var annual = weekly * 52;
+    var months = annual > 0 ? Math.ceil((7500 / annual) * 12) : 0;
+
+    document.getElementById('calc-weekly').textContent = fmt.format(weekly);
+    document.getElementById('calc-monthly').textContent = fmt.format(monthly);
+    document.getElementById('calc-annual').textContent = fmt.format(annual);
+    document.getElementById('calc-roi').textContent = months > 0 ? 'ca. ' + months + ' Monate' : '—';
+  }
+
+  hoursEl.addEventListener('input', update);
+  rateEl.addEventListener('input', update);
+  update();
+})();
+</script>
