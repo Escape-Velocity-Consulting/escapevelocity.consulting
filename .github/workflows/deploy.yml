@@ -1,0 +1,35 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy static files
+        run: |
+          # Upload site files (exclude git/CI files)
+          mkdir -p /tmp/upload
+          cp index.html favicon.svg /tmp/upload/
+
+          gcloud compute ssh web-server \
+            --zone=us-central1-a --tunnel-through-iap \
+            --command="mkdir -p /tmp/escapevelocity-deploy"
+
+          gcloud compute scp /tmp/upload/* \
+            web-server:/tmp/escapevelocity-deploy/ \
+            --zone=us-central1-a --tunnel-through-iap
+
+          gcloud compute ssh web-server \
+            --zone=us-central1-a --tunnel-through-iap \
+            --command="sudo cp -r /tmp/escapevelocity-deploy/* /mnt/pd/data/services/static/escapevelocity/ && rm -rf /tmp/escapevelocity-deploy"
