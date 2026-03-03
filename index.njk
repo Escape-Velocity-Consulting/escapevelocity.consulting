@@ -89,6 +89,55 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     font-size: 12px; color: #A09A94; margin-top: 10px; line-height: 1.5; text-align: center;
   }
 
+  /* ===== NEWSLETTER FORM ===== */
+  .ev-newsletter-form { width: 100%; }
+  .ev-form-consent {
+    max-width: 480px; margin: 12px auto 0.5rem; text-align: left;
+  }
+  .ev-checkbox-label {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 13px; line-height: 1.5; color: var(--color-body); cursor: pointer;
+  }
+  .ev-required {
+    color: #DC2626; font-weight: 600; margin-left: 2px;
+  }
+  .ev-checkbox-label a {
+    color: var(--color-subtle); font-weight: 600; text-decoration: none;
+  }
+  .ev-checkbox-label a:hover {
+    color: var(--color-body); text-decoration: underline;
+  }
+  .ev-checkbox-label input[type="checkbox"] {
+    margin-top: 3px; accent-color: var(--color-terracotta); flex-shrink: 0;
+    width: 16px; height: 16px;
+  }
+  .ev-form-message {
+    margin-top: 12px; padding: 10px 16px; border-radius: 8px;
+    font-size: 14px; line-height: 1.5; text-align: center;
+  }
+  .ev-form-success {
+    background: rgba(34,197,94,0.08); color: #16A34A;
+    border: 1px solid rgba(34,197,94,0.2);
+  }
+  .ev-form-error {
+    background: rgba(239,68,68,0.08); color: #DC2626;
+    border: 1px solid rgba(239,68,68,0.2);
+  }
+
+  /* Bottom newsletter form variant */
+  .ev-newsletter-form--bottom {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .ev-newsletter-form--bottom .vc-input {
+    width: 100%;
+  }
+  .ev-newsletter-form--bottom .vc-submit {
+    width: 100%;
+  }
+  .ev-newsletter-form--bottom .ev-form-consent {
+    max-width: none; margin: 0;
+  }
+
   /* ===== SECTION 3: PORTFOLIO ===== */
   .portfolio {
     max-width: 1100px; margin: 0 auto; padding: 120px 40px 80px;
@@ -133,22 +182,7 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
   }
   .p-card.featured .card-link { color: var(--color-accent); }
 
-  /* How we work */
-  .how-we-work {
-    margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
-  }
-  .hw-step {
-    text-align: center; padding: 32px 24px;
-  }
-  .hw-number {
-    font-family: var(--font-headline); font-size: 40px; font-weight: 700;
-    color: var(--color-terracotta); opacity: 0.3; margin-bottom: 12px;
-  }
-  .hw-step h4 {
-    font-family: var(--font-headline); font-size: 18px; font-weight: 600;
-    color: var(--color-text); margin-bottom: 8px;
-  }
-  .hw-step p { font-size: 14px; line-height: 1.6; color: var(--color-body); }
+
 
   /* ===== SECTION 4: ÜBER TOMMI ===== */
   .about {
@@ -161,8 +195,7 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
   .about-photo {
     width: 280px; height: 340px; border-radius: 12px; background: #2A2826;
     border: 1px solid rgba(212,120,74,0.15);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Manrope', sans-serif; font-size: 13px; color: #807A74;
+    object-fit: cover; object-position: center top;
   }
   .about-text .section-eyebrow { color: var(--color-terracotta); }
   .about-text h2 {
@@ -182,33 +215,6 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     color: var(--color-light); line-height: 1.5; font-style: italic; margin-bottom: 0;
   }
 
-  /* ===== SECTION 5: TRUST SIGNALS ===== */
-  .trust {
-    max-width: 1100px; margin: 0 auto; padding: 80px 40px;
-    text-align: center;
-  }
-  .trust .section-eyebrow { text-align: center; }
-  .trust-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
-    margin-top: 48px;
-  }
-  .trust-card {
-    background: #fff; border-radius: 12px; padding: 32px;
-    border: 1px solid rgba(0,0,0,0.06);
-  }
-  .trust-card .trust-number {
-    font-family: var(--font-headline); font-size: 36px; font-weight: 700;
-    color: var(--color-terracotta); margin-bottom: 8px;
-  }
-  .trust-card h4 {
-    font-family: var(--font-headline); font-size: 16px; font-weight: 600;
-    color: var(--color-text); margin-bottom: 8px;
-  }
-  .trust-card p { font-size: 14px; line-height: 1.5; color: var(--color-body); }
-  .trust-card .trust-source {
-    font-size: 11px; color: #999; margin-top: 8px;
-    font-family: var(--font-ui); text-transform: uppercase; letter-spacing: 1px;
-  }
 
   /* ===== SECTION 6: NEWSLETTER CTA ===== */
   .newsletter-cta {
@@ -216,7 +222,7 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
   }
   .nl-cta-wrapper {
     background: #F5F3F0; border-radius: 16px; padding: 48px 56px;
-    display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center;
     border: 1px solid rgba(0,0,0,0.06);
   }
   .nl-cta-text h3 {
@@ -253,8 +259,6 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     .portfolio { padding: 100px 24px 60px; }
     .section-title { font-size: 28px; }
     .portfolio-grid { grid-template-columns: 1fr; gap: 16px; }
-    .how-we-work { grid-template-columns: 1fr; gap: 16px; }
-
     /* About */
     .about-inner {
       grid-template-columns: 1fr; gap: 32px; padding: 0 24px;
@@ -264,16 +268,13 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     .about-text h2 { font-size: 28px; }
     .about-quote { text-align: left; }
 
-    /* Trust */
-    .trust { padding: 60px 24px; }
-    .trust-grid { grid-template-columns: 1fr; gap: 16px; }
-
     /* Newsletter CTA */
     .newsletter-cta { padding: 0 24px 60px; }
     .nl-cta-wrapper {
       grid-template-columns: 1fr; text-align: center; padding: 32px 24px;
     }
     .nl-cta-btn { width: 100%; text-align: center; }
+    .ev-newsletter-form--bottom .ev-form-consent { text-align: left; }
   }
 
   /* ===== MOBILE: 480px ===== */
@@ -294,10 +295,6 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
 
     .about-inner { padding: 0 16px; }
     .about-photo { width: 160px; height: 200px; }
-
-    .trust { padding: 48px 16px; }
-    .trust-card { padding: 24px; }
-    .trust-card .trust-number { font-size: 28px; }
 
     .newsletter-cta { padding: 0 16px 48px; }
     .nl-cta-wrapper { padding: 24px 16px; }
@@ -413,8 +410,17 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
           <span class="vc-pillar kommt">Tools</span>
           <span class="vc-pillar tun">Taktiken</span>
         </div>
-        <script src="https://js-eu1.hsforms.net/forms/embed/147929039.js" defer></script>
-        <div class="hs-form-frame" data-region="eu1" data-form-id="1fe34adb-27cb-4088-9146-fe05be888cb5" data-portal-id="147929039"></div>
+        <form class="ev-newsletter-form" data-form="hero">
+          <input type="email" class="vc-input" placeholder="Ihre E-Mail-Adresse" required style="width:100%; max-width:480px; margin:0 auto; display:block;">
+          <div class="ev-form-consent">
+            <label class="ev-checkbox-label">
+              <input type="checkbox" required>
+              <span>Ich möchte den Escape Velocity Newsletter erhalten und stimme zu, dass meine E-Mail-Adresse zu diesem Zweck verarbeitet wird. Abmeldung jederzeit möglich. <a href="/datenschutz/">Datenschutzerklärung</a><span class="ev-required">*</span></span>
+            </label>
+          </div>
+          <button type="submit" class="vc-submit" style="width:100%; max-width:480px; margin:0 auto; display:block;">Anmelden</button>
+          <div class="ev-form-message" style="display:none;"></div>
+        </form>
       </div>
     </div>
   </div>
@@ -443,67 +449,24 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     </div>
   </div>
 
-  <div class="how-we-work">
-    <div class="hw-step">
-      <div class="hw-number">01</div>
-      <h4>Analyse</h4>
-      <p>Wir finden die Hebel in Ihrem Unternehmen. Zeitfresser, Engpässe, ungenutztes Potenzial.</p>
-    </div>
-    <div class="hw-step">
-      <div class="hw-number">02</div>
-      <h4>Build</h4>
-      <p>Wir bauen die Lösung. Workflows, Automations, Systeme. Parallel zu Ihrem Tagesgeschäft.</p>
-    </div>
-    <div class="hw-step">
-      <div class="hw-number">03</div>
-      <h4>Übergabe</h4>
-      <p>Ihr Team kann es. Dokumentation, Schulung, SOPs. Wir gehen erst, wenn es läuft.</p>
-    </div>
-  </div>
 </section>
 
 <!-- SECTION 4: ÜBER TOMMI -->
 <section class="about" id="about">
   <div class="about-inner">
-    <div class="about-photo">Foto Platzhalter</div>
+    <img src="/vortrag.jpg" alt="Tommi Enenkel bei einem Vortrag" class="about-photo">
     <div class="about-text">
       <div class="section-eyebrow">Über mich</div>
       <h2 style="color: #F5F3F0;">Tommi Enenkel</h2>
-      <p>17 Jahre als <strong>Tech Lead, Marketing Lead und Organisationsentwickler</strong>. Ich habe IT-Systeme aufgebaut, Teams durch Transformationen geführt und Technologie-Strategie auf jeder Ebene gemacht — vom Startup bis zur internationalen Organisation.</p>
-      <p>Heute helfe ich Unternehmen, mit KI & Automatisierung Zeit zu sparen. Nicht mit PowerPoints, sondern mit Workflows die laufen.</p>
+      <p>17 Jahre als <strong>Tech Lead, Marketing Lead und Organisationsentwickler</strong>. Ich habe IT-Systeme aufgebaut, Teams durch Transformationen geführt und Technologie-Strategie auf jeder Ebene gemacht, vom mittelständischen Unternehmen bis zur internationalen Organisation.</p>
+      <p>Heute helfe ich Unternehmen, mit KI & Automatisierung Zeit (und damit Geld) zu sparen. Nicht mit PowerPoints, sondern mit Workflows die laufen.</p>
       <div class="about-quote">
-        <p>„Ein erfahrener Kollege, der schon mal da war wo Sie hinwollen — und der anpackt statt Folien zu machen."</p>
+        <p>„Ihr nächster 3x-Hebel kommt nicht durch mehr Arbeit, sondern durch weniger!"</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 5: TRUST SIGNALS -->
-<section class="trust">
-  <div class="section-eyebrow">Branchenkontext</div>
-  <h2 class="section-title">Warum jetzt?</h2>
-  <p class="section-subtitle" style="margin: 0 auto 0; text-align: center;">Die Zahlen zeigen: DACH-Unternehmen haben ein Umsetzungsproblem, kein Technologie-Problem.</p>
-  <div class="trust-grid">
-    <div class="trust-card">
-      <div class="trust-number">59%</div>
-      <h4>Können offene Stellen nicht besetzen</h4>
-      <p>Fachkräftemangel zwingt vorhandene Teams in Überstunden — Automatisierung wird zur Notwendigkeit.</p>
-      <div class="trust-source">Bundessteuerberaterkammer</div>
-    </div>
-    <div class="trust-card">
-      <div class="trust-number">54%</div>
-      <h4>Wissen nicht wo anfangen</h4>
-      <p>Die Hälfte der KMU kann nicht identifizieren, welche AI-Anwendungen für sie relevant sind.</p>
-      <div class="trust-source">KI-Studie 2025 · maximal.digital</div>
-    </div>
-    <div class="trust-card">
-      <div class="trust-number">#1</div>
-      <h4>Blocker: Zeitmangel</h4>
-      <p>Nicht Budget, nicht Technik — fehlende Zeit ist der häufigste Grund warum Digitalisierung scheitert.</p>
-      <div class="trust-source">SELLWERK Mittelstands-Studie</div>
-    </div>
-  </div>
-</section>
 
 <!-- SECTION 6: NEWSLETTER CTA (second capture) -->
 <section class="newsletter-cta" id="newsletter">
@@ -512,9 +475,76 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
       <h3>Dranbleiben — ohne Zeitaufwand.</h3>
       <p>Jeden Dienstag sortieren wir für Sie: was in KI jetzt relevant ist und was Sie sofort umsetzen können.</p>
     </div>
-    <script src="https://js-eu1.hsforms.net/forms/embed/147929039.js" defer></script>
-    <div class="hs-form-frame" data-region="eu1" data-form-id="1fe34adb-27cb-4088-9146-fe05be888cb5" data-portal-id="147929039"></div>
+    <form class="ev-newsletter-form ev-newsletter-form--bottom" data-form="bottom">
+      <input type="email" class="vc-input" placeholder="Ihre E-Mail-Adresse" required>
+      <div class="ev-form-consent">
+        <label class="ev-checkbox-label">
+          <input type="checkbox" required>
+          <span>Ich möchte den Escape Velocity Newsletter erhalten und stimme zu, dass meine E-Mail-Adresse zu diesem Zweck verarbeitet wird. Abmeldung jederzeit möglich. <a href="/datenschutz/">Datenschutzerklärung</a><span class="ev-required">*</span></span>
+        </label>
+      </div>
+      <button type="submit" class="vc-submit">Anmelden →</button>
+      <div class="ev-form-message" style="display:none;"></div>
+    </form>
   </div>
 </section>
+
+<!-- Newsletter form submission to HubSpot Forms API -->
+<script>
+  document.querySelectorAll('.ev-newsletter-form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = form.querySelector('input[type="email"]').value;
+      var checkbox = form.querySelector('input[type="checkbox"]');
+      var btn = form.querySelector('button[type="submit"]');
+      var msg = form.querySelector('.ev-form-message');
+
+      if (!checkbox.checked) return;
+
+      btn.disabled = true;
+      btn.textContent = '...';
+
+      fetch('https://api-eu1.hsforms.com/submissions/v3/integration/submit/147929039/1fe34adb-27cb-4088-9146-fe05be888cb5', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fields: [{ name: 'email', value: email }],
+          context: { pageUri: window.location.href, pageName: document.title },
+          legalConsentOptions: {
+            consent: {
+              consentToProcess: true,
+              text: 'Ich möchte den Escape Velocity Newsletter erhalten und stimme zu, dass meine E-Mail-Adresse zu diesem Zweck verarbeitet wird. Abmeldung jederzeit möglich.',
+              communications: [{
+                value: true,
+                subscriptionTypeId: 999,
+                text: 'Escape Velocity Newsletter'
+              }]
+            }
+          }
+        })
+      })
+      .then(function(res) {
+        if (res.ok) {
+          msg.style.display = 'block';
+          msg.className = 'ev-form-message ev-form-success';
+          msg.textContent = 'Willkommen an Bord! Bestätigen Sie bitte Ihre E-Mail.';
+          form.querySelector('input[type="email"]').value = '';
+          checkbox.checked = false;
+          btn.disabled = false;
+          btn.textContent = form.dataset.form === 'hero' ? 'Anmelden' : 'Anmelden →';
+        } else {
+          throw new Error('Submission failed');
+        }
+      })
+      .catch(function() {
+        msg.style.display = 'block';
+        msg.className = 'ev-form-message ev-form-error';
+        msg.textContent = 'Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.';
+        btn.disabled = false;
+        btn.textContent = form.dataset.form === 'hero' ? 'Anmelden' : 'Anmelden →';
+      });
+    });
+  });
+</script>
 
 {% include "footer.njk" %}

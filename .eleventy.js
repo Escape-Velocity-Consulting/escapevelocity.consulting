@@ -1,6 +1,7 @@
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("styles");
   eleventyConfig.addPassthroughCopy("favicon.svg");
+  eleventyConfig.addPassthroughCopy("vortrag.jpg");
 
   eleventyConfig.ignores.add("reference/**");
 
