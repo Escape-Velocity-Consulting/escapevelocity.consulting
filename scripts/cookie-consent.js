@@ -95,13 +95,16 @@
   function showSettings() {
     var panel = getSettings();
     if (panel) panel.style.display = 'block';
-    // Sync toggles with current consent
+    // Sync toggles: show saved state, or default all on for first visit
     var consent = getConsent();
+    var ta = document.getElementById('cc-toggle-analytics');
+    var tm = document.getElementById('cc-toggle-marketing');
     if (consent) {
-      var ta = document.getElementById('cc-toggle-analytics');
-      var tm = document.getElementById('cc-toggle-marketing');
       if (ta) ta.checked = consent.analytics;
       if (tm) tm.checked = consent.marketing;
+    } else {
+      if (ta) ta.checked = true;
+      if (tm) tm.checked = true;
     }
   }
 
