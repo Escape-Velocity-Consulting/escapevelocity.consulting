@@ -3,8 +3,8 @@
 
 // Tracking IDs — replace with your actual IDs
 const TRACKING = {
-  GA_ID: 'G-XXXXXXXXXX',           // Google Analytics 4
-  LINKEDIN_PARTNER_ID: '0000000',  // LinkedIn Insight Tag
+  GA_ID: 'G-G29LZCZJSG',            // Google Analytics 4
+  LINKEDIN_PARTNER_ID: '9635737',  // LinkedIn Insight Tag
   HUBSPOT_PORTAL_ID: '147929039',  // HubSpot Portal
 };
 
