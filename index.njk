@@ -192,10 +192,14 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     max-width: 1100px; margin: 0 auto; padding: 0 40px;
     display: grid; grid-template-columns: 280px 1fr; gap: 60px; align-items: start;
   }
+  .about-photo-wrap {
+    width: 280px; height: 340px; border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(212,120,74,0.15); background: #2A2826;
+  }
   .about-photo {
-    width: 280px; height: 340px; border-radius: 12px; background: #2A2826;
-    border: 1px solid rgba(212,120,74,0.15);
-    object-fit: cover; object-position: center top;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 25%;
+    transform: scale(2.0); transform-origin: center 35%;
   }
   .about-text .section-eyebrow { color: var(--color-terracotta); }
   .about-text h2 {
@@ -264,7 +268,7 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
       grid-template-columns: 1fr; gap: 32px; padding: 0 24px;
       text-align: center;
     }
-    .about-photo { width: 200px; height: 240px; margin: 0 auto; }
+    .about-photo-wrap { width: 200px; height: 240px; margin: 0 auto; }
     .about-text h2 { font-size: 28px; }
     .about-quote { text-align: left; }
 
@@ -294,7 +298,7 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     .p-card { padding: 24px; }
 
     .about-inner { padding: 0 16px; }
-    .about-photo { width: 160px; height: 200px; }
+    .about-photo-wrap { width: 160px; height: 200px; }
 
     .newsletter-cta { padding: 0 16px 48px; }
     .nl-cta-wrapper { padding: 24px 16px; }
@@ -454,14 +458,16 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
 <!-- SECTION 4: ÜBER TOMMI -->
 <section class="about" id="about">
   <div class="about-inner">
-    <img src="/vortrag.jpg" alt="Tommi Enenkel bei einem Vortrag" class="about-photo">
+    <div class="about-photo-wrap">
+      <img src="/vortrag.jpg" alt="Tommi Enenkel bei einem Vortrag" class="about-photo">
+    </div>
     <div class="about-text">
       <div class="section-eyebrow">Über mich</div>
       <h2 style="color: #F5F3F0;">Tommi Enenkel</h2>
       <p>17 Jahre als <strong>Tech Lead, Marketing Lead und Organisationsentwickler</strong>. Ich habe IT-Systeme aufgebaut, Teams durch Transformationen geführt und Technologie-Strategie auf jeder Ebene gemacht, vom mittelständischen Unternehmen bis zur internationalen Organisation.</p>
       <p>Heute helfe ich Unternehmen, mit KI & Automatisierung Zeit (und damit Geld) zu sparen. Nicht mit PowerPoints, sondern mit Workflows die laufen.</p>
       <div class="about-quote">
-        <p>„Ihr nächster 3x-Hebel kommt nicht durch mehr Arbeit, sondern durch weniger!"</p>
+        <p>„Ihr nächster Wachstums-Hebel kommt nicht durch mehr Arbeit, sondern durch weniger!"</p>
       </div>
     </div>
   </div>
