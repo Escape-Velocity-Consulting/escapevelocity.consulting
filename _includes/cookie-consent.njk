@@ -1,0 +1,135 @@
+<style>
+  .cc-banner {
+    display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+    background: var(--color-black); border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 24px 0; font-family: var(--font-body);
+  }
+  .cc-inner {
+    max-width: 1100px; margin: 0 auto; padding: 0 40px;
+  }
+  .cc-text {
+    font-size: 15px; line-height: 1.6; color: var(--color-muted); margin-bottom: 20px;
+  }
+  .cc-text a { color: var(--color-terracotta); text-decoration: none; }
+  .cc-text a:hover { text-decoration: underline; }
+  .cc-actions {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .cc-btn-accept {
+    padding: 12px 28px; background: var(--color-terracotta); color: #fff;
+    border: none; border-radius: 6px; font-family: var(--font-ui);
+    font-weight: 600; font-size: 14px; cursor: pointer;
+  }
+  .cc-btn-accept:hover { background: var(--color-terracotta-hover); }
+  .cc-btn-reject {
+    padding: 12px 28px; background: transparent; color: var(--color-light);
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 6px;
+    font-family: var(--font-ui); font-weight: 500; font-size: 14px; cursor: pointer;
+  }
+  .cc-btn-reject:hover { border-color: rgba(255,255,255,0.4); }
+  .cc-btn-settings {
+    background: none; border: none; color: var(--color-subtle);
+    font-family: var(--font-ui); font-size: 14px; cursor: pointer;
+    text-decoration: underline; padding: 12px 8px;
+  }
+  .cc-btn-settings:hover { color: var(--color-muted); }
+
+  /* Settings panel */
+  .cc-settings {
+    display: none; margin-top: 20px; padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .cc-category {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .cc-category:last-child { border-bottom: none; }
+  .cc-cat-info { flex: 1; }
+  .cc-cat-name {
+    font-family: var(--font-ui); font-size: 14px; font-weight: 600;
+    color: var(--color-light);
+  }
+  .cc-cat-desc {
+    font-size: 13px; color: var(--color-subtle); margin-top: 2px;
+  }
+
+  /* Toggle switch */
+  .cc-toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; margin-left: 16px; }
+  .cc-toggle input { opacity: 0; width: 0; height: 0; }
+  .cc-toggle-slider {
+    position: absolute; cursor: pointer; inset: 0;
+    background: rgba(255,255,255,0.12); border-radius: 24px; transition: 0.2s;
+  }
+  .cc-toggle-slider::before {
+    content: ''; position: absolute; height: 18px; width: 18px;
+    left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: 0.2s;
+  }
+  .cc-toggle input:checked + .cc-toggle-slider { background: var(--color-terracotta); }
+  .cc-toggle input:checked + .cc-toggle-slider::before { transform: translateX(20px); }
+  .cc-toggle input:disabled + .cc-toggle-slider { opacity: 0.5; cursor: default; }
+
+  .cc-save-row { margin-top: 16px; }
+  .cc-btn-save {
+    padding: 10px 24px; background: var(--color-terracotta); color: #fff;
+    border: none; border-radius: 6px; font-family: var(--font-ui);
+    font-weight: 600; font-size: 14px; cursor: pointer;
+  }
+  .cc-btn-save:hover { background: var(--color-terracotta-hover); }
+
+  @media (max-width: 600px) {
+    .cc-inner { padding: 0 20px; }
+    .cc-actions { flex-direction: column; align-items: stretch; }
+    .cc-btn-accept, .cc-btn-reject { text-align: center; }
+    .cc-btn-settings { text-align: left; }
+  }
+</style>
+
+<div class="cc-banner" id="cookie-consent-banner" role="dialog" aria-label="Cookie-Einstellungen">
+  <div class="cc-inner">
+    <div class="cc-text">
+      Wir verwenden Cookies, um unsere Website zu verbessern und Ihnen relevante Inhalte zu zeigen.
+      Weitere Informationen finden Sie in unserer <a href="/datenschutz/">Datenschutzerklärung</a>.
+    </div>
+    <div class="cc-actions">
+      <button class="cc-btn-accept" id="cc-accept-all">Alle akzeptieren</button>
+      <button class="cc-btn-reject" id="cc-reject">Nur notwendige</button>
+      <button class="cc-btn-settings" id="cc-toggle-settings">Einstellungen</button>
+    </div>
+
+    <div class="cc-settings" id="cookie-consent-settings">
+      <div class="cc-category">
+        <div class="cc-cat-info">
+          <div class="cc-cat-name">Notwendig</div>
+          <div class="cc-cat-desc">Erforderlich für den Betrieb der Website</div>
+        </div>
+        <label class="cc-toggle">
+          <input type="checkbox" checked disabled>
+          <span class="cc-toggle-slider"></span>
+        </label>
+      </div>
+      <div class="cc-category">
+        <div class="cc-cat-info">
+          <div class="cc-cat-name">Analyse</div>
+          <div class="cc-cat-desc">Google Analytics — anonymisierte Nutzungsstatistiken</div>
+        </div>
+        <label class="cc-toggle">
+          <input type="checkbox" id="cc-toggle-analytics">
+          <span class="cc-toggle-slider"></span>
+        </label>
+      </div>
+      <div class="cc-category">
+        <div class="cc-cat-info">
+          <div class="cc-cat-name">Marketing</div>
+          <div class="cc-cat-desc">LinkedIn Insight Tag, HubSpot — Reichweitenmessung und Kommunikation</div>
+        </div>
+        <label class="cc-toggle">
+          <input type="checkbox" id="cc-toggle-marketing">
+          <span class="cc-toggle-slider"></span>
+        </label>
+      </div>
+      <div class="cc-save-row">
+        <button class="cc-btn-save" id="cc-save-selection">Auswahl speichern</button>
+      </div>
+    </div>
+  </div>
+</div>
