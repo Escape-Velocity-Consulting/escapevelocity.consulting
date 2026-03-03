@@ -78,18 +78,28 @@
     return document.getElementById('cookie-consent-banner');
   }
 
+  function getOverlay() {
+    return document.getElementById('cookie-consent-overlay');
+  }
+
   function getSettings() {
     return document.getElementById('cookie-consent-settings');
   }
 
   function showBanner() {
     var el = getBanner();
+    var ov = getOverlay();
     if (el) el.style.display = 'block';
+    if (ov) ov.style.display = 'block';
+    document.body.style.overflow = 'hidden';
   }
 
   function hideBanner() {
     var el = getBanner();
+    var ov = getOverlay();
     if (el) el.style.display = 'none';
+    if (ov) ov.style.display = 'none';
+    document.body.style.overflow = '';
   }
 
   function showSettings() {
