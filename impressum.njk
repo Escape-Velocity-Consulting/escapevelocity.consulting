@@ -1,0 +1,80 @@
+---
+layout: base.njk
+title: "Impressum — Escape Velocity"
+---
+<style>
+  .legal-container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+  .legal-hero {
+    background: var(--color-black); padding: 120px 0 64px;
+  }
+  .legal-hero .legal-container { text-align: center; }
+  .legal-hero h1 {
+    font-family: var(--font-headline); font-size: clamp(28px, 4vw, 36px);
+    font-weight: 700; color: var(--color-light); margin-bottom: 0;
+  }
+  .legal-body { padding: 64px 0; }
+  .legal-body h2 {
+    font-family: var(--font-headline); font-size: 20px; font-weight: 600;
+    color: var(--color-text); margin: 40px 0 16px;
+  }
+  .legal-body h2:first-child { margin-top: 0; }
+  .legal-body p {
+    font-size: 17px; line-height: 1.7; color: var(--color-body); margin-bottom: 12px;
+  }
+  .legal-body a { color: var(--color-terracotta); text-decoration: none; }
+  .legal-body a:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .legal-hero { padding: 100px 0 48px; }
+    .legal-body { padding: 40px 0; }
+  }
+</style>
+
+{% include "nav-landing.njk" %}
+
+<section class="legal-hero">
+  <div class="legal-container">
+    <h1>Impressum</h1>
+  </div>
+</section>
+
+<section class="legal-body">
+  <div class="legal-container">
+    <h2>Angaben gemäß § 5 ECG</h2>
+    <p>
+      Thomas Enenkel GmbH<br>
+      Wiener Straße 11-13/2/3<br>
+      3002 Purkersdorf<br>
+      Österreich
+    </p>
+
+    <h2>Unternehmensregister</h2>
+    <p>
+      Firmenbuchnummer: FN 570703w<br>
+      Firmenbuchgericht: Landesgericht St. Pölten<br>
+      UID-Nummer: ATU77669024
+    </p>
+
+    <h2>Geschäftsführung</h2>
+    <p>Thomas Enenkel, MSc</p>
+
+    <h2>Kontakt</h2>
+    <p>
+      E-Mail: <a href="mailto:tommi.enenkel@escapevelocity.consulting">tommi.enenkel@escapevelocity.consulting</a>
+    </p>
+
+    <h2>Gewerbe</h2>
+    <p>Unternehmensberatung einschließlich der Unternehmensorganisation</p>
+
+    <h2>Anwendbare Rechtsvorschriften</h2>
+    <p>Gewerbeordnung (GewO), abrufbar unter <a href="https://www.ris.bka.gv.at" target="_blank" rel="noopener">www.ris.bka.gv.at</a></p>
+
+    <h2>Aufsichtsbehörde</h2>
+    <p>Bezirkshauptmannschaft St. Pölten</p>
+
+    <h2>Haftungsausschluss</h2>
+    <p>Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+  </div>
+</section>
+
+{% include "footer.njk" %}
