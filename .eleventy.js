@@ -5,6 +5,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("favicon.svg");
   eleventyConfig.addPassthroughCopy("vortrag.jpg");
   eleventyConfig.addPassthroughCopy("hi/*.vcf");
+  eleventyConfig.addPassthroughCopy("qr.png");
 
   eleventyConfig.ignores.add("reference/**");
 
