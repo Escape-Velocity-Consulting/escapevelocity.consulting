@@ -99,6 +99,7 @@ body { font-family: var(--font-body); background: var(--color-cream); color: var
   color: var(--color-light);
 }
 .hero h1 .accent { color: var(--color-accent); }
+.accent { color: var(--color-terracotta); }
 
 /* ===== SHARED CTA BUTTONS ===== */
 

@@ -1,12 +1,12 @@
 ---
 layout: base.njk
-title: "Escape Velocity — KI & Automatisierung für Unternehmen"
+title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehmen"
 ---
 <style>
   /* ===== HERO (page-specific overrides) ===== */
   .hero {
     padding-top: 60px; /* nav offset */
-    padding-bottom: 0;
+    padding-bottom: 60px;
   }
   .hero-bg {
     position: absolute; left: 0; right: 0; top: 0; bottom: 0; width: 100%;
@@ -32,7 +32,11 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     font-size: 72px; line-height: 1.05; margin-bottom: 32px;
   }
   .hero .hero-sub {
-    font-size: 20px; line-height: 1.7; color: var(--color-muted); max-width: 600px; margin: 0 auto 48px;
+    font-size: 20px; line-height: 1.7; color: var(--color-muted); max-width: 600px; margin: 0 auto 16px;
+  }
+  .hero .hero-qualifier {
+    font-family: var(--font-ui); font-size: 14px; font-weight: 500;
+    color: var(--color-subtle); margin-bottom: 48px;
   }
   .hero .hero-enemy {
     font-size: 15px; line-height: 1.6; color: var(--color-subtle); max-width: 520px; margin-bottom: 40px;
@@ -138,9 +142,51 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     max-width: none; margin: 0;
   }
 
+  /* ===== SECTION 2: PAIN (bridge overlap) ===== */
+  .pain-wrap {
+    position: relative;
+    margin-top: -1px; /* seamless join with hero */
+  }
+  .pain-wrap::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 50%;
+    background: var(--color-black);
+    z-index: 0;
+  }
+  .pain-wrap::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 50%;
+    background: var(--color-cream);
+    z-index: 0;
+  }
+  .pain {
+    position: relative; z-index: 1;
+    max-width: 900px; margin: 0 auto; padding: 0 40px;
+  }
+  .pain-inner {
+    background: #FFFFFF; border-radius: 16px; padding: 48px 56px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.04);
+    text-align: center;
+    max-width: 100%;
+  }
+  .pain-headline {
+    font-family: var(--font-headline); font-size: 26px; font-weight: 700;
+    color: var(--color-text); margin-bottom: 16px; line-height: 1.3;
+  }
+  .pain p {
+    font-size: 17px; line-height: 1.8; color: var(--color-body); margin-bottom: 16px;
+    max-width: 560px; margin-left: auto; margin-right: auto;
+  }
+  .pain p.pain-kicker {
+    color: var(--color-terracotta); font-weight: 600; margin-bottom: 0;
+  }
+
   /* ===== SECTION 3: PORTFOLIO ===== */
   .portfolio {
-    max-width: 1100px; margin: 0 auto; padding: 120px 40px 80px;
+    max-width: 1100px; margin: 0 auto; padding: 60px 40px 80px;
   }
   .section-eyebrow {
     font-family: var(--font-ui); font-size: 13px; font-weight: 600;
@@ -155,7 +201,8 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
   }
   .portfolio-grid { display: grid; grid-template-columns: 0.9fr 1.2fr 0.9fr; gap: 20px; }
   .p-card {
-    background: #FFFFFF; border-radius: 12px; padding: 32px;
+    display: flex; flex-direction: column;
+    background: #FFFFFF; border-radius: 12px; padding: 32px 32px 20px;
     border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     transition: all 0.2s;
   }
@@ -166,7 +213,8 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
   .p-card.featured h3 { color: var(--color-light); }
   .p-card.featured p { color: var(--color-muted); }
   .p-card .badge {
-    display: inline-block; padding: 3px 10px; border-radius: 4px;
+    align-self: flex-start;
+    padding: 3px 10px; border-radius: 4px;
     background: rgba(212,120,74,0.15); color: var(--color-terracotta);
     font-family: var(--font-ui); font-size: 11px;
     font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
@@ -175,7 +223,16 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     font-family: var(--font-headline); font-size: 20px; font-weight: 600;
     margin-bottom: 10px; color: var(--color-text);
   }
-  .p-card p { font-size: 15px; line-height: 1.6; color: var(--color-body); }
+  .p-card p { font-size: 15px; line-height: 1.6; color: var(--color-body); margin-bottom: 0.5em; }
+  .card-result {
+    align-self: flex-start;
+    margin-top: auto; padding: 5px 14px; border-radius: 20px;
+    font-family: var(--font-ui); font-size: 13px; font-weight: 600;
+    background: rgba(212,120,74,0.1); color: var(--color-terracotta);
+  }
+  .card-result--light {
+    background: rgba(212,120,74,0.2); color: var(--color-accent);
+  }
   .p-card .card-link {
     display: inline-block; margin-top: 16px; font-family: var(--font-ui);
     font-size: 14px; font-weight: 600; color: var(--color-terracotta); text-decoration: none;
@@ -204,7 +261,11 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
   .about-text .section-eyebrow { color: var(--color-terracotta); }
   .about-text h2 {
     font-family: var(--font-headline); font-size: 36px; font-weight: 700;
-    color: var(--color-light); line-height: 1.15; margin-bottom: 20px;
+    color: var(--color-light); line-height: 1.15; margin-bottom: 8px;
+  }
+  .about-role {
+    font-family: var(--font-ui); font-size: 15px; font-weight: 600;
+    color: var(--color-terracotta); margin-bottom: 20px;
   }
   .about-text p {
     font-size: 17px; line-height: 1.8; color: var(--color-muted); margin-bottom: 16px;
@@ -259,8 +320,13 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     .vc-input-row { flex-direction: column; }
     .vc-input, .vc-submit { width: 100%; }
 
+    /* Pain */
+    .pain { padding: 0 24px; }
+    .pain-inner { padding: 32px 28px; }
+    .pain-headline { font-size: 22px; }
+    .pain p { font-size: 16px; }
     /* Portfolio */
-    .portfolio { padding: 100px 24px 60px; }
+    .portfolio { padding: 40px 24px 60px; }
     .section-title { font-size: 28px; }
     .portfolio-grid { grid-template-columns: 1fr; gap: 16px; }
     /* About */
@@ -293,7 +359,11 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     .vc-pillars { gap: 6px; }
     .vc-pillar { font-size: 11px; padding: 4px 10px; }
 
-    .portfolio { padding: 80px 16px 48px; }
+    .pain { padding: 0 16px; }
+    .pain-inner { padding: 24px 20px; }
+    .pain-headline { font-size: 20px; }
+    .pain p { font-size: 15px; }
+    .portfolio { padding: 32px 16px 48px; }
     .section-title { font-size: 24px; }
     .p-card { padding: 24px; }
 
@@ -398,58 +468,47 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     </svg>
   </div>
   <div class="hero-inner">
-    <h1><span class="accent">KI!</span> Aber wie?</h1>
-    <p class="hero-sub">Wir helfen Unternehmen, mit KI & Automatisierung Zeit zu sparen.</p>
+    <h1>Der <span class="accent">Aha!</span> Moment</h1>
+    <p class="hero-sub">Ich bringe Klarheit in Ihr Business, löse den Engpass und zünde die nächste Wachstumsstufe.</p>
+    <p class="hero-qualifier">Für Unternehmer mit 5–50 Mitarbeitern, die spüren dass mehr drin ist.</p>
     <a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="hero-cta">Erstgespräch buchen →</a>
 
-    <!-- VALUE CAPTURE: overlapping white card -->
-    <div class="hero-vc-overlap">
-      <div class="vc-wrapper">
-        <div class="vc-header">
-          <h2>Wo mit <span class="accent">KI</span> anfangen?</h2>
-          <p>Jeden Dienstag: ein konkreter Hebel für Ihr Unternehmen. 5 Minuten. Kein Hype.</p>
-        </div>
-        <div class="vc-pillars">
-          <span class="vc-pillar geht">Trends</span>
-          <span class="vc-pillar kommt">Tools</span>
-          <span class="vc-pillar tun">Taktiken</span>
-        </div>
-        <form class="ev-newsletter-form" data-form="hero">
-          <input type="email" class="vc-input" placeholder="Ihre E-Mail-Adresse" required style="width:100%; max-width:480px; margin:0 auto; display:block;">
-          <div class="ev-form-consent">
-            <label class="ev-checkbox-label">
-              <input type="checkbox" required>
-              <span>Ich möchte den Escape Velocity Newsletter erhalten und stimme zu, dass meine E-Mail-Adresse zu diesem Zweck verarbeitet wird. Abmeldung jederzeit möglich. <a href="/datenschutz/">Datenschutzerklärung</a><span class="ev-required">*</span></span>
-            </label>
-          </div>
-          <button type="submit" class="vc-submit" style="width:100%; max-width:480px; margin:0 auto; display:block;">Anmelden</button>
-          <div class="ev-form-message" style="display:none;"></div>
-        </form>
-      </div>
-    </div>
   </div>
 </section>
 
+<!-- SECTION 2: PAIN (bridge card) -->
+<div class="pain-wrap">
+  <section class="pain">
+    <div class="pain-inner">
+      <h2 class="pain-headline">Ihre Prozesse sind über die Jahre gewachsen. Aber nicht mitgewachsen.</h2>
+      <p>Das Team kämpft mit Workarounds, Sie mit Firefighting. Es gibt zu viele Baustellen und zu wenig Überblick, wo der größte Hebel liegt.</p>
+      <p class="pain-kicker">Was Sie wirklich kostet, ist nicht die Veränderung.<br>Es ist der Stillstand.</p>
+    </div>
+  </section>
+</div>
+
 <!-- SECTION 3: PORTFOLIO -->
 <section class="portfolio" id="portfolio">
-  <div class="section-eyebrow">Angebote</div>
-  <h2 class="section-title">Von der KI-Revolution profitieren</h2>
-  <p class="section-subtitle">Egal wo Sie heute stehen: Wir begleiten Sie bei Strategie und Implementierung.</p>
+  <div class="section-eyebrow">So arbeite ich</div>
+  <h2 class="section-title">Vom Engpass zur nächsten Stufe</h2>
+  <p class="section-subtitle">Die meisten Unternehmen brauchen keinen Rundumschlag. Sie brauchen einen <span class="accent">Aha!</span> Moment. Jemanden, der mit CIO-Blick auf das ganze Bild schaut und den einen Hebel findet, der den größten Unterschied macht.</p>
 
   <div class="portfolio-grid">
     <div class="p-card">
-      <h3>KI-Schulungen</h3>
-      <p>Ihr Team nutzt ChatGPT schon und Sie wollen mehr rausholen? Wir schulen hands-on, anhand von Prozessen aus Ihrem Büroalltag.</p>
+      <h3><span class="accent">Aha!</span> Moment Workshop</h3>
+      <p>Der Einstieg. Halber Tag, voller Durchblick: wo Ihre größten Hebel liegen. Wir schauen uns Marketing, Vertrieb, Back-Office und Operations an.</p>
+      <div class="card-result">→ Top 3 Hebel</div>
     </div>
     <div class="p-card featured">
       <div class="badge">Flagship</div>
-      <h3>Das Back-Office Upgrade</h3>
-      <p>In 6 Wochen: Zeitfresser finden, automatisieren, 2–4 Stunden pro Mitarbeiter und Woche sparen.</p>
-      <a href="/angebot/back-office-upgrade/" class="card-link">Mehr erfahren →</a>
+      <h3>Tech Upgrade</h3>
+      <p>Engpass gefunden? Wir lösen ihn. Prozesse digitalisieren, Systeme verbinden, Automatisierung aufsetzen.</p>
+      <div class="card-result card-result--light">→ Prozesse, die skalieren</div>
     </div>
     <div class="p-card">
-      <h3>CIO as a Service</h3>
-      <p>Zu früh für einen IT-Lead, aber zu viele Tech-Entscheidungen für nebenbei? Strategische IT-Führung, wenn Sie sie brauchen.</p>
+      <h3>Laufende Begleitung</h3>
+      <p>Zu früh für einen IT-Lead, aber zu viele Tech-Entscheidungen für nebenbei? Laufende technische Führung ohne Fixkosten.</p>
+      <div class="card-result">→ Laufende Digital-Strategie</div>
     </div>
   </div>
 
@@ -464,10 +523,11 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
     <div class="about-text">
       <div class="section-eyebrow">Über mich</div>
       <h2 style="color: #F5F3F0;">Tommi Enenkel</h2>
-      <p>17 Jahre als <strong>Tech Lead, Marketing Lead und Organisationsentwickler</strong>. Ich habe IT-Systeme aufgebaut, Teams durch Transformationen geführt und Technologie-Strategie auf jeder Ebene gemacht, vom mittelständischen Unternehmen bis zur internationalen Organisation.</p>
-      <p>Heute helfe ich Unternehmen, mit KI & Automatisierung Zeit (und damit Geld) zu sparen. Nicht mit PowerPoints, sondern mit Workflows die laufen.</p>
+      <p class="about-role">Ihr externer CIO</p>
+      <p>17 Jahre als <strong>Tech Lead, Marketing Lead und Organisationsentwickler</strong>. IT-Systeme aufgebaut, Teams durch Transformationen geführt, Technologie-Strategie auf jeder Ebene. Vom mittelständischen Unternehmen bis zur internationalen Organisation.</p>
+      <p>Heute durchleuchte ich Geschäftsmodell, Prozesse und Systeme für KMU und setze die Lösung um. Nicht mit PowerPoints, sondern mit Ergebnissen.</p>
       <div class="about-quote">
-        <p>„Ihr nächster Wachstums-Hebel kommt nicht durch mehr Arbeit, sondern durch weniger!"</p>
+        <p>„Ihr nächster 3x Hebel liegt nicht in mehr Arbeit, sondern in weniger."</p>
       </div>
     </div>
   </div>
@@ -478,8 +538,8 @@ title: "Escape Velocity — KI & Automatisierung für Unternehmen"
 <section class="newsletter-cta" id="newsletter">
   <div class="nl-cta-wrapper">
     <div class="nl-cta-text">
-      <h3>Dranbleiben — ohne Zeitaufwand.</h3>
-      <p>Jeden Dienstag sortieren wir für Sie: was in KI jetzt relevant ist und was Sie sofort umsetzen können.</p>
+      <h3>Dranbleiben. Ohne Zeitaufwand.</h3>
+      <p>Jeden Dienstag: was in Digitalisierung & Technik jetzt relevant ist. Und was Sie sofort umsetzen können.</p>
     </div>
     <form class="ev-newsletter-form ev-newsletter-form--bottom" data-form="bottom">
       <input type="email" class="vc-input" placeholder="Ihre E-Mail-Adresse" required>
