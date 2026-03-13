@@ -42,24 +42,18 @@ eleventyExcludeFromCollections: true
     font-family: var(--font-body);
     font-size: 14px;
     color: var(--color-muted);
-    margin-bottom: 12px;
+    margin-bottom: 32px;
   }
   .card-tags {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 36px;
-  }
-  .card-tags span {
     font-family: var(--font-ui);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    font-size: 13px;
+    font-weight: 500;
     color: var(--color-muted);
-    padding: 5px 12px;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
+    margin-bottom: 32px;
+  }
+  .card-tags .dot {
+    margin: 0 8px;
+    color: var(--color-subtle);
   }
 
   /* Identity */
@@ -71,11 +65,11 @@ eleventyExcludeFromCollections: true
     margin-bottom: 6px;
   }
   .card-role {
-    font-family: var(--font-ui);
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color-muted);
-    margin-bottom: 32px;
+    font-family: var(--font-headline);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 16px;
   }
 
   /* Contact rows */
@@ -185,16 +179,14 @@ eleventyExcludeFromCollections: true
 <div class="card">
   <!-- Brand -->
   <div class="card-brand">Escape <span class="accent">Velocity</span></div>
-  <div class="card-claim">Sparen Sie Zeit durch KI & Automatisierung</div>
-  <div class="card-tags">
-    <span>Strategie</span>
-    <span>Implementierung</span>
-    <span>Schulungen</span>
-  </div>
+  <div class="card-claim">Digitalisierung & Prozessoptimierung</div>
 
   <!-- Identity -->
   <h1 class="card-name">Tommi Enenkel</h1>
-  <p class="card-role">Geschäftsführer</p>
+  <p class="card-role">CIO as a Service</p>
+  <div class="card-tags">
+    Prozess-Review<span class="dot">·</span>Tech Upgrade<span class="dot">·</span>Laufende Begleitung
+  </div>
 
   <!-- Contact -->
   <div class="card-contact">
