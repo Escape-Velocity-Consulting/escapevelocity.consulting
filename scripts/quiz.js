@@ -1,4 +1,4 @@
-// ─── Reifegrad-Check Quiz ─────────────────────────────────────────
+// ─── Digital-Check Quiz ───────────────────────────────────────────
 // Vanilla JS port of quiz/draft.jsx — Escape Velocity brand system
 // ──────────────────────────────────────────────────────────────────
 
@@ -504,24 +504,145 @@
   // ─── LANDING ────────────────────────────────────────────────────
   function renderLanding() {
     var el = $('[data-phase="landing"]');
-    el.innerHTML =
-      '<div class="quiz-container">' +
-        '<div class="quiz-eyebrow">Escape Velocity &middot; Reifegrad-Check</div>' +
-        '<h1 class="quiz-hero-title">Wo bremst sich Ihr Unternehmen selbst aus?</h1>' +
-        '<p class="quiz-hero-sub">15 Fragen — 5 Minuten — und Sie wissen, welcher Engpass Ihr Wachstum blockiert.</p>' +
-        '<div class="value-props">' +
-          '<div class="value-prop"><div class="value-prop-icon">&#x1F50D;</div><div class="value-prop-title">Ihren Engpass finden</div><div class="value-prop-text">Welche Dimension bremst alle anderen?</div></div>' +
-          '<div class="value-prop"><div class="value-prop-icon">&#x1F4CA;</div><div class="value-prop-title">Ihren Reifegrad kennen</div><div class="value-prop-text">Wo stehen Sie im Vergleich zu anderen KMU?</div></div>' +
-          '<div class="value-prop"><div class="value-prop-icon">&#x1F3AF;</div><div class="value-prop-title">Ihren nächsten Schritt</div><div class="value-prop-text">Was bringt jetzt den größten Hebel?</div></div>' +
+
+    // ── Section 1: Hero ──
+    var hero =
+      '<div class="quiz-container" style="text-align:center">' +
+        '<div class="quiz-eyebrow">Escape Velocity &middot; Digital-Check</div>' +
+        '<h1 class="quiz-hero-title">Wo bremst sich Ihr<br>Unternehmen <em>selbst</em> aus?</h1>' +
+        '<p class="quiz-hero-sub">15 Fragen. 5 Minuten. Danach wissen Sie, was Ihr Wachstum blockiert \u2014 und was der n\u00E4chste Schritt ist.</p>' +
+
+        '<div style="display:flex;flex-direction:column;align-items:center;gap:12px">' +
+          '<button class="btn-primary btn-large landing-cta">Check starten <span class="btn-arrow">&rarr;</span></button>' +
+          '<div class="landing-trust">Kostenlos &middot; Kein Login &middot; Ergebnis sofort</div>' +
         '</div>' +
-        '<button class="btn-primary btn-large" id="start-btn">Reifegrad-Check starten &rarr;</button>' +
-        '<div class="quiz-hint">Kostenlos &middot; Anonym &middot; Mit persönlicher Auswertung</div>' +
-        '<div class="quiz-credibility"><strong>Tommi Enenkel</strong> &middot; 17 Jahre Erfahrung in Digitalisierung, IT und Organisationsentwicklung. Von KMU bis internationale Organisation. Strategie, Implementierung und Change Management — aus einer Hand.</div>' +
       '</div>';
 
-    $('#start-btn').addEventListener('click', function () {
-      transition(function () { state.phase = 'contact'; });
+    // ── Section 2: Value-Prop Cards ──
+    var cards =
+      '<div class="quiz-container" style="text-align:center">' +
+        '<div class="landing-cards">' +
+          '<div class="landing-card">' +
+            '<div class="landing-card-num">01</div>' +
+            '<svg class="landing-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+              '<rect x="4" y="18" width="5" height="10" rx="1.5" fill="var(--color-terracotta)" opacity="0.3"/>' +
+              '<rect x="12" y="12" width="5" height="16" rx="1.5" fill="var(--color-terracotta)" opacity="0.6"/>' +
+              '<rect x="20" y="6" width="5" height="22" rx="1.5" fill="var(--color-terracotta)"/>' +
+              '<path d="M6 14l7-6 7 4 6-8" stroke="var(--color-terracotta)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>' +
+            '</svg>' +
+            '<div class="landing-card-title">Ihr Level sehen</div>' +
+            '<div class="landing-card-body">Wo steht Ihr Unternehmen wirklich \u2014 Level 1 oder Level 4? Kein Bauchgef\u00FChl, sondern ein klares Bild \u00FCber 5 Dimensionen.</div>' +
+          '</div>' +
+
+          '<div class="landing-card featured">' +
+            '<div class="landing-badge">Kernanalyse</div>' +
+            '<div class="landing-card-num">02</div>' +
+            '<svg class="landing-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+              '<circle cx="14" cy="14" r="8" stroke="var(--color-terracotta)" stroke-width="1.5"/>' +
+              '<path d="M20 20L27 27" stroke="var(--color-terracotta)" stroke-width="1.5" stroke-linecap="round"/>' +
+              '<path d="M11 14h6M14 11v6" stroke="var(--color-terracotta)" stroke-width="1.3" stroke-linecap="round"/>' +
+            '</svg>' +
+            '<div class="landing-card-title">Den Engpass finden</div>' +
+            '<div class="landing-card-body">Eine Dimension bremst alle anderen. Wir zeigen Ihnen, welche \u2014 und warum genau dort Zeit und Geld verloren gehen.</div>' +
+          '</div>' +
+
+          '<div class="landing-card">' +
+            '<div class="landing-card-num">03</div>' +
+            '<svg class="landing-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+              '<circle cx="16" cy="16" r="10" stroke="var(--color-terracotta)" stroke-width="1.5"/>' +
+              '<circle cx="16" cy="16" r="3" fill="var(--color-terracotta)"/>' +
+              '<path d="M16 6V9M16 23v3M6 16H9M23 16h3" stroke="var(--color-terracotta)" stroke-width="1.3" stroke-linecap="round"/>' +
+            '</svg>' +
+            '<div class="landing-card-title">Ihren n\u00E4chsten Schritt erfahren</div>' +
+            '<div class="landing-card-body">Keine generische To-do-Liste. Sie erhalten eine konkrete Empfehlung, die zu Ihrem Level und Ihrem Engpass passt.</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    // ── Section 3: Stages Progression ──
+    var stagesCards = '';
+    for (var i = 0; i < STAGES.length; i++) {
+      stagesCards +=
+        '<div class="stage-card" style="border-top-color:' + STAGES[i].color + '">' +
+          '<div class="stage-card-num">Level ' + (i + 1) + '</div>' +
+          '<div class="stage-card-label">' + STAGES[i].label + '</div>' +
+          '<div class="stage-card-tagline">\u201E' + STAGES[i].tagline + '\u201C</div>' +
+        '</div>';
+    }
+
+    var stages =
+      '<div class="landing-stages">' +
+        '<h2>4 Level. Eines davon ist Ihres.</h2>' +
+        '<div class="stages-grid">' + stagesCards + '</div>' +
+        '<button class="btn-primary btn-large landing-cta">Mein Level herausfinden <span class="btn-arrow">&rarr;</span></button>' +
+      '</div>';
+
+    // ── Section 3: Results Preview (Dark) ──
+    // Static radar chart with sample data for dark background
+    var sampleScores = [4, 2, 5, 3, 4];
+    var rcx = 200, rcy = 160, rmaxR = 120;
+    var rn = 5, rmaxVal = 6;
+    var rLabels = ['Prozesse', 'Tools', 'Daten', 'Team', 'F\u00FChrung'];
+    var rRings = [2, 4, 6];
+
+    function rAngle(idx) { return (Math.PI * 2 * idx) / rn - Math.PI / 2; }
+    function rPt(idx, val) {
+      var r = (val / rmaxVal) * rmaxR;
+      return [rcx + r * Math.cos(rAngle(idx)), rcy + r * Math.sin(rAngle(idx))];
+    }
+
+    var radarSvg = '<svg viewBox="0 0 400 320" class="radar-chart">';
+    // Grid rings
+    rRings.forEach(function (ringVal) {
+      var pts = [];
+      for (var j = 0; j < rn; j++) pts.push(rPt(j, ringVal).join(','));
+      radarSvg += '<polygon points="' + pts.join(' ') + '" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>';
     });
+    // Axes
+    for (var j = 0; j < rn; j++) {
+      var ep = rPt(j, rmaxVal);
+      radarSvg += '<line x1="' + rcx + '" y1="' + rcy + '" x2="' + ep[0] + '" y2="' + ep[1] + '" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>';
+    }
+    // Data polygon
+    var dataPts = [];
+    for (var j = 0; j < rn; j++) dataPts.push(rPt(j, sampleScores[j]).join(','));
+    radarSvg += '<polygon points="' + dataPts.join(' ') + '" fill="var(--color-terracotta)" fill-opacity="0.25" stroke="var(--color-terracotta)" stroke-width="2"/>';
+    // Data dots
+    for (var j = 0; j < rn; j++) {
+      var dp = rPt(j, sampleScores[j]);
+      radarSvg += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" r="5" fill="var(--color-terracotta)" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>';
+    }
+    // Labels
+    var rLabelOffsets = [[0, -14], [14, 0], [10, 14], [-10, 14], [-14, 0]];
+    var rAnchors = ['middle', 'start', 'start', 'end', 'end'];
+    for (var j = 0; j < rn; j++) {
+      var lp = rPt(j, rmaxVal);
+      radarSvg += '<text x="' + (lp[0] + rLabelOffsets[j][0]) + '" y="' + (lp[1] + rLabelOffsets[j][1]) + '" text-anchor="' + rAnchors[j] + '" class="radar-label">' + rLabels[j] + '</text>';
+    }
+    radarSvg += '</svg>';
+
+    var preview =
+      '<div class="landing-preview">' +
+        '<h2>In 5 Minuten wissen Sie mehr als nach dem letzten Strategie-Meeting</h2>' +
+        '<p class="landing-preview-sub">Der Digital-Check liefert keine Theorie \u2014 sondern ein konkretes Profil Ihres Unternehmens. Das hier erwartet Sie:</p>' +
+        '<div class="radar-preview">' + radarSvg + '</div>' +
+        '<div class="preview-features">' +
+          '<div>\u2713 Ihr Digitalisierungs-Level auf einen Blick \u2014 \u00FCber 5 Dimensionen ausgewertet</div>' +
+          '<div>\u2713 Der Engpass, der alles andere ausbremst \u2014 konkret benannt, nicht geraten</div>' +
+          '<div>\u2713 Ein n\u00E4chster Schritt, der zu Ihrer Situation passt \u2014 nicht von der Stange</div>' +
+        '</div>' +
+        '<button class="btn-primary btn-large landing-cta">Jetzt Digital-Check starten <span class="btn-arrow">&rarr;</span></button>' +
+      '</div>';
+
+    el.innerHTML = hero + cards + stages + preview;
+
+    // Bind all CTA buttons
+    var ctas = el.querySelectorAll('.landing-cta');
+    for (var i = 0; i < ctas.length; i++) {
+      ctas[i].addEventListener('click', function () {
+        transition(function () { state.phase = 'contact'; });
+      });
+    }
   }
 
   // ─── CONTACT ────────────────────────────────────────────────────
@@ -532,13 +653,13 @@
         '<div class="quiz-card">' +
           '<div class="quiz-eyebrow">Bevor es losgeht</div>' +
           '<h2 class="quiz-title">Wohin dürfen wir Ihre Auswertung senden?</h2>' +
-          '<p class="quiz-subtitle">Sie erhalten Ihr persönliches Reifegrad-Profil direkt im Anschluss — und per E-Mail zum Nachschlagen.</p>' +
+          '<p class="quiz-subtitle">Sie erhalten Ihr persönliches Digitalisierungs-Profil direkt im Anschluss — und per E-Mail zum Nachschlagen.</p>' +
           '<div class="form-fields">' +
             '<label for="input-name" class="sr-only">Ihr Name</label>' +
             '<input type="text" class="quiz-input" id="input-name" placeholder="Ihr Name" value="' + escHtml(state.name) + '">' +
             '<label for="input-email" class="sr-only">Ihre E-Mail-Adresse</label>' +
             '<input type="email" class="quiz-input" id="input-email" placeholder="Ihre E-Mail-Adresse" value="' + escHtml(state.email) + '">' +
-            '<label class="consent-label"><input type="checkbox" id="input-consent"' + (state.consent ? ' checked' : '') + '> Ich stimme zu, dass meine Daten zur Auswertung des Reifegrad-Checks und zur Kontaktaufnahme verarbeitet werden. <a href="/datenschutz/" target="_blank">Datenschutz</a></label>' +
+            '<label class="consent-label"><input type="checkbox" id="input-consent"' + (state.consent ? ' checked' : '') + '> Ich stimme zu, dass meine Daten zur Auswertung des Digital-Checks und zur Kontaktaufnahme verarbeitet werden. <a href="/datenschutz/" target="_blank">Datenschutz</a></label>' +
             '<button class="btn-primary" id="contact-submit" disabled>Quiz starten &rarr;</button>' +
           '</div>' +
           '<div class="quiz-hint" style="text-align:center">Kein Spam. Wir respektieren Ihre Daten.</div>' +
@@ -721,10 +842,10 @@
 
     // Comparison text
     var comparisonText;
-    if (overallStage === 0) comparisonText = 'Die meisten KMU in Ihrer Größe liegen bei Stufe 2 (Digitalisiert). Sie haben Aufholpotenzial — und den Vorteil, von Anfang an richtig aufzubauen.';
-    else if (overallStage === 1) comparisonText = 'Die meisten KMU in Ihrer Größe liegen ebenfalls bei Stufe 2. Sie sind im Mittelfeld — ein fokussierter nächster Schritt hebt Sie ab.';
-    else if (overallStage === 2) comparisonText = 'Die meisten KMU in Ihrer Größe liegen bei Stufe 2. Sie sind bereits weiter als der Durchschnitt — jetzt geht es um den Vorsprung.';
-    else comparisonText = 'Weniger als 10% der KMU erreichen Stufe 4. Sie gehören zur Spitzengruppe — Ihr Vorteil: Skalierung und Effizienz, die Wettbewerber nicht haben.';
+    if (overallStage === 0) comparisonText = 'Die meisten KMU in Ihrer Größe liegen bei Level 2 (Digitalisiert). Sie haben Aufholpotenzial — und den Vorteil, von Anfang an richtig aufzubauen.';
+    else if (overallStage === 1) comparisonText = 'Die meisten KMU in Ihrer Größe liegen ebenfalls bei Level 2. Sie sind im Mittelfeld — ein fokussierter nächster Schritt hebt Sie ab.';
+    else if (overallStage === 2) comparisonText = 'Die meisten KMU in Ihrer Größe liegen bei Level 2. Sie sind bereits weiter als der Durchschnitt — jetzt geht es um den Vorsprung.';
+    else comparisonText = 'Weniger als 10% der KMU erreichen Level 4. Sie gehören zur Spitzengruppe — Ihr Vorteil: Skalierung und Effizienz, die Wettbewerber nicht haben.';
 
     // Next step text
     var nextStepText;
@@ -742,15 +863,15 @@
       var isBottleneck = bottleneck && bottleneck.lowDim === i;
       return '<div class="dim-card' + (isBottleneck ? ' dim-bottleneck' : '') + (i === 4 ? ' dim-full' : '') + '">' +
         '<div class="dim-label">' + escHtml(d) + '</div>' +
-        '<div class="dim-stage" style="color:' + STAGES[dimStages[i]].textColor + '">Stufe ' + (dimStages[i] + 1) + ': ' + STAGES[dimStages[i]].label + '</div>' +
+        '<div class="dim-stage" style="color:' + STAGES[dimStages[i]].textColor + '">Level ' + (dimStages[i] + 1) + ': ' + STAGES[dimStages[i]].label + '</div>' +
       '</div>';
     }).join('');
 
     // Offer mapping
     var offers = [
-      { stage: 'Stufe 1–2', offer: 'Aha! Moment Workshop', desc: 'Ein Tag, ein Durchblick — wo Ihre größten Hebel liegen.', icon: '&#x1F50D;', match: overallStage <= 1 },
-      { stage: 'Stufe 2–3', offer: 'Tech Upgrade', desc: 'Engpass gefunden? Wir lösen ihn. Prozesse, Systeme, Automatisierung.', icon: '&#x26A1;', match: overallStage >= 1 && overallStage <= 2 },
-      { stage: 'Stufe 3–4', offer: 'Laufende Begleitung', desc: 'Technische Führung ohne Fixkosten. CIO as a Service.', icon: '&#x1F504;', match: overallStage >= 2 },
+      { stage: 'Level 1–2', offer: 'Aha! Moment Workshop', desc: 'Ein Tag, ein Durchblick — wo Ihre größten Hebel liegen.', icon: '&#x1F50D;', match: overallStage <= 1 },
+      { stage: 'Level 2–3', offer: 'Tech Upgrade', desc: 'Engpass gefunden? Wir lösen ihn. Prozesse, Systeme, Automatisierung.', icon: '&#x26A1;', match: overallStage >= 1 && overallStage <= 2 },
+      { stage: 'Level 3–4', offer: 'Laufende Begleitung', desc: 'Technische Führung ohne Fixkosten. CIO as a Service.', icon: '&#x1F504;', match: overallStage >= 2 },
     ];
     var offerHtml = offers.map(function (o, i) {
       return '<div class="offer-row' + (o.match ? '' : ' offer-dim') + '"' + (i > 0 ? ' style="border-top:1px solid rgba(0,0,0,0.06)"' : '') + '>' +
@@ -763,14 +884,14 @@
     el.innerHTML =
       '<div class="quiz-container">' +
         // Header
-        '<div class="quiz-eyebrow">Ihr Digitalisierungs-Reifegrad</div>' +
+        '<div class="quiz-eyebrow">Ihr Digitalisierungs-Level</div>' +
         (state.name ? '<div class="results-for">Ergebnis für <strong>' + escHtml(state.name) + '</strong></div>' : '') +
 
         // Stage gauge card
         '<div class="quiz-card">' +
           '<div style="text-align:center;margin:32px 0">' +
             '<div class="gauge-bars">' + gaugeBars + '</div>' +
-            '<div class="stage-label" style="color:' + stageData.textColor + '">Stufe ' + (overallStage + 1) + ': ' + stageData.label + '</div>' +
+            '<div class="stage-label" style="color:' + stageData.textColor + '">Level ' + (overallStage + 1) + ': ' + stageData.label + '</div>' +
             '<div class="stage-tagline">\u201E' + escHtml(stageData.tagline) + '\u201C</div>' +
           '</div>' +
           '<p class="stage-desc">' + escHtml(stageData.desc) + '</p>' +
@@ -802,7 +923,7 @@
 
         // Offer mapping
         '<div class="offer-box">' +
-          '<div class="offer-header">Was passt zu Ihrer Stufe?</div>' +
+          '<div class="offer-header">Was passt zu Ihrem Level?</div>' +
           offerHtml +
         '</div>' +
 
@@ -1020,7 +1141,7 @@
     banner.id = 'quiz-resume-banner';
     banner.className = 'quiz-resume-banner';
     banner.innerHTML =
-      '<span>Sie haben einen laufenden Reifegrad-Check. Fortsetzen?</span>' +
+      '<span>Sie haben einen laufenden Digital-Check. Fortsetzen?</span>' +
       '<button class="btn-resume" id="resume-btn">Fortsetzen</button>' +
       '<button class="btn-restart" id="restart-btn">Neu starten</button>';
     $app.parentNode.insertBefore(banner, $app);

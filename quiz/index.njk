@@ -1,6 +1,6 @@
 ---
 layout: base.njk
-title: "Reifegrad-Check — Escape Velocity"
+title: "Digital-Check — Escape Velocity"
 lang: de
 ---
 
@@ -24,10 +24,12 @@ lang: de
   }
   .phase { display: none; width: 100%; }
   .phase.active { display: flex; justify-content: center; }
+  .phase[data-phase="landing"].active { flex-direction: column; align-items: stretch; }
 
   .quiz-container {
     max-width: 720px;
     width: 100%;
+    margin: 0 auto;
     padding: 48px 24px;
   }
 
@@ -35,12 +37,22 @@ lang: de
   .quiz-eyebrow {
     font-family: var(--font-ui);
     font-weight: 600;
-    font-size: 13px;
+    font-size: 11px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-terracotta);
     margin-bottom: 24px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .quiz-eyebrow::before, .quiz-eyebrow::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--color-terracotta);
+    opacity: 0.35;
   }
 
   /* ─── Hero ────────────────────────────────────────────────── */
@@ -54,42 +66,105 @@ lang: de
     margin: 0 0 20px 0;
     text-align: center;
   }
+  .quiz-hero-title em {
+    font-style: normal;
+    color: var(--color-terracotta);
+  }
   .quiz-hero-sub {
     font-family: var(--font-body);
-    font-size: 19px;
+    font-size: 16px;
     color: var(--color-subtle);
     line-height: 1.6;
-    max-width: 560px;
+    max-width: 540px;
     margin: 0 auto 40px;
     text-align: center;
   }
 
-  /* ─── Value Props ─────────────────────────────────────────── */
-  .value-props {
+  /* ─── Landing Cards ────────────────────────────────────────── */
+  .landing-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    margin-bottom: 48px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 32px;
   }
-  .value-prop {
+  .landing-card {
     background: #fff;
+    border: 0.5px solid rgba(0,0,0,0.08);
     border-radius: 12px;
-    padding: 24px 20px;
-    border: 1px solid rgba(0,0,0,0.06);
+    padding: 20px;
+    position: relative;
+    text-align: left;
   }
-  .value-prop-icon { font-size: 28px; margin-bottom: 10px; }
-  .value-prop-title {
+  .landing-card.featured {
+    border: 1.5px solid var(--color-terracotta);
+    background: #FDF8F5;
+  }
+  .landing-card-num {
     font-family: var(--font-ui);
-    font-weight: 600;
-    font-size: 15px;
-    margin-bottom: 4px;
-    color: var(--color-text);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.25);
+    font-weight: 500;
+    margin-bottom: 12px;
   }
-  .value-prop-text {
-    font-family: var(--font-body);
+  .landing-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 12px;
+  }
+  .landing-card-title {
+    font-family: var(--font-ui);
+    font-weight: 500;
     font-size: 14px;
+    color: var(--color-text);
+    margin-bottom: 4px;
+  }
+  .landing-card-body {
+    font-family: var(--font-body);
+    font-size: 13px;
     color: var(--color-subtle);
     line-height: 1.5;
+  }
+  .landing-badge {
+    position: absolute;
+    top: -1px;
+    right: 12px;
+    background: var(--color-terracotta);
+    color: #fff;
+    font-family: var(--font-ui);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 0 0 6px 6px;
+    letter-spacing: 0.04em;
+  }
+  .landing-divider {
+    border: none;
+    border-top: 0.5px solid rgba(0,0,0,0.1);
+    margin-bottom: 32px;
+  }
+  .landing-trust {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--color-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .landing-trust::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #7BB87B;
+    display: inline-block;
+  }
+  .btn-primary .btn-arrow {
+    opacity: 0.7;
+    font-size: 18px;
   }
 
   /* ─── Card ────────────────────────────────────────────────── */
@@ -608,12 +683,126 @@ lang: de
   }
   .debug-variant.active .debug-variant-text { color: rgba(255,255,255,0.85); }
 
+  /* ─── Stages Progression ──────────────────────────────────── */
+  .landing-stages {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px 56px;
+    text-align: center;
+  }
+  .landing-stages h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(22px, 3.5vw, 30px);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 28px 0;
+  }
+  .stages-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .stage-card {
+    background: #fff;
+    border-radius: 10px;
+    border-top: 3px solid;
+    border-left: 0.5px solid rgba(0,0,0,0.06);
+    border-right: 0.5px solid rgba(0,0,0,0.06);
+    border-bottom: 0.5px solid rgba(0,0,0,0.06);
+    padding: 20px;
+    text-align: left;
+  }
+  .stage-card-num {
+    font-family: var(--font-ui);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.25);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .stage-card-label {
+    font-family: var(--font-ui);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--color-text);
+    margin-bottom: 4px;
+  }
+  .stage-card-tagline {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--color-subtle);
+    font-style: italic;
+    line-height: 1.45;
+  }
+  .stage-card {
+    position: relative;
+  }
+  .stage-card:not(:last-child)::after {
+    content: '\2192';
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translate(50%, -50%);
+    font-size: 16px;
+    color: rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  /* ─── Results Preview (Dark) ────────────────────────────────── */
+  .landing-preview {
+    background: var(--color-black);
+    color: #fff;
+    padding: 64px 24px;
+    text-align: center;
+  }
+  .landing-preview h2 {
+    font-family: var(--font-headline);
+    font-size: clamp(22px, 3.5vw, 30px);
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 12px 0;
+  }
+  .landing-preview-sub {
+    color: rgba(255,255,255,0.7);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 540px;
+    margin: 0 auto 32px;
+  }
+  .radar-preview {
+    max-width: 360px;
+    margin: 0 auto 32px;
+  }
+  .radar-preview .radar-chart { width: 100%; height: auto; }
+  .radar-preview .radar-label {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    fill: rgba(255,255,255,0.6);
+  }
+  .preview-features {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+    max-width: 380px;
+    margin: 0 auto 32px;
+    color: rgba(255,255,255,0.8);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
   /* ─── Responsive ──────────────────────────────────────────── */
   @media (max-width: 768px) {
     .quiz-container { padding: 32px 16px; }
     .quiz-card { padding: 28px 20px; }
-    .value-props { grid-template-columns: 1fr; }
+    .landing-cards { grid-template-columns: 1fr; }
     .stage-label { font-size: 32px; }
+    .stages-grid { grid-template-columns: repeat(2, 1fr); }
+    .stage-card:not(:last-child)::after { display: none; }
   }
   @media (max-width: 480px) {
     .quiz-container { padding: 24px 12px; }
@@ -622,6 +811,9 @@ lang: de
     .dim-card.dim-full { grid-column: auto; }
     .stage-label { font-size: 28px; }
     .btn-primary.btn-large { max-width: 100%; }
+    .stages-grid { grid-template-columns: 1fr; }
+    .landing-stages { padding: 32px 16px 40px; }
+    .landing-preview { padding: 48px 16px; }
   }
 
   /* ─── Screen-reader only ────────────────────────────────────── */
@@ -715,7 +907,7 @@ lang: de
 <main id="quiz-app">
   <section class="phase active" data-phase="landing" aria-label="Quiz Startseite"></section>
   <section class="phase" data-phase="contact" aria-label="Kontaktdaten"></section>
-  <section class="phase" data-phase="quiz" aria-label="Reifegrad-Fragen"></section>
+  <section class="phase" data-phase="quiz" aria-label="Digital-Check Fragen"></section>
   <section class="phase" data-phase="qual" aria-label="Qualifikationsfragen"></section>
   <section class="phase" data-phase="freetext" aria-label="Freitext"></section>
   <section class="phase" data-phase="results" aria-label="Ergebnis"></section>
