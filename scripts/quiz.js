@@ -5,6 +5,8 @@
 (function () {
   'use strict';
 
+  var DEBUG = new URLSearchParams(window.location.search).get('debug') === 'true';
+
   // ─── DATA ───────────────────────────────────────────────────────
   var DIMENSIONS = [
     'Prozesse & Workflows',
@@ -19,24 +21,28 @@
       label: 'Manuell',
       tagline: 'Es funktioniert, weil die richtigen Leute wissen wie.',
       color: '#C4553A',
+      textColor: '#A3432D',
       desc: 'Ihre Abläufe sind stark personenabhängig. Prozesse leben in den Köpfen einzelner Mitarbeiter, nicht in Systemen. Das bedeutet: hohe Fehleranfälligkeit, kein Überblick über Zeitfresser, und Risiko bei jedem Personalwechsel.',
     },
     {
       label: 'Digitalisiert',
       tagline: 'Wir haben die Tools, aber sie reden nicht miteinander.',
       color: '#D4943A',
+      textColor: '#9A6A1E',
       desc: 'Sie haben in digitale Werkzeuge investiert — Buchhaltung, CRM, Cloud. Aber die Systeme arbeiten nicht zusammen. Daten werden mehrfach eingegeben, Medienbrüche kosten Zeit, und niemand nutzt die Software so, wie sie gedacht war.',
     },
     {
       label: 'Vernetzt',
       tagline: 'Es läuft — auch wenn ich nicht da bin.',
       color: '#3A8F6E',
+      textColor: '#2D7358',
       desc: 'Ihre Kernprozesse sind standardisiert und Systeme verbunden. Daten fließen, Routineaufgaben werden teilweise automatisiert. Das Team arbeitet nach definierten Abläufen. Sie haben einen klaren Überblick — jetzt geht es um die nächste Stufe.',
     },
     {
       label: 'Optimiert',
       tagline: 'Mein Team arbeitet an dem, was wirklich zählt.',
       color: '#2A6B9C',
+      textColor: '#1F5680',
       desc: 'Routinearbeit ist automatisiert, Daten treiben Entscheidungen, und Ihr Team arbeitet an wertschöpfenden Aufgaben. Sie arbeiten AM Unternehmen, nicht IM Unternehmen. Kontinuierliche Verbesserung ist Gewohnheit.',
     },
   ];
@@ -252,13 +258,6 @@
     var key1 = maxIdx + 'h-' + minIdx + 'l';
     if (DISCREPANCY_TEXTS[key1]) return Object.assign({}, DISCREPANCY_TEXTS[key1], { highDim: maxIdx, lowDim: minIdx });
 
-    for (var k in DISCREPANCY_TEXTS) {
-      var parts = k.split('-');
-      var hi = parseInt(parts[0]);
-      var li = parseInt(parts[1].replace('l', ''));
-      if (hi === maxIdx && li === minIdx) return Object.assign({}, DISCREPANCY_TEXTS[k], { highDim: maxIdx, lowDim: minIdx });
-    }
-
     return {
       title: DIMENSIONS[minIdx] + ' bremst Sie',
       text: 'Ihre schwächste Dimension ist \u201E' + DIMENSIONS[minIdx] + '\u201C — sie liegt deutlich hinter Ihren anderen Bereichen zurück. Das ist Ihr Engpass: Solange dieser Bereich nicht aufholt, können die anderen Dimensionen ihr Potenzial nicht entfalten.',
@@ -293,6 +292,26 @@
 
   var totalQ = SCORED_QUESTIONS.length + QUAL_QUESTIONS.length + 1; // 15
 
+  // ─── STATE PERSISTENCE ────────────────────────────────────────
+  var STORAGE_KEY = 'ev_quiz_state';
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) { /* quota exceeded or private browsing */ }
+  }
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function clearState() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  }
+
   // ─── DOM HELPERS ────────────────────────────────────────────────
   var $app = document.getElementById('quiz-app');
   var $footer = document.querySelector('footer.footer');
@@ -311,6 +330,7 @@
     $app.classList.add('fade-out');
     setTimeout(function () {
       fn();
+      saveState();
       render();
       $app.classList.remove('fade-out');
       $app.classList.add('fade-in');
@@ -390,6 +410,9 @@
         fields: fields,
         context: { pageUri: window.location.href, pageName: document.title },
       }),
+    }).then(function (res) {
+      if (!res.ok) throw new Error('HubSpot: ' + res.status);
+      return res;
     });
   }
 
@@ -439,6 +462,17 @@
       { name: 'quiz_bottleneck', value: bottleneck ? bottleneck.title : 'Keine Diskrepanz' },
       { name: 'quiz_routing', value: ROUTING[routingIdx].label },
     ]);
+  }
+
+  function showSubmissionError() {
+    var toast = document.getElementById('quiz-toast');
+    if (!toast) return;
+    toast.innerHTML = 'Ihre Antworten konnten leider nicht gespeichert werden. ' +
+      'Ihre Auswertung sehen Sie trotzdem hier. ' +
+      '<a href="/#newsletter">Melden Sie sich f\u00FCr unseren Newsletter an</a>, ' +
+      'um in Kontakt zu bleiben.';
+    toast.style.display = 'block';
+    setTimeout(function () { toast.style.display = 'none'; }, 12000);
   }
 
   // ─── RENDER ─────────────────────────────────────────────────────
@@ -500,7 +534,9 @@
           '<h2 class="quiz-title">Wohin dürfen wir Ihre Auswertung senden?</h2>' +
           '<p class="quiz-subtitle">Sie erhalten Ihr persönliches Reifegrad-Profil direkt im Anschluss — und per E-Mail zum Nachschlagen.</p>' +
           '<div class="form-fields">' +
+            '<label for="input-name" class="sr-only">Ihr Name</label>' +
             '<input type="text" class="quiz-input" id="input-name" placeholder="Ihr Name" value="' + escHtml(state.name) + '">' +
+            '<label for="input-email" class="sr-only">Ihre E-Mail-Adresse</label>' +
             '<input type="email" class="quiz-input" id="input-email" placeholder="Ihre E-Mail-Adresse" value="' + escHtml(state.email) + '">' +
             '<label class="consent-label"><input type="checkbox" id="input-consent"' + (state.consent ? ' checked' : '') + '> Ich stimme zu, dass meine Daten zur Auswertung des Reifegrad-Checks und zur Kontaktaufnahme verarbeitet werden. <a href="/datenschutz/" target="_blank">Datenschutz</a></label>' +
             '<button class="btn-primary" id="contact-submit" disabled>Quiz starten &rarr;</button>' +
@@ -527,7 +563,7 @@
     validateContact();
 
     submitBtn.addEventListener('click', function () {
-      submitContact().catch(function () {});
+      submitContact().catch(showSubmissionError);
       transition(function () { state.phase = 'quiz'; state.currentQ = 0; });
     });
   }
@@ -546,9 +582,9 @@
         '<div class="quiz-card">' +
           '<h2 class="quiz-title">' + escHtml(qObj.q) + '</h2>' +
           (qObj.sub ? '<p class="quiz-subtitle">' + escHtml(qObj.sub) + '</p>' : '<div style="height:20px"></div>') +
-          '<div class="options">' +
+          '<div class="options" role="listbox">' +
             qObj.opts.map(function (opt, oi) {
-              return '<button class="option-btn' + (selected === oi ? ' selected' : '') + '" data-idx="' + oi + '">' + escHtml(opt) + '</button>';
+              return '<button class="option-btn' + (selected === oi ? ' selected' : '') + '" data-idx="' + oi + '" role="option" aria-selected="' + (selected === oi) + '">' + escHtml(opt) + '</button>';
             }).join('') +
           '</div>' +
           (qNum > 0 ? '<button class="btn-back" id="quiz-back">&larr; Zurück</button>' : '') +
@@ -560,18 +596,24 @@
         var idx = parseInt(btn.dataset.idx);
         state.scoredAnswers[state.currentQ] = idx;
         // Briefly highlight then advance
-        $$('.option-btn', el).forEach(function (b) { b.classList.remove('selected'); });
+        $$('.option-btn', el).forEach(function (b) {
+          b.classList.remove('selected');
+          b.setAttribute('aria-selected', 'false');
+        });
         btn.classList.add('selected');
+        btn.setAttribute('aria-selected', 'true');
         setTimeout(function () {
           if (state.currentQ < SCORED_QUESTIONS.length - 1) {
             transition(function () { state.currentQ++; });
           } else {
-            submitScoredAnswers().catch(function () {});
+            submitScoredAnswers().catch(showSubmissionError);
             transition(function () { state.phase = 'qual'; state.currentQ = 0; });
           }
         }, 250);
       });
     });
+
+    addArrowNavigation($('.options', el));
 
     var backBtn = $('#quiz-back', el);
     if (backBtn) {
@@ -595,9 +637,9 @@
         '<div class="quiz-card">' +
           '<h2 class="quiz-title">' + escHtml(qObj.q) + '</h2>' +
           (qObj.sub ? '<p class="quiz-subtitle">' + escHtml(qObj.sub) + '</p>' : '<div style="height:20px"></div>') +
-          '<div class="options">' +
+          '<div class="options" role="listbox">' +
             qObj.opts.map(function (opt, oi) {
-              return '<button class="option-btn' + (selected === oi ? ' selected' : '') + '" data-idx="' + oi + '">' + escHtml(opt) + '</button>';
+              return '<button class="option-btn' + (selected === oi ? ' selected' : '') + '" data-idx="' + oi + '" role="option" aria-selected="' + (selected === oi) + '">' + escHtml(opt) + '</button>';
             }).join('') +
           '</div>' +
           '<button class="btn-back" id="qual-back">&larr; Zurück</button>' +
@@ -608,18 +650,24 @@
       btn.addEventListener('click', function () {
         var idx = parseInt(btn.dataset.idx);
         state.qualAnswers[state.currentQ] = idx;
-        $$('.option-btn', el).forEach(function (b) { b.classList.remove('selected'); });
+        $$('.option-btn', el).forEach(function (b) {
+          b.classList.remove('selected');
+          b.setAttribute('aria-selected', 'false');
+        });
         btn.classList.add('selected');
+        btn.setAttribute('aria-selected', 'true');
         setTimeout(function () {
           if (state.currentQ < QUAL_QUESTIONS.length - 1) {
             transition(function () { state.currentQ++; });
           } else {
-            submitQualAnswers().catch(function () {});
+            submitQualAnswers().catch(showSubmissionError);
             transition(function () { state.phase = 'freetext'; });
           }
         }, 250);
       });
     });
+
+    addArrowNavigation($('.options', el));
 
     $('#qual-back', el).addEventListener('click', function () {
       if (state.currentQ > 0) {
@@ -641,6 +689,7 @@
         '<div class="quiz-card">' +
           '<h2 class="quiz-title">Gibt es sonst etwas, das Sie uns sagen möchten?</h2>' +
           '<p class="quiz-subtitle">Optional — alles was uns hilft, Ihre Auswertung relevanter zu machen.</p>' +
+          '<label for="freetext-input" class="sr-only">Ihre Gedanken</label>' +
           '<textarea class="quiz-textarea" id="freetext-input" rows="4" placeholder="Ihre Gedanken...">' + escHtml(state.freetext) + '</textarea>' +
           '<button class="btn-primary" id="freetext-submit">Auswertung anzeigen &rarr;</button>' +
           '<button class="btn-back" id="freetext-back">&larr; Zurück</button>' +
@@ -649,7 +698,7 @@
 
     $('#freetext-input', el).addEventListener('input', function (e) { state.freetext = e.target.value; });
     $('#freetext-submit', el).addEventListener('click', function () {
-      submitResults().catch(function () {});
+      submitResults().catch(showSubmissionError);
       transition(function () { state.phase = 'results'; });
     });
     $('#freetext-back', el).addEventListener('click', function () {
@@ -659,6 +708,7 @@
 
   // ─── RESULTS ────────────────────────────────────────────────────
   function renderResults() {
+    clearState();
     var dimScores = scoreDimensions(state.scoredAnswers);
     var overallStage = getOverallStage(dimScores);
     var dimStages = dimScores.map(dimToStage);
@@ -692,7 +742,7 @@
       var isBottleneck = bottleneck && bottleneck.lowDim === i;
       return '<div class="dim-card' + (isBottleneck ? ' dim-bottleneck' : '') + (i === 4 ? ' dim-full' : '') + '">' +
         '<div class="dim-label">' + escHtml(d) + '</div>' +
-        '<div class="dim-stage" style="color:' + STAGES[dimStages[i]].color + '">Stufe ' + (dimStages[i] + 1) + ': ' + STAGES[dimStages[i]].label + '</div>' +
+        '<div class="dim-stage" style="color:' + STAGES[dimStages[i]].textColor + '">Stufe ' + (dimStages[i] + 1) + ': ' + STAGES[dimStages[i]].label + '</div>' +
       '</div>';
     }).join('');
 
@@ -720,7 +770,7 @@
         '<div class="quiz-card">' +
           '<div style="text-align:center;margin:32px 0">' +
             '<div class="gauge-bars">' + gaugeBars + '</div>' +
-            '<div class="stage-label" style="color:' + stageData.color + '">Stufe ' + (overallStage + 1) + ': ' + stageData.label + '</div>' +
+            '<div class="stage-label" style="color:' + stageData.textColor + '">Stufe ' + (overallStage + 1) + ': ' + stageData.label + '</div>' +
             '<div class="stage-tagline">\u201E' + escHtml(stageData.tagline) + '\u201C</div>' +
           '</div>' +
           '<p class="stage-desc">' + escHtml(stageData.desc) + '</p>' +
@@ -757,7 +807,7 @@
         '</div>' +
 
         // Debug section
-        renderDebug(dimScores, dimStages, overallStage, bottleneck) +
+        (DEBUG ? renderDebug(dimScores, dimStages, overallStage, bottleneck) : '') +
       '</div>';
   }
 
@@ -940,6 +990,23 @@
     '</div>';
   }
 
+  // ─── ARROW KEY NAVIGATION ──────────────────────────────────────
+  function addArrowNavigation(container) {
+    if (!container) return;
+    var buttons = Array.from(container.querySelectorAll('.option-btn'));
+    container.addEventListener('keydown', function (e) {
+      var idx = buttons.indexOf(document.activeElement);
+      if (idx === -1) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        buttons[(idx + 1) % buttons.length].focus();
+      } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        buttons[(idx - 1 + buttons.length) % buttons.length].focus();
+      }
+    });
+  }
+
   // ─── UTILITIES ──────────────────────────────────────────────────
   function escHtml(str) {
     if (!str) return '';
@@ -947,5 +1014,26 @@
   }
 
   // ─── INIT ───────────────────────────────────────────────────────
+  var saved = loadState();
+  if (saved && saved.phase !== 'landing' && saved.phase !== 'results') {
+    var banner = document.createElement('div');
+    banner.id = 'quiz-resume-banner';
+    banner.className = 'quiz-resume-banner';
+    banner.innerHTML =
+      '<span>Sie haben einen laufenden Reifegrad-Check. Fortsetzen?</span>' +
+      '<button class="btn-resume" id="resume-btn">Fortsetzen</button>' +
+      '<button class="btn-restart" id="restart-btn">Neu starten</button>';
+    $app.parentNode.insertBefore(banner, $app);
+
+    document.getElementById('resume-btn').addEventListener('click', function () {
+      Object.assign(state, saved);
+      banner.remove();
+      render();
+    });
+    document.getElementById('restart-btn').addEventListener('click', function () {
+      clearState();
+      banner.remove();
+    });
+  }
   render();
 })();
