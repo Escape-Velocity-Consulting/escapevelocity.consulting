@@ -273,31 +273,22 @@
     '3-4': { label: 'Organisatorische Verankerung', text: 'Die technische Grundlage steht, aber es fehlt die organisatorische Verankerung. Ohne ein Team das mitzieht und eine F\u00FChrung die das Thema treibt, bleiben gute Systeme ungenutzt.' },
   };
 
-  // v2: Outcome texts per weak dimension (spec section 6)
+  // v2: Outcome texts per weak dimension — authoritative recommendations, full sentences
   var OUTCOME_TEXTS = [
-    'Ihre Kernprozesse sichtbar machen \u2014 verstehen, wo Zeit verloren geht und welche Abl\u00E4ufe zuerst standardisiert werden m\u00FCssen.',
-    'Die richtige Systemlandschaft aufbauen \u2014 Werkzeuge finden, die zu Ihren Abl\u00E4ufen passen und miteinander sprechen.',
-    'Datengrundlage schaffen \u2014 einen zentralen, verl\u00E4sslichen \u00DCberblick \u00FCber Ihre Gesch\u00E4ftsdaten.',
-    'Ihr Team bef\u00E4higen \u2014 digitale Kompetenz aufbauen, damit neue Prozesse und Tools auch gelebt werden.',
-    'Digitalisierung zur Chefsache machen \u2014 ein konkreter Plan mit Priorit\u00E4ten, Budget und den ersten 90 Tagen.',
+    'Der wichtigste n\u00E4chste Schritt ist, Ihre Kernprozesse sichtbar zu machen. Erst wenn klar ist, wo im Alltag Stunden verloren gehen, lassen sich die richtigen Abl\u00E4ufe gezielt verbessern.',
+    'Der wichtigste n\u00E4chste Schritt ist, Ihre Systemlandschaft zu sortieren. Welche Werkzeuge bleiben, welche gehen, und wie m\u00FCssen die verbleibenden Systeme zusammenspielen, damit Medienbr\u00FCche verschwinden?',
+    'Der wichtigste n\u00E4chste Schritt ist, Ordnung in Ihre Datenlandschaft zu bringen. Solange Informationen \u00FCber verschiedene Systeme verstreut sind, fehlt die Grundlage f\u00FCr fundierte Entscheidungen.',
+    'Der wichtigste n\u00E4chste Schritt ist, Ihr Team gezielt zu bef\u00E4higen. Neue Prozesse und Tools entfalten ihre Wirkung nur, wenn die Menschen, die damit arbeiten, sicher im Umgang sind.',
+    'Der wichtigste n\u00E4chste Schritt ist, eine konkrete Digitalisierungs-Roadmap zu erarbeiten. Ohne klare Priorit\u00E4ten, realistisches Budget und definierte Meilensteine bleibt Digitalisierung ein Vorsatz statt ein Projekt.',
   ];
 
-  // v2: Dream outcome per dimension — what changes once the next step is done
+  // v2: Dream outcome per dimension — vivid after-picture, no prefix (lead-in is dynamic)
   var OUTCOME_DREAMS = [
-    'Danach wissen Sie genau, wo Ihre gr\u00F6\u00DFten Zeitfresser liegen \u2014 und haben einen konkreten Plan, welche Abl\u00E4ufe zuerst standardisiert werden.',
-    'Danach haben Sie Klarheit \u00FCber Ihre Systemlandschaft \u2014 welche Tools bleiben, welche gehen, und wie alles zusammenspielen soll.',
-    'Danach haben Sie einen klaren \u00DCberblick \u00FCber Ihre Gesch\u00E4ftsdaten \u2014 wo sie liegen, was fehlt, und wie Sie zu einer verl\u00E4sslichen Entscheidungsgrundlage kommen.',
-    'Danach wissen Sie, wo Ihr Team steht und was es braucht \u2014 und haben einen Fahrplan f\u00FCr digitale Kompetenz, die wirklich im Alltag ankommt.',
-    'Danach haben Sie einen konkreten Digitalisierungsplan \u2014 mit Priorit\u00E4ten, realistischem Budget und klaren Meilensteinen f\u00FCr die ersten 90 Tage.',
-  ];
-
-  // v2: Dimension-specific offer blocks (spec section 6)
-  var OFFER_BLOCKS = [
-    { name: 'Prozess-Mapping & Standardisierung', desc: 'Kernprozesse sichtbar machen, dokumentieren und Zeitfresser identifizieren' },
-    { name: 'Systemlandschaft & Integration', desc: 'Die richtigen Werkzeuge ausw\u00E4hlen und so verbinden, dass Daten flie\u00DFen' },
-    { name: 'Daten-Konsolidierung & \u00DCberblick', desc: 'Gesch\u00E4ftsdaten zusammenf\u00FChren, bereinigen und zug\u00E4nglich machen' },
-    { name: 'Bef\u00E4higung & Change Management', desc: 'Digitale Kompetenz aufbauen und Adoption neuer Prozesse sicherstellen' },
-    { name: 'Digitalisierungs-Roadmap & Strategie', desc: 'Konkreten Plan mit Priorit\u00E4ten, Budget und Meilensteinen erarbeiten' },
+    'Ihr Team arbeitet nach klaren Abl\u00E4ufen. Kein Suchen, kein Improvisieren, keine Feuerwehreins\u00E4tze. Routineaufgaben laufen \u2014 und Sie haben den Kopf frei f\u00FCr das, was Ihr Unternehmen wirklich voranbringt.',
+    'Ihre Systeme arbeiten zusammen. Daten flie\u00DFen automatisch, kein Abtippen zwischen Programmen. Ihr Team \u00F6ffnet morgens ein Dashboard und sieht alles, was z\u00E4hlt \u2014 auf einen Blick.',
+    'Sie \u00F6ffnen ein Dashboard und sehen sofort, wo Ihr Unternehmen steht. Keine Excel-Suche, keine R\u00FCckfragen, keine veralteten Zahlen. Entscheidungen treffen Sie auf Basis von Fakten \u2014 nicht aus dem Bauch.',
+    'Ihr Team geht souver\u00E4n mit neuen Tools um. Keine Angst vor Ver\u00E4nderung, keine Workarounds. Neue Prozesse werden nicht nur eingef\u00FChrt \u2014 sie werden gelebt.',
+    'Sie haben einen klaren Plan. Sie wissen, was als N\u00E4chstes kommt, was es kostet und was es bringt. Keine endlosen Strategiemeetings \u2014 sondern eine Roadmap, der Ihr Team folgen kann.',
   ];
 
   // v1 ROUTING kept for HubSpot backward compatibility in submitResults()
@@ -491,9 +482,9 @@
       var dp = pt(i, dimScores[i]);
       var isWeak = wk.indexOf(i) !== -1;
       if (isWeak) {
-        svg += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" r="8" fill="#D4943A" fill-opacity="0.3" class="radar-dot-pulse"/>';
+        svg += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" r="12" fill="#C4553A" fill-opacity="0.5" class="radar-dot-pulse"/>';
       }
-      svg += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" r="5" fill="' + (isWeak ? '#D4943A' : 'var(--color-terracotta)') + '" stroke="#fff" stroke-width="2"/>';
+      svg += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" r="5" fill="' + (isWeak ? '#C4553A' : 'var(--color-terracotta)') + '" stroke="#fff" stroke-width="2"/>';
     }
 
     // Labels
@@ -1003,6 +994,37 @@
     });
   }
 
+  // ─── RESULTS ROADMAP (bridge between Engpass and Next Step) ────
+  function renderResultsRoadmap(overallStage) {
+    var items = '';
+    for (var i = 0; i < STAGES.length; i++) {
+      var stateClass;
+      if (i < overallStage) stateClass = 'level-past';
+      else if (i === overallStage) stateClass = 'level-current';
+      else if (i === overallStage + 1) stateClass = 'level-next';
+      else stateClass = 'level-future';
+      items +=
+        '<div class="level-item ' + stateClass + '">' +
+          '<div class="level-dot"' + (i === overallStage ? ' style="background:' + STAGES[i].color + ';color:#fff"' : '') + '>' + (i + 1) + '</div>' +
+          '<div class="level-label">Level ' + (i + 1) + '</div>' +
+          '<div class="level-name">' + STAGES[i].label + '</div>' +
+          '<div class="level-quote">\u201E' + STAGES[i].tagline + '\u201C</div>' +
+        '</div>';
+    }
+    var noteHtml = '';
+    if (overallStage >= 3) {
+      noteHtml = '<p class="results-roadmap-note">Sie haben das h\u00F6chste Level erreicht. Jetzt geht es darum, diesen Vorsprung systematisch auszubauen.</p>';
+    }
+    var bridgeText = overallStage >= 3
+      ? 'Sie sind am Ziel. Jetzt geht es darum, dort zu bleiben.'
+      : 'Die gute Nachricht: Genau hier liegt Ihr gr\u00F6\u00DFter Hebel.';
+    return '<div class="results-roadmap-wrap">' +
+      '<p class="section-bridge">' + bridgeText + '</p>' +
+      '<div class="levels-roadmap">' + items + '</div>' +
+      noteHtml +
+    '</div>';
+  }
+
   // ─── RESULTS ────────────────────────────────────────────────────
   function renderResults() {
     var dimScores = scoreDimensions(state.scoredAnswers);
@@ -1068,18 +1090,13 @@
         '<div class="bottleneck-eyebrow">&#x26A1; Ihr Engpass</div>' +
         '<p class="bottleneck-leadin">Hier bremst sich Ihr Unternehmen selbst aus:</p>' +
         '<h3 class="bottleneck-title">' + escHtml(bn.title) + '</h3>' +
-        '<p class="bottleneck-text">' + escHtml(bn.text) + '</p>' +
-        '<div class="bottleneck-dim-detail">' + DIM_STAGE_TEXTS[bn.weakDims[0]][bn.minStage] + '</div>';
+        '<p class="bottleneck-text">' + escHtml(bn.text) + '</p>';
     } else if (bn.type === 'cluster') {
-      var clusterDimList = bn.weakDims.map(function (wi) {
-        return '<li>' + DIM_STAGE_TEXTS[wi][bn.minStage] + '</li>';
-      }).join('');
       bottleneckHtml =
         '<div class="bottleneck-eyebrow">&#x26A1; Ihr Engpass</div>' +
         '<p class="bottleneck-leadin">Hier bremst sich Ihr Unternehmen selbst aus:</p>' +
         '<h3 class="bottleneck-title">' + escHtml(bn.label) + '</h3>' +
-        '<p class="bottleneck-text">' + escHtml(bn.text) + '</p>' +
-        '<ul class="bottleneck-dim-list">' + clusterDimList + '</ul>';
+        '<p class="bottleneck-text">' + escHtml(bn.text) + '</p>';
     } else {
       // multi: 3+ weak dimensions
       var introText = '';
@@ -1104,32 +1121,40 @@
     // v2: Next steps — outcome + dream outcome + soft CTA
     var nextStepsHtml = '';
     var dreamHtml = '';
+    // Dynamic dream lead-in
+    var dreamLeadin;
+    if (overallStage < 3) {
+      dreamLeadin = 'Das wird bei Level ' + (overallStage + 2) + ' \u2014 ' + STAGES[overallStage + 1].label + ' \u2014 m\u00F6glich:';
+    } else {
+      dreamLeadin = 'Das sichern Sie sich, wenn Sie Ihren Vorsprung ausbauen:';
+    }
+
     if (bn.type === 'equal') {
       var equalNextText;
       var equalDreamText;
       if (overallStage === 0) {
-        equalNextText = 'Den Anfang machen \u2014 einen Bereich ausw\u00E4hlen und dort die Grundlage schaffen.';
-        equalDreamText = 'Danach haben Sie einen klaren Startpunkt \u2014 und wissen genau, welcher erste Schritt den gr\u00F6\u00DFten Unterschied macht.';
+        equalNextText = 'Der wichtigste n\u00E4chste Schritt ist, einen klaren Startpunkt zu setzen. Ohne Altlasten haben Sie die Chance, von Anfang an die richtigen Grundlagen zu legen.';
+        equalDreamText = 'Statt \u00FCberall gleichzeitig anzufangen, haben Sie einen klaren Plan \u2014 welcher Bereich zuerst, was es bringt, und wie Sie Schritt f\u00FCr Schritt vorankommen.';
       } else if (overallStage <= 2) {
-        equalNextText = 'Den n\u00E4chsten Sprung planen \u2014 von einzelnen Verbesserungen zu einem vernetzten System.';
-        equalDreamText = 'Danach haben Sie einen konkreten Plan, wie aus Einzell\u00F6sungen ein zusammenh\u00E4ngendes System wird.';
+        equalNextText = 'Der wichtigste n\u00E4chste Schritt ist, von Einzell\u00F6sungen zu einem vernetzten System zu kommen. Die Grundlagen stehen \u2014 jetzt geht es darum, sie zusammenzuf\u00FChren.';
+        equalDreamText = 'Ihre Systeme, Prozesse und Daten greifen ineinander. Kein Flickwerk mehr, sondern ein Unternehmen, das als Ganzes funktioniert.';
       } else {
-        equalNextText = 'Kontinuierlich optimieren \u2014 Automatisierung ausbauen und datengetrieben skalieren.';
-        equalDreamText = 'Danach wissen Sie, wo die n\u00E4chsten Effizienzgewinne liegen \u2014 und wie Sie sie heben.';
+        equalNextText = 'Der wichtigste n\u00E4chste Schritt ist, die Optimierung zu systematisieren. Sie sind weiter als die meisten \u2014 jetzt geht es darum, diesen Vorsprung zu halten.';
+        equalDreamText = 'Ihr Unternehmen verbessert sich kontinuierlich \u2014 nicht durch gro\u00DFe Projekte, sondern durch eingespielte Routinen, die Effizienz zur Gewohnheit machen.';
       }
       nextStepsHtml = '<p class="next-step-text">' + equalNextText + '</p>';
-      dreamHtml = '<p class="next-step-dream">' + equalDreamText + '</p>';
+      dreamHtml = '<p class="next-step-dream-leadin">' + dreamLeadin + '</p><p class="next-step-dream">' + equalDreamText + '</p>';
     } else if (bn.weakDims.length === 1) {
       nextStepsHtml = '<p class="next-step-text">' + OUTCOME_TEXTS[bn.weakDims[0]] + '</p>';
-      dreamHtml = '<p class="next-step-dream">' + OUTCOME_DREAMS[bn.weakDims[0]] + '</p>';
+      dreamHtml = '<p class="next-step-dream-leadin">' + dreamLeadin + '</p><p class="next-step-dream">' + OUTCOME_DREAMS[bn.weakDims[0]] + '</p>';
     } else {
       var outcomeItems = bn.weakDims.slice(0, 3).map(function (wi) {
         return '<li>' + OUTCOME_TEXTS[wi] + '</li>';
       }).join('');
       nextStepsHtml =
-        '<p class="next-step-intro">Basierend auf Ihrem Profil sind das Ihre wichtigsten n\u00E4chsten Schritte:</p>' +
+        '<p class="next-step-intro">' + bn.weakDims.length + ' Bereiche brauchen Aufmerksamkeit. Die Reihenfolge entscheidet:</p>' +
         '<ol class="next-step-list">' + outcomeItems + '</ol>';
-      dreamHtml = '<p class="next-step-dream">Am Ende haben Sie einen klaren Fahrplan \u2014 was zuerst kommt, was es bringt, und wie Sie Schritt f\u00FCr Schritt vorankommen.</p>';
+      dreamHtml = '<p class="next-step-dream-leadin">' + dreamLeadin + '</p><p class="next-step-dream">Statt an mehreren Baustellen gleichzeitig zu stehen, haben Sie einen klaren Einstiegspunkt \u2014 den einen Hebel, der die anderen Bereiche mitzieht.</p>';
     }
 
     // Warm intro text
@@ -1164,6 +1189,9 @@
           bottleneckHtml +
         '</div>' +
 
+        // Levels roadmap bridge
+        renderResultsRoadmap(overallStage) +
+
         // Next steps card with dream outcome + soft CTA
         '<div class="quiz-card" style="margin-top:20px">' +
           '<h3 class="card-title">Ihr n\u00E4chster Schritt</h3>' +
@@ -1171,8 +1199,8 @@
           nextStepsHtml +
           dreamHtml +
           '<div class="next-step-cta-wrap">' +
-            '<h4 class="next-step-cta-headline">Wir helfen Ihnen gerne</h4>' +
-            '<p class="next-step-cta-text">Wie das konkret bei Ihnen aussehen kann, kl\u00E4ren wir in einem kostenlosen 30-Minuten-Gespr\u00E4ch \u2014 unverbindlich, mit konkreten Antworten auf Ihre Fragen.</p>' +
+            '<h4 class="next-step-cta-headline">Das kl\u00E4ren wir im Prozess-Review</h4>' +
+            '<p class="next-step-cta-text">In einem kostenlosen 30-Minuten-Gespr\u00E4ch schauen wir gemeinsam auf Ihr Ergebnis, identifizieren den gr\u00F6\u00DFten Hebel und skizzieren die ersten konkreten Schritte \u2014 unverbindlich und auf den Punkt.</p>' +
             '<a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="btn-primary btn-large" style="display:block;text-align:center;text-decoration:none">Kostenloses Erstgespr\u00E4ch buchen</a>' +
             '<div class="quiz-hint" style="text-align:center;margin-top:8px">30 Minuten, unverbindlich \u2014 Ihre Fragen, konkrete Antworten.</div>' +
           '</div>' +
