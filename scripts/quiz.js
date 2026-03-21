@@ -275,11 +275,11 @@
 
   // v2: Outcome texts per weak dimension — authoritative recommendations, full sentences
   var OUTCOME_TEXTS = [
-    'Der wichtigste n\u00E4chste Schritt ist, Ihre Kernprozesse sichtbar zu machen. Erst wenn klar ist, wo im Alltag Stunden verloren gehen, lassen sich die richtigen Abl\u00E4ufe gezielt verbessern.',
-    'Der wichtigste n\u00E4chste Schritt ist, Ihre Systemlandschaft zu sortieren. Welche Werkzeuge bleiben, welche gehen, und wie m\u00FCssen die verbleibenden Systeme zusammenspielen, damit Medienbr\u00FCche verschwinden?',
-    'Der wichtigste n\u00E4chste Schritt ist, Ordnung in Ihre Datenlandschaft zu bringen. Solange Informationen \u00FCber verschiedene Systeme verstreut sind, fehlt die Grundlage f\u00FCr fundierte Entscheidungen.',
-    'Der wichtigste n\u00E4chste Schritt ist, Ihr Team gezielt zu bef\u00E4higen. Neue Prozesse und Tools entfalten ihre Wirkung nur, wenn die Menschen, die damit arbeiten, sicher im Umgang sind.',
-    'Der wichtigste n\u00E4chste Schritt ist, eine konkrete Digitalisierungs-Roadmap zu erarbeiten. Ohne klare Priorit\u00E4ten, realistisches Budget und definierte Meilensteine bleibt Digitalisierung ein Vorsatz statt ein Projekt.',
+    'Machen Sie Ihre Kernprozesse sichtbar. Erst wenn klar ist, wo im Alltag Stunden verloren gehen, lassen sich die richtigen Abl\u00E4ufe gezielt verbessern.',
+    'Sortieren Sie Ihre Systemlandschaft. Welche Werkzeuge bleiben, welche gehen, und wie m\u00FCssen die verbleibenden Systeme zusammenspielen, damit Medienbr\u00FCche verschwinden?',
+    'Bringen Sie Ordnung in Ihre Datenlandschaft. Solange Informationen \u00FCber verschiedene Systeme verstreut sind, fehlt die Grundlage f\u00FCr fundierte Entscheidungen.',
+    'Bef\u00E4higen Sie Ihr Team gezielt. Neue Prozesse und Tools entfalten ihre Wirkung nur, wenn die Menschen, die damit arbeiten, sicher im Umgang sind.',
+    'Erarbeiten Sie eine konkrete Digitalisierungs-Roadmap. Ohne klare Priorit\u00E4ten, realistisches Budget und definierte Meilensteine bleibt Digitalisierung ein Vorsatz statt ein Projekt.',
   ];
 
   // v2: Dream outcome per dimension — vivid after-picture, no prefix (lead-in is dynamic)
@@ -332,7 +332,19 @@
     var strongDims = [];
     for (var i = 0; i < stages.length; i++) {
       if (stages[i] === minStage) weakDims.push(i);
-      if (stages[i] > minStage) strongDims.push(i);
+      else strongDims.push(i);
+    }
+
+    // Tiebreak within minStage by raw score — only truly weakest count
+    if (weakDims.length > 1) {
+      var minRaw = Math.min.apply(null, weakDims.map(function (i) { return dimScores[i]; }));
+      var trulyWeak = weakDims.filter(function (i) { return dimScores[i] === minRaw; });
+      if (trulyWeak.length < weakDims.length) {
+        weakDims.forEach(function (i) {
+          if (dimScores[i] !== minRaw) strongDims.push(i);
+        });
+        weakDims = trulyWeak;
+      }
     }
 
     // Scenario C: No discrepancy (all equal)
@@ -1048,21 +1060,24 @@
          'Sie geh\u00F6ren zu den am weitesten digitalisierten KMU. Kontinuierliche Optimierung und strategische Skalierung sind Ihre n\u00E4chsten Themen.') +
         '</p>';
     } else {
-      // Build Stark + Engpass summary — only show stage 2+ dims as "Stark"
-      var starkItems = '';
+      // Build Stark + Im Mittelfeld + Engpass summary
       var trulyStrong = bn.strongDims.filter(function (i) { return dimStages[i] >= 2; });
+      var midfield = bn.strongDims.filter(function (i) { return dimStages[i] < 2; });
       var sortedStrong = trulyStrong.slice().sort(function (a, b) { return dimStages[b] - dimStages[a]; });
-      for (var si = 0; si < sortedStrong.length; si++) {
-        starkItems += DIM_STAGE_TEXTS[sortedStrong[si]][dimStages[sortedStrong[si]]] + ' ';
-      }
-      var engpassItems = '';
-      for (var ei = 0; ei < bn.weakDims.length; ei++) {
-        engpassItems += DIM_STAGE_TEXTS[bn.weakDims[ei]][dimStages[bn.weakDims[ei]]] + ' ';
-      }
+      var starkListItems = sortedStrong.map(function (i) {
+        return '<li><strong>' + DIM_SHORT[i] + ':</strong> ' + DIM_STAGE_TEXTS[i][dimStages[i]] + '</li>';
+      }).join('');
+      var midfieldListItems = midfield.map(function (i) {
+        return '<li><strong>' + DIM_SHORT[i] + ':</strong> ' + DIM_STAGE_TEXTS[i][dimStages[i]] + '</li>';
+      }).join('');
+      var engpassListItems = bn.weakDims.map(function (i) {
+        return '<li><strong>' + DIM_SHORT[i] + ':</strong> ' + DIM_STAGE_TEXTS[i][dimStages[i]] + '</li>';
+      }).join('');
       summaryHtml =
         '<div class="level-summary">' +
-          (starkItems ? '<p class="level-summary-strong"><strong>Stark:</strong> ' + starkItems + '</p>' : '') +
-          '<p class="level-summary-weak"><strong>Engpass:</strong> ' + engpassItems + '</p>' +
+          (starkListItems ? '<p class="level-summary-strong"><strong>Stark:</strong></p><ul class="level-summary-list">' + starkListItems + '</ul>' : '') +
+          (midfieldListItems ? '<p class="level-summary-mid"><strong>Im Mittelfeld:</strong></p><ul class="level-summary-list">' + midfieldListItems + '</ul>' : '') +
+          '<p class="level-summary-weak"><strong>Engpass:</strong></p><ul class="level-summary-list">' + engpassListItems + '</ul>' +
           '<p class="level-summary-note">Ihre Geschwindigkeit wird von den schw\u00E4chsten Dimensionen bestimmt.' +
             (bn.strongDims.length > 0 ? ' Solange die operative Basis nicht steht, k\u00F6nnen Ihre St\u00E4rken ihr Potenzial nicht entfalten.' : '') +
           '</p>' +
@@ -1110,12 +1125,14 @@
       var multiDimList = bn.weakDims.map(function (wi) {
         return '<li>' + DIM_STAGE_TEXTS[wi][bn.minStage] + '</li>';
       }).join('');
+      var multiTitle = bn.weakDims.map(function (wi) { return DIM_SHORT[wi]; }).join(', ');
       bottleneckHtml =
         '<div class="bottleneck-eyebrow">&#x26A1; Ihr Engpass</div>' +
         '<p class="bottleneck-leadin">Hier bremst sich Ihr Unternehmen selbst aus:</p>' +
+        '<h3 class="bottleneck-title">' + escHtml(multiTitle) + '</h3>' +
         '<p class="bottleneck-text">' + introText + '</p>' +
         '<ul class="bottleneck-dim-list">' + multiDimList + '</ul>' +
-        '<p class="bottleneck-closing">Je mehr Bereiche gleichzeitig schwach sind, desto wichtiger ist ein klarer Einstiegspunkt. Nicht alles auf einmal \u2014 sondern den einen Hebel finden, der die anderen Dimensionen mitzieht.</p>';
+        '<p class="bottleneck-closing">Das sind die Bereiche, die Sie heute Zeit und Energie kosten.</p>';
     }
 
     // v2: Next steps — outcome + dream outcome + soft CTA
@@ -1145,16 +1162,16 @@
       nextStepsHtml = '<p class="next-step-text">' + equalNextText + '</p>';
       dreamHtml = '<p class="next-step-dream-leadin">' + dreamLeadin + '</p><p class="next-step-dream">' + equalDreamText + '</p>';
     } else if (bn.weakDims.length === 1) {
-      nextStepsHtml = '<p class="next-step-text">' + OUTCOME_TEXTS[bn.weakDims[0]] + '</p>';
+      nextStepsHtml = '<p class="next-step-text">Der wichtigste n\u00E4chste Schritt: ' + OUTCOME_TEXTS[bn.weakDims[0]] + '</p>';
       dreamHtml = '<p class="next-step-dream-leadin">' + dreamLeadin + '</p><p class="next-step-dream">' + OUTCOME_DREAMS[bn.weakDims[0]] + '</p>';
     } else {
-      var outcomeItems = bn.weakDims.slice(0, 3).map(function (wi) {
+      var outcomeItems = bn.weakDims.map(function (wi) {
         return '<li>' + OUTCOME_TEXTS[wi] + '</li>';
       }).join('');
       nextStepsHtml =
-        '<p class="next-step-intro">' + bn.weakDims.length + ' Bereiche brauchen Aufmerksamkeit. Die Reihenfolge entscheidet:</p>' +
+        '<p class="next-step-intro">' + bn.weakDims.length + ' Bereiche brauchen Aufmerksamkeit. Das k\u00F6nnen Sie konkret tun:</p>' +
         '<ol class="next-step-list">' + outcomeItems + '</ol>';
-      dreamHtml = '<p class="next-step-dream-leadin">' + dreamLeadin + '</p><p class="next-step-dream">Statt an mehreren Baustellen gleichzeitig zu stehen, haben Sie einen klaren Einstiegspunkt \u2014 den einen Hebel, der die anderen Bereiche mitzieht.</p>';
+      dreamHtml = '<p class="next-step-dream-leadin">' + dreamLeadin + '</p><p class="next-step-dream">' + OUTCOME_DREAMS[bn.weakDims[0]] + '</p>';
     }
 
     // Warm intro text
@@ -1199,7 +1216,7 @@
           nextStepsHtml +
           dreamHtml +
           '<div class="next-step-cta-wrap">' +
-            '<h4 class="next-step-cta-headline">Das kl\u00E4ren wir im Prozess-Review</h4>' +
+            '<h4 class="next-step-cta-headline">Lassen Sie uns gemeinsam draufschauen</h4>' +
             '<p class="next-step-cta-text">In einem kostenlosen 30-Minuten-Gespr\u00E4ch schauen wir gemeinsam auf Ihr Ergebnis, identifizieren den gr\u00F6\u00DFten Hebel und skizzieren die ersten konkreten Schritte \u2014 unverbindlich und auf den Punkt.</p>' +
             '<a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="btn-primary btn-large" style="display:block;text-align:center;text-decoration:none">Kostenloses Erstgespr\u00E4ch buchen</a>' +
             '<div class="quiz-hint" style="text-align:center;margin-top:8px">30 Minuten, unverbindlich \u2014 Ihre Fragen, konkrete Antworten.</div>' +

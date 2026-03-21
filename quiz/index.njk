@@ -547,8 +547,6 @@ lang: de
     list-style: none;
     padding: 0;
     margin: 16px 0 0 0;
-    border-top: 1px solid rgba(255,255,255,0.12);
-    padding-top: 12px;
   }
   .bottleneck-dim-list li {
     font-family: var(--font-body);
@@ -589,8 +587,24 @@ lang: de
     color: var(--color-text);
     margin: 0 0 12px 0;
   }
-  .level-summary-strong { color: var(--color-text); }
-  .level-summary-weak { color: var(--color-text); }
+  .level-summary-strong,
+  .level-summary-mid,
+  .level-summary-weak { color: var(--color-text); margin-bottom: 2px !important; }
+  .level-summary-list {
+    list-style: disc;
+    padding: 0 0 0 20px;
+    margin: 0 0 12px 0;
+  }
+  .level-summary-list li {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--color-text);
+    padding: 2px 0;
+  }
+  .level-summary-list li strong {
+    font-weight: 600;
+  }
   .level-summary-note {
     font-style: italic;
     color: var(--color-subtle) !important;
