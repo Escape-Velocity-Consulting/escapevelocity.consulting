@@ -195,33 +195,117 @@
   ];
 
   var DISCREPANCY_TEXTS = {
-    '0h-1l': { title: 'Gute Abläufe, schwache Systeme', text: 'Ihre Abläufe sind durchdacht — aber Ihre Systeme halten nicht mit. Sie machen von Hand, was längst automatisch laufen könnte. Die Diagnose liegt vor, die Behandlung fehlt.' },
-    '0h-2l': { title: 'Abläufe ohne Überblick', text: 'Ihre Prozesse funktionieren, aber Ihre Daten sind das schwache Glied. Ohne saubere Datenbasis bleiben Optimierungen Bauchgefühl statt Fakten.' },
-    '0h-3l': { title: 'Prozesse ohne Mannschaft', text: 'Ihre Abläufe sind gut durchdacht, aber Ihr Team kann sie nicht umsetzen. Standardisierte Prozesse nützen nichts, wenn niemand sie lebt.' },
-    '0h-4l': { title: 'Abläufe ohne Strategie', text: 'Ihre Abläufe funktionieren — aber nur aus Gewohnheit, nicht aus Strategie. Ohne Führung, die das Thema aktiv treibt, bleibt Optimierung Zufall.' },
-    '1h-0l': { title: 'Tools ohne Fundament', text: 'Sie haben in Software investiert, aber Ihre Abläufe sind nicht standardisiert. Jeder nutzt die gleichen Tools anders. Die Investition verpufft, weil der Prozess darunter fehlt.' },
-    '1h-2l': { title: 'Systeme ohne Substanz', text: 'Sie haben die Systeme — aber was darin steckt, ist unbrauchbar. Gute Software mit schlechten Daten liefert schlechte Ergebnisse.' },
-    '1h-3l': { title: 'Werkzeuge ohne Anwender', text: 'Sie haben in gute Systeme investiert, aber Ihr Team nutzt sie nicht. Die teuerste Software ist die, die niemand bedient.' },
-    '1h-4l': { title: 'Werkzeuge ohne Richtung', text: 'Die Tools sind da, aber es fehlt die strategische Führung. Ohne klare Richtung entscheidet jeder selbst, was er wie nutzt — und nichts passt zusammen.' },
-    '2h-0l': { title: 'Daten ohne Prozesse', text: 'Ihre Daten sind in gutem Zustand, aber Ihre Abläufe sind chaotisch. Saubere Daten in unstrukturierten Prozessen sind ungenutztes Potenzial.' },
-    '2h-1l': { title: 'Daten ohne Infrastruktur', text: 'Ihre Daten wären bereit — aber Ihre Systeme können nichts damit anfangen. Die Grundlage ist da, die technische Infrastruktur fehlt.' },
-    '2h-3l': { title: 'Daten ohne Kompetenz', text: 'Ihre Daten sind solide, aber Ihr Team weiß nicht, wie es sie nutzen soll. Daten ohne digitale Kompetenz im Team bleiben tote Zahlen.' },
-    '2h-4l': { title: 'Daten ohne Richtung', text: 'Ihre Datengrundlage ist solide, aber niemand nutzt sie strategisch. Die Grundlage für bessere Entscheidungen ist da — es fehlt der Plan, sie einzusetzen.' },
-    '3h-0l': { title: 'Motivation ohne Struktur', text: 'Ihr Team ist digital-affin, aber arbeitet ohne standardisierte Abläufe. Motivierte Leute ohne klare Prozesse improvisieren — gut gemeint, aber nicht skalierbar.' },
-    '3h-1l': { title: 'Kompetenz ohne Werkzeuge', text: 'Ihr Team wäre bereit für bessere Werkzeuge, aber die Systeme halten nicht mit. Digitale Kompetenz wird ausgebremst durch veraltete oder fehlende Software.' },
-    '3h-2l': { title: 'Team ohne Datenbasis', text: 'Ihr Team ist offen für Digitalisierung, aber die Datenbasis fehlt. Bevor Ihr Team loslegen kann, müssen erst die Grundlagen stimmen.' },
-    '3h-4l': { title: 'Motivation ohne Mandat', text: 'Ihr Team wäre bereit, aber von oben kommt kein Signal. Motivierte Mitarbeiter ohne Mandat bremsen sich selbst aus.' },
-    '4h-0l': { title: 'Vision ohne Fundament', text: 'Die Geschäftsführung hat eine klare digitale Vision, aber die Abläufe im Tagesgeschäft sind noch nicht standardisiert. Strategie ohne Prozess-Fundament bleibt Wunschdenken.' },
-    '4h-1l': { title: 'Plan ohne Werkzeuge', text: 'Sie haben den Plan, aber nicht die Werkzeuge. Die strategische Richtung stimmt — jetzt fehlt die technische Infrastruktur, um sie umzusetzen.' },
-    '4h-2l': { title: 'Strategie ohne Datenbasis', text: 'Die Führung treibt Digitalisierung voran, aber die Datenbasis ist löchrig. Strategische Entscheidungen brauchen verlässliche Daten — die fehlen noch.' },
-    '4h-3l': { title: 'Führung ohne Buy-in', text: 'Die Geschäftsführung will vorwärts — aber das Team zieht nicht mit. Ohne Buy-in bleibt jede Initiative ein Pilotprojekt.' },
+    '0h-1l': { title: 'Gute Abl\u00E4ufe, schwache Systeme', text: 'Ihre Abl\u00E4ufe sind durchdacht \u2014 aber Ihre Systeme halten nicht mit. Vieles, was l\u00E4ngst automatisch laufen k\u00F6nnte, wird noch von Hand erledigt.' },
+    '0h-2l': { title: 'Abl\u00E4ufe ohne \u00DCberblick', text: 'Ihre Prozesse funktionieren, aber Ihre Daten geben kein klares Bild. Ohne eine solide Datenbasis bleiben Verbesserungen schwer zu priorisieren.' },
+    '0h-3l': { title: 'Prozesse ohne Mannschaft', text: 'Ihre Abl\u00E4ufe sind gut durchdacht, aber Ihr Team braucht noch Unterst\u00FCtzung, um sie im Alltag umzusetzen. Gute Prozesse entfalten ihre Wirkung erst, wenn das Team sie mittr\u00E4gt.' },
+    '0h-4l': { title: 'Abl\u00E4ufe ohne Strategie', text: 'Ihre Abl\u00E4ufe funktionieren \u2014 aber eher aus Gewohnheit als aus Strategie. Ohne eine F\u00FChrung, die das Thema aktiv steuert, fehlt die Richtung f\u00FCr den n\u00E4chsten Schritt.' },
+    '1h-0l': { title: 'Tools ohne Fundament', text: 'Sie haben in Software investiert, aber die Abl\u00E4ufe darunter sind noch nicht standardisiert. Ohne klare Prozesse nutzt jeder die gleichen Tools anders \u2014 und die Investition wirkt nicht so, wie sie k\u00F6nnte.' },
+    '1h-2l': { title: 'Systeme ohne Substanz', text: 'Sie haben gute Systeme im Einsatz \u2014 aber die Daten darin halten nicht mit. Gute Software kann nur so gut arbeiten wie die Daten, die sie bekommt.' },
+    '1h-3l': { title: 'Werkzeuge ohne Anwender', text: 'Sie haben in gute Systeme investiert, aber Ihr Team nutzt sie noch nicht voll aus. Das Potenzial ist da \u2014 es braucht Begleitung, damit die Tools im Alltag ankommen.' },
+    '1h-4l': { title: 'Werkzeuge ohne Richtung', text: 'Die Tools sind da, aber es fehlt die strategische Steuerung. Ohne klare Richtung von oben entscheidet jeder selbst, was er wie nutzt.' },
+    '2h-0l': { title: 'Daten ohne Prozesse', text: 'Ihre Daten sind in gutem Zustand, aber Ihre Abl\u00E4ufe sind noch nicht strukturiert genug, um davon zu profitieren. Saubere Daten in unklaren Prozessen sind ungenutztes Potenzial.' },
+    '2h-1l': { title: 'Daten ohne Infrastruktur', text: 'Ihre Daten w\u00E4ren bereit \u2014 aber Ihre Systeme k\u00F6nnen noch nicht genug damit anfangen. Die Grundlage ist da, die technische Infrastruktur muss nachziehen.' },
+    '2h-3l': { title: 'Daten ohne Kompetenz', text: 'Ihre Daten sind solide, aber Ihr Team braucht noch das Know-how, um sie gezielt zu nutzen. Mit der richtigen Begleitung wird aus Datenbasis echte Entscheidungsgrundlage.' },
+    '2h-4l': { title: 'Daten ohne Richtung', text: 'Ihre Datengrundlage ist solide, aber sie wird noch nicht strategisch genutzt. Die Basis f\u00FCr bessere Entscheidungen ist da \u2014 es fehlt der Plan, sie einzusetzen.' },
+    '3h-0l': { title: 'Motivation ohne Struktur', text: 'Ihr Team ist digital-affin und motiviert, aber es fehlen standardisierte Abl\u00E4ufe. Ohne klare Prozesse wird improvisiert \u2014 engagiert, aber schwer skalierbar.' },
+    '3h-1l': { title: 'Kompetenz ohne Werkzeuge', text: 'Ihr Team w\u00E4re bereit f\u00FCr bessere Werkzeuge, aber die Systeme halten noch nicht mit. Digitale Kompetenz wird durch fehlende oder veraltete Software ausgebremst.' },
+    '3h-2l': { title: 'Team ohne Datenbasis', text: 'Ihr Team ist offen f\u00FCr Digitalisierung, aber die Datenbasis fehlt noch. Bevor Ihr Team richtig loslegen kann, m\u00FCssen die Grundlagen stimmen.' },
+    '3h-4l': { title: 'Motivation ohne Mandat', text: 'Ihr Team w\u00E4re bereit \u2014 aber es fehlt das klare Signal von oben. Ohne R\u00FCckendeckung der F\u00FChrung bleiben gute Initiativen auf halber Strecke stehen.' },
+    '4h-0l': { title: 'Vision ohne Fundament', text: 'Die Gesch\u00E4ftsf\u00FChrung hat eine klare digitale Vision, aber die Abl\u00E4ufe im Tagesgesch\u00E4ft sind noch nicht darauf ausgerichtet. Damit die Strategie greift, braucht es ein solides Prozess-Fundament.' },
+    '4h-1l': { title: 'Plan ohne Werkzeuge', text: 'Sie haben den Plan, aber noch nicht die Werkzeuge. Die strategische Richtung stimmt \u2014 jetzt braucht es die technische Infrastruktur, um sie umzusetzen.' },
+    '4h-2l': { title: 'Strategie ohne Datenbasis', text: 'Die F\u00FChrung treibt Digitalisierung voran, aber die Datenbasis ist noch l\u00FCckenhaft. Strategische Entscheidungen brauchen verl\u00E4ssliche Daten als Grundlage.' },
+    '4h-3l': { title: 'F\u00FChrung ohne Buy-in', text: 'Die Gesch\u00E4ftsf\u00FChrung will vorw\u00E4rts \u2014 aber das Team ist noch nicht mit an Bord. Ohne Buy-in im Team bleibt jede Initiative ein Pilotprojekt.' },
   };
 
+  // v2: Dimension-Stage full sentences — each dimension self-contained, no cross-references
+  var DIM_STAGE_TEXTS = [
+    // Prozesse & Workflows
+    [
+      'Ihre Prozesse sind nicht standardisiert \u2014 jeder arbeitet nach eigenem System.',
+      'Ihre Prozesse haben Grundroutinen, sind aber nicht durchg\u00E4ngig dokumentiert.',
+      'Ihre Prozesse sind klar definiert und werden einheitlich gelebt.',
+      'Ihre Prozesse sind durchgehend automatisiert und werden kontinuierlich verbessert.',
+    ],
+    // Tools & Systeme
+    [
+      'In Ihrem Unternehmen sind kaum digitale Werkzeuge im Einsatz.',
+      'Sie nutzen einzelne digitale Tools, aber ohne einheitliche Strategie dahinter.',
+      'Ihre wichtigsten Systeme sind aufeinander abgestimmt und werden gezielt eingesetzt.',
+      'Ihre Systemlandschaft ist durchg\u00E4ngig integriert \u2014 jedes Tool hat seinen Platz.',
+    ],
+    // Daten & Information
+    [
+      'Sie haben keinen verl\u00E4sslichen \u00DCberblick \u00FCber Ihre Gesch\u00E4ftsdaten.',
+      'Ihre Daten existieren digital, sind aber \u00FCber verschiedene Systeme verstreut.',
+      'Ihre Daten sind an einem Ort zusammengef\u00FChrt und aktuell abrufbar.',
+      'Ihre Daten sind sauber strukturiert und flie\u00DFen in Ihre Entscheidungen ein.',
+    ],
+    // Team & Kompetenz
+    [
+      'Ihrem Team fehlt digitales Know-how \u2014 Digitalisierung ist kein Thema.',
+      'Im Team ist Offenheit da, aber es fehlt an Sicherheit im Umgang mit digitalen Tools.',
+      'Ihr Team ist digital-kompetent und setzt neue Werkzeuge eigenst\u00E4ndig ein.',
+      'Ihr Team treibt Verbesserungen aktiv voran und ist offen f\u00FCr Neues.',
+    ],
+    // Führung & Richtung
+    [
+      'Digitalisierung ist kein Thema auf Gesch\u00E4ftsf\u00FChrungsebene.',
+      'Digitalisierung steht auf der Agenda, aber es fehlt ein konkreter Plan.',
+      'Ihre F\u00FChrung hat Digitalisierung als Priorit\u00E4t mit klaren Ressourcen verankert.',
+      'Ihre F\u00FChrung steuert die digitale Entwicklung aktiv mit Roadmap und Erfolgsmessung.',
+    ],
+  ];
+
+  // v2: Dimension short labels for personalized text
+  var DIM_SHORT = ['Prozesse', 'Tools', 'Daten', 'Team', 'F\u00FChrung'];
+
+  // v2: Cluster narratives for 2-bottleneck scenarios (spec section 5, Scenario B)
+  var CLUSTER_TEXTS = {
+    '0-1': { label: 'Operatives Fundament', text: 'Weder die Abl\u00E4ufe noch die Systeme sind auf dem n\u00F6tigen Stand. Sie arbeiten ohne standardisierte Prozesse und ohne die Werkzeuge, die sie tragen k\u00F6nnten. Das operative Fundament muss zuerst stehen.' },
+    '0-2': { label: 'Blinder Flug', text: 'Ihre Abl\u00E4ufe sind nicht standardisiert und Ihre Daten geben keinen \u00DCberblick. Sie steuern im Blindflug \u2014 ohne zu wissen, wo Zeit verloren geht und ohne die Zahlen, die es beweisen.' },
+    '0-3': { label: 'Execution Gap', text: 'Weder die Abl\u00E4ufe noch die Mannschaft sind bereit f\u00FCr den n\u00E4chsten Schritt. Es braucht beides: klare Prozesse UND ein Team das sie lebt.' },
+    '0-4': { label: 'Strategie-Execution-L\u00FCcke', text: 'Weder von oben noch von unten gibt es klare Strukturen. Es fehlt sowohl die strategische Richtung als auch das operative Fundament.' },
+    '1-2': { label: 'Technische Infrastruktur', text: 'Ihre Abl\u00E4ufe sind klar und das Team ist bereit \u2014 aber die technische Infrastruktur h\u00E4lt nicht mit. Die Werkzeuge und die Datengrundlage m\u00FCssen aufholen.' },
+    '1-3': { label: 'Adoptions-L\u00FCcke', text: 'Die Werkzeuge fehlen und das Team hat nicht das Know-how, um neue Systeme zu nutzen. Beides muss zusammen aufgebaut werden \u2014 sonst wiederholt sich der Kreislauf aus Anschaffung und Nicht-Nutzung.' },
+    '1-4': { label: 'Investitionsstau', text: 'Es fehlt sowohl die technische Infrastruktur als auch die strategische F\u00FChrung, die Investitionen vorantreibt. Ohne ein Signal von oben und ohne die richtigen Werkzeuge passiert nichts.' },
+    '2-3': { label: 'Wissensl\u00FCcke', text: 'Die Grundlagen fehlen auf zwei Seiten: Ihrem Team fehlt das Know-how und Ihren Daten fehlt die Struktur. Beides muss parallel aufgebaut werden.' },
+    '2-4': { label: 'Strategische Blindheit', text: 'Keine verl\u00E4sslichen Daten und keine F\u00FChrung, die datenbasiert entscheidet. Strategische Entscheidungen fallen aus dem Bauch \u2014 weil es weder die Zahlen noch den Plan gibt, es anders zu machen.' },
+    '3-4': { label: 'Organisatorische Verankerung', text: 'Die technische Grundlage steht, aber es fehlt die organisatorische Verankerung. Ohne ein Team das mitzieht und eine F\u00FChrung die das Thema treibt, bleiben gute Systeme ungenutzt.' },
+  };
+
+  // v2: Outcome texts per weak dimension (spec section 6)
+  var OUTCOME_TEXTS = [
+    'Ihre Kernprozesse sichtbar machen \u2014 verstehen, wo Zeit verloren geht und welche Abl\u00E4ufe zuerst standardisiert werden m\u00FCssen.',
+    'Die richtige Systemlandschaft aufbauen \u2014 Werkzeuge finden, die zu Ihren Abl\u00E4ufen passen und miteinander sprechen.',
+    'Datengrundlage schaffen \u2014 einen zentralen, verl\u00E4sslichen \u00DCberblick \u00FCber Ihre Gesch\u00E4ftsdaten.',
+    'Ihr Team bef\u00E4higen \u2014 digitale Kompetenz aufbauen, damit neue Prozesse und Tools auch gelebt werden.',
+    'Digitalisierung zur Chefsache machen \u2014 ein konkreter Plan mit Priorit\u00E4ten, Budget und den ersten 90 Tagen.',
+  ];
+
+  // v2: Dream outcome per dimension — what changes once the next step is done
+  var OUTCOME_DREAMS = [
+    'Danach wissen Sie genau, wo Ihre gr\u00F6\u00DFten Zeitfresser liegen \u2014 und haben einen konkreten Plan, welche Abl\u00E4ufe zuerst standardisiert werden.',
+    'Danach haben Sie Klarheit \u00FCber Ihre Systemlandschaft \u2014 welche Tools bleiben, welche gehen, und wie alles zusammenspielen soll.',
+    'Danach haben Sie einen klaren \u00DCberblick \u00FCber Ihre Gesch\u00E4ftsdaten \u2014 wo sie liegen, was fehlt, und wie Sie zu einer verl\u00E4sslichen Entscheidungsgrundlage kommen.',
+    'Danach wissen Sie, wo Ihr Team steht und was es braucht \u2014 und haben einen Fahrplan f\u00FCr digitale Kompetenz, die wirklich im Alltag ankommt.',
+    'Danach haben Sie einen konkreten Digitalisierungsplan \u2014 mit Priorit\u00E4ten, realistischem Budget und klaren Meilensteinen f\u00FCr die ersten 90 Tage.',
+  ];
+
+  // v2: Dimension-specific offer blocks (spec section 6)
+  var OFFER_BLOCKS = [
+    { name: 'Prozess-Mapping & Standardisierung', desc: 'Kernprozesse sichtbar machen, dokumentieren und Zeitfresser identifizieren' },
+    { name: 'Systemlandschaft & Integration', desc: 'Die richtigen Werkzeuge ausw\u00E4hlen und so verbinden, dass Daten flie\u00DFen' },
+    { name: 'Daten-Konsolidierung & \u00DCberblick', desc: 'Gesch\u00E4ftsdaten zusammenf\u00FChren, bereinigen und zug\u00E4nglich machen' },
+    { name: 'Bef\u00E4higung & Change Management', desc: 'Digitale Kompetenz aufbauen und Adoption neuer Prozesse sicherstellen' },
+    { name: 'Digitalisierungs-Roadmap & Strategie', desc: 'Konkreten Plan mit Priorit\u00E4ten, Budget und Meilensteinen erarbeiten' },
+  ];
+
+  // v1 ROUTING kept for HubSpot backward compatibility in submitResults()
   var ROUTING = [
-    { label: 'Schulung', cta: 'Kostenlosen Digitalisierungs-Leitfaden herunterladen', ctaSub: 'Schritt-für-Schritt zum nächsten Level', type: 'nurture' },
-    { label: 'Workshop', cta: 'Aha! Moment Workshop buchen', ctaSub: 'Ein Tag, ein Durchblick — wo Ihre größten Hebel liegen', type: 'calendly' },
-    { label: 'Umsetzung', cta: 'Tech Upgrade Gespräch vereinbaren', ctaSub: 'Engpass gefunden? Wir lösen ihn.', type: 'calendly' },
-    { label: 'Unentschieden', cta: '3 Ressourcen zum Einstieg erhalten', ctaSub: 'Orientierung für Ihren ersten Schritt', type: 'nurture' },
+    { label: 'Schulung' },
+    { label: 'Workshop' },
+    { label: 'Umsetzung' },
+    { label: 'Unentschieden' },
   ];
 
   // ─── SCORING HELPERS ───────────────────────────────────────────
@@ -243,39 +327,67 @@
 
   function getOverallStage(dimScores) {
     var stages = dimScores.map(dimToStage);
-    var avg = stages.reduce(function (a, b) { return a + b; }, 0) / stages.length;
-    return Math.round(avg);
+    return Math.min.apply(null, stages);
   }
 
-  function getBottleneck(dimScores) {
+  // v2: Multi-bottleneck analysis
+  // Returns { type, weakDims, strongDims, minStage, maxStage, ... }
+  function getBottleneckData(dimScores) {
     var stages = dimScores.map(dimToStage);
-    var maxStage = Math.max.apply(null, stages);
     var minStage = Math.min.apply(null, stages);
-    if (maxStage - minStage <= 0) return null;
+    var maxStage = Math.max.apply(null, stages);
 
-    var minIdx = stages.indexOf(minStage);
-    var maxIdx = stages.indexOf(maxStage);
-    var key1 = maxIdx + 'h-' + minIdx + 'l';
-    if (DISCREPANCY_TEXTS[key1]) return Object.assign({}, DISCREPANCY_TEXTS[key1], { highDim: maxIdx, lowDim: minIdx });
-
-    return {
-      title: DIMENSIONS[minIdx] + ' bremst Sie',
-      text: 'Ihre schwächste Dimension ist \u201E' + DIMENSIONS[minIdx] + '\u201C — sie liegt deutlich hinter Ihren anderen Bereichen zurück. Das ist Ihr Engpass: Solange dieser Bereich nicht aufholt, können die anderen Dimensionen ihr Potenzial nicht entfalten.',
-      highDim: maxIdx,
-      lowDim: minIdx,
-    };
-  }
-
-  function getFallbackText(overallStage, dimScores) {
-    var stages = dimScores.map(dimToStage);
-    var allSame = stages.every(function (s) { return s === stages[0]; });
-    if (allSame && stages[0] <= 1) {
-      return { title: 'Sauberer Anfang', text: 'Start bei Null — und das ist kein Nachteil. Kein Altlasten-Chaos, kein Tool-Friedhof. Sie können von Anfang an richtig aufbauen.' };
+    var weakDims = [];
+    var strongDims = [];
+    for (var i = 0; i < stages.length; i++) {
+      if (stages[i] === minStage) weakDims.push(i);
+      if (stages[i] > minStage) strongDims.push(i);
     }
-    if (allSame && stages[0] >= 2) {
-      return { title: 'Top-Ausgangslage', text: 'Top 10% der KMU. Sie haben die Basis geschaffen. Die Frage ist nicht ob, sondern wie schnell Sie den nächsten Schritt machen.' };
+
+    // Scenario C: No discrepancy (all equal)
+    if (maxStage === minStage) {
+      var fallbackTitle, fallbackText;
+      if (minStage === 0) {
+        fallbackTitle = 'Sauberer Anfang';
+        fallbackText = 'Start bei Null \u2014 kein Altlasten-Chaos, kein Tool-Friedhof. Sie k\u00F6nnen von Anfang an richtig aufbauen.';
+      } else if (minStage >= 2) {
+        fallbackTitle = 'Top-Ausgangslage';
+        fallbackText = 'Top 10% der KMU. Die Frage ist nicht ob, sondern wie schnell Sie den n\u00E4chsten Schritt machen.';
+      } else {
+        fallbackTitle = 'Solides Fundament';
+        fallbackText = '\u00DCberall angefangen, nirgends durchgezogen \u2014 typisch f\u00FCr KMU in Ihrer Gr\u00F6\u00DFe. Ein fokussierter Schritt bringt sofort Ergebnisse.';
+      }
+      return { type: 'equal', title: fallbackTitle, text: fallbackText, weakDims: weakDims, strongDims: strongDims, minStage: minStage, maxStage: maxStage };
     }
-    return { title: 'Solides Fundament', text: 'Überall angefangen, nirgends durchgezogen — typisch für KMU in Ihrer Größe. Die gute Nachricht: Ein fokussierter Schritt bringt sofort Ergebnisse.' };
+
+    // Scenario A: Single bottleneck (1 weak dimension)
+    if (weakDims.length === 1) {
+      var lowIdx = weakDims[0];
+      var highIdx = stages.indexOf(maxStage);
+      var key = highIdx + 'h-' + lowIdx + 'l';
+      var disc = DISCREPANCY_TEXTS[key];
+      if (disc) {
+        return { type: 'single', title: disc.title, text: disc.text, weakDims: weakDims, strongDims: strongDims, minStage: minStage, maxStage: maxStage, highDim: highIdx, lowDim: lowIdx };
+      }
+      return {
+        type: 'single',
+        title: DIMENSIONS[lowIdx] + ' bremst Sie',
+        text: 'Ihre schw\u00E4chste Dimension ist \u201E' + DIMENSIONS[lowIdx] + '\u201C \u2014 sie liegt deutlich hinter Ihren anderen Bereichen zur\u00FCck. Solange dieser Bereich nicht aufholt, k\u00F6nnen die anderen Dimensionen ihr Potenzial nicht entfalten.',
+        weakDims: weakDims, strongDims: strongDims, minStage: minStage, maxStage: maxStage, highDim: highIdx, lowDim: lowIdx,
+      };
+    }
+
+    // Scenario B: Exactly 2 bottlenecks
+    if (weakDims.length === 2) {
+      var clusterKey = weakDims[0] + '-' + weakDims[1];
+      var cluster = CLUSTER_TEXTS[clusterKey];
+      if (cluster) {
+        return { type: 'cluster', label: cluster.label, text: cluster.text, weakDims: weakDims, strongDims: strongDims, minStage: minStage, maxStage: maxStage };
+      }
+    }
+
+    // Scenario B2: 3+ bottlenecks (or 2 without cluster text)
+    return { type: 'multi', weakDims: weakDims, strongDims: strongDims, minStage: minStage, maxStage: maxStage };
   }
 
   // ─── STATE ──────────────────────────────────────────────────────
@@ -340,7 +452,7 @@
   }
 
   // ─── RADAR CHART (SVG) ─────────────────────────────────────────
-  function renderRadarChart(dimScores) {
+  function renderRadarChart(dimScores, weakDims) {
     var cx = 200, cy = 160, maxR = 120;
     var n = 5;
     var labels = ['Prozesse', 'Tools', 'Daten', 'Team', 'Führung'];
@@ -373,10 +485,15 @@
     for (var i = 0; i < n; i++) dataPts.push(pt(i, dimScores[i]).join(','));
     svg += '<polygon points="' + dataPts.join(' ') + '" fill="var(--color-terracotta)" fill-opacity="0.18" stroke="var(--color-terracotta)" stroke-width="2"/>';
 
-    // Data dots
+    // Data dots — weak dims get warning color + pulse
+    var wk = weakDims || [];
     for (var i = 0; i < n; i++) {
       var dp = pt(i, dimScores[i]);
-      svg += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" r="5" fill="var(--color-terracotta)" stroke="#fff" stroke-width="2"/>';
+      var isWeak = wk.indexOf(i) !== -1;
+      if (isWeak) {
+        svg += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" r="8" fill="#D4943A" fill-opacity="0.3" class="radar-dot-pulse"/>';
+      }
+      svg += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" r="5" fill="' + (isWeak ? '#D4943A' : 'var(--color-terracotta)') + '" stroke="#fff" stroke-width="2"/>';
     }
 
     // Labels
@@ -451,7 +568,8 @@
   function submitResults() {
     var dimScores = scoreDimensions(state.scoredAnswers);
     var overallStage = getOverallStage(dimScores);
-    var bottleneck = getBottleneck(dimScores);
+    var bn = getBottleneckData(dimScores);
+    var bottleneckLabel = bn.type === 'equal' ? bn.title : bn.type === 'cluster' ? bn.label : bn.type === 'single' ? bn.title : bn.weakDims.map(function (i) { return DIM_SHORT[i]; }).join(', ');
     var routingIdx = state.qualAnswers[3] !== undefined ? state.qualAnswers[3] : 3;
     return submitToHubSpot([
       { name: 'firstname', value: state.name },
@@ -459,7 +577,7 @@
       { name: 'quiz_freetext', value: state.freetext },
       { name: 'quiz_stage', value: STAGES[overallStage].label },
       { name: 'quiz_dim_scores', value: dimScores.join(',') },
-      { name: 'quiz_bottleneck', value: bottleneck ? bottleneck.title : 'Keine Diskrepanz' },
+      { name: 'quiz_bottleneck', value: bottleneckLabel },
       { name: 'quiz_routing', value: ROUTING[routingIdx].label },
     ]);
   }
@@ -891,101 +1009,177 @@
     var overallStage = getOverallStage(dimScores);
     var dimStages = dimScores.map(dimToStage);
     var stageData = STAGES[overallStage];
-    var bottleneck = getBottleneck(dimScores);
-    var fallback = getFallbackText(overallStage, dimScores);
-    var reveal = bottleneck || fallback;
-    var routingIdx = state.qualAnswers[3] !== undefined ? state.qualAnswers[3] : 3;
-    var routing = ROUTING[routingIdx];
-
-    // Comparison text
-    var comparisonText;
-    if (overallStage === 0) comparisonText = 'Die meisten KMU in Ihrer Größe liegen bei Level 2 (Digitalisiert). Sie haben Aufholpotenzial — und den Vorteil, von Anfang an richtig aufzubauen.';
-    else if (overallStage === 1) comparisonText = 'Die meisten KMU in Ihrer Größe liegen ebenfalls bei Level 2. Sie sind im Mittelfeld — ein fokussierter nächster Schritt hebt Sie ab.';
-    else if (overallStage === 2) comparisonText = 'Die meisten KMU in Ihrer Größe liegen bei Level 2. Sie sind bereits weiter als der Durchschnitt — jetzt geht es um den Vorsprung.';
-    else comparisonText = 'Weniger als 10% der KMU erreichen Level 4. Sie gehören zur Spitzengruppe — Ihr Vorteil: Skalierung und Effizienz, die Wettbewerber nicht haben.';
-
-    // Next step text
-    var nextStepText;
-    if (overallStage <= 1) nextStepText = 'Am meisten profitieren Sie jetzt von Klarheit: verstehen, wo die größten Hebel liegen, bevor Sie investieren.';
-    else if (overallStage <= 2) nextStepText = 'Sie haben die Grundlage — jetzt geht es darum, Systeme zu verbinden und Engpässe gezielt zu lösen.';
-    else nextStepText = 'Sie sind weiter als die meisten. Jetzt geht es um kontinuierliche Optimierung und strategische Skalierung.';
+    var bn = getBottleneckData(dimScores);
 
     // Stage gauge bars
     var gaugeBars = STAGES.map(function (st, i) {
       return '<div class="gauge-bar' + (i <= overallStage ? ' active' : '') + (i === overallStage ? ' current' : '') + '" style="background:' + (i <= overallStage ? st.color : 'rgba(0,0,0,0.06)') + '"></div>';
     }).join('');
 
-    // Dimension breakdown
+    // v2: Personalized level summary (full sentences, no verb templating)
+    var summaryHtml = '';
+    if (bn.type === 'equal') {
+      summaryHtml = '<p class="stage-desc">Alle f\u00FCnf Dimensionen liegen auf einem vergleichbaren Niveau. ' +
+        (overallStage === 0 ? 'Sie stehen am Anfang \u2014 ohne Altlasten k\u00F6nnen Sie von Grund auf richtig aufbauen.' :
+         overallStage <= 1 ? 'Sie haben erste Schritte gemacht. Jetzt geht es darum, einen Bereich konsequent durchzuziehen.' :
+         overallStage <= 2 ? 'Sie haben eine solide Grundlage geschaffen \u2014 Prozesse sind standardisiert, Systeme verbunden, Ihr Team ist kompetent und die F\u00FChrung treibt das Thema aktiv. Jetzt geht es darum, die n\u00E4chste Stufe zu erreichen.' :
+         'Sie geh\u00F6ren zu den am weitesten digitalisierten KMU. Kontinuierliche Optimierung und strategische Skalierung sind Ihre n\u00E4chsten Themen.') +
+        '</p>';
+    } else {
+      // Build Stark + Engpass summary — only show stage 2+ dims as "Stark"
+      var starkItems = '';
+      var trulyStrong = bn.strongDims.filter(function (i) { return dimStages[i] >= 2; });
+      var sortedStrong = trulyStrong.slice().sort(function (a, b) { return dimStages[b] - dimStages[a]; });
+      for (var si = 0; si < sortedStrong.length; si++) {
+        starkItems += DIM_STAGE_TEXTS[sortedStrong[si]][dimStages[sortedStrong[si]]] + ' ';
+      }
+      var engpassItems = '';
+      for (var ei = 0; ei < bn.weakDims.length; ei++) {
+        engpassItems += DIM_STAGE_TEXTS[bn.weakDims[ei]][dimStages[bn.weakDims[ei]]] + ' ';
+      }
+      summaryHtml =
+        '<div class="level-summary">' +
+          (starkItems ? '<p class="level-summary-strong"><strong>Stark:</strong> ' + starkItems + '</p>' : '') +
+          '<p class="level-summary-weak"><strong>Engpass:</strong> ' + engpassItems + '</p>' +
+          '<p class="level-summary-note">Ihre Geschwindigkeit wird von den schw\u00E4chsten Dimensionen bestimmt.' +
+            (bn.strongDims.length > 0 ? ' Solange die operative Basis nicht steht, k\u00F6nnen Ihre St\u00E4rken ihr Potenzial nicht entfalten.' : '') +
+          '</p>' +
+        '</div>';
+    }
+
+    // Dimension breakdown — highlight ALL bottleneck dimensions
     var dimBreakdown = DIMENSIONS.map(function (d, i) {
-      var isBottleneck = bottleneck && bottleneck.lowDim === i;
-      return '<div class="dim-card' + (isBottleneck ? ' dim-bottleneck' : '') + (i === 4 ? ' dim-full' : '') + '">' +
+      var isWeak = bn.weakDims.indexOf(i) !== -1 && bn.type !== 'equal';
+      return '<div class="dim-card' + (isWeak ? ' dim-bottleneck' : '') + (i === 4 ? ' dim-full' : '') + '">' +
         '<div class="dim-label">' + escHtml(d) + '</div>' +
         '<div class="dim-stage" style="color:' + STAGES[dimStages[i]].textColor + '">Level ' + (dimStages[i] + 1) + ': ' + STAGES[dimStages[i]].label + '</div>' +
       '</div>';
     }).join('');
 
-    // Offer mapping
-    var offers = [
-      { stage: 'Level 1–2', offer: 'Aha! Moment Workshop', desc: 'Ein Tag, ein Durchblick — wo Ihre größten Hebel liegen.', icon: '&#x1F50D;', match: overallStage <= 1 },
-      { stage: 'Level 2–3', offer: 'Tech Upgrade', desc: 'Engpass gefunden? Wir lösen ihn. Prozesse, Systeme, Automatisierung.', icon: '&#x26A1;', match: overallStage >= 1 && overallStage <= 2 },
-      { stage: 'Level 3–4', offer: 'Laufende Begleitung', desc: 'Technische Führung ohne Fixkosten. CIO as a Service.', icon: '&#x1F504;', match: overallStage >= 2 },
-    ];
-    var offerHtml = offers.map(function (o, i) {
-      return '<div class="offer-row' + (o.match ? '' : ' offer-dim') + '"' + (i > 0 ? ' style="border-top:1px solid rgba(0,0,0,0.06)"' : '') + '>' +
-        '<div class="offer-icon">' + o.icon + '</div>' +
-        '<div><div class="offer-name">' + o.offer + ' <span class="offer-stage">' + o.stage + '</span></div><div class="offer-desc">' + o.desc + '</div></div>' +
-      '</div>';
-    }).join('');
+    // v2: Bottleneck reveal — multi-scenario with emotional lead-in
+    var bottleneckHtml = '';
+    if (bn.type === 'equal') {
+      bottleneckHtml =
+        '<div class="bottleneck-eyebrow">&#x26A1; Ihr Aha-Moment</div>' +
+        '<h3 class="bottleneck-title">' + escHtml(bn.title) + '</h3>' +
+        '<p class="bottleneck-text">' + escHtml(bn.text) + '</p>';
+    } else if (bn.type === 'single') {
+      bottleneckHtml =
+        '<div class="bottleneck-eyebrow">&#x26A1; Ihr Engpass</div>' +
+        '<p class="bottleneck-leadin">Hier bremst sich Ihr Unternehmen selbst aus:</p>' +
+        '<h3 class="bottleneck-title">' + escHtml(bn.title) + '</h3>' +
+        '<p class="bottleneck-text">' + escHtml(bn.text) + '</p>' +
+        '<div class="bottleneck-dim-detail">' + DIM_STAGE_TEXTS[bn.weakDims[0]][bn.minStage] + '</div>';
+    } else if (bn.type === 'cluster') {
+      var clusterDimList = bn.weakDims.map(function (wi) {
+        return '<li>' + DIM_STAGE_TEXTS[wi][bn.minStage] + '</li>';
+      }).join('');
+      bottleneckHtml =
+        '<div class="bottleneck-eyebrow">&#x26A1; Ihr Engpass</div>' +
+        '<p class="bottleneck-leadin">Hier bremst sich Ihr Unternehmen selbst aus:</p>' +
+        '<h3 class="bottleneck-title">' + escHtml(bn.label) + '</h3>' +
+        '<p class="bottleneck-text">' + escHtml(bn.text) + '</p>' +
+        '<ul class="bottleneck-dim-list">' + clusterDimList + '</ul>';
+    } else {
+      // multi: 3+ weak dimensions
+      var introText = '';
+      if (bn.strongDims.length === 2) {
+        introText = 'Ihre St\u00E4rke liegt in ' + DIM_SHORT[bn.strongDims[0]] + ' und ' + DIM_SHORT[bn.strongDims[1]] + ' \u2014 aber ' + bn.weakDims.length + ' Bereiche hinken deutlich hinterher.';
+      } else if (bn.strongDims.length === 1) {
+        introText = DIM_SHORT[bn.strongDims[0]] + ' ist Ihr Anker \u2014 aber ' + bn.weakDims.length + ' von f\u00FCnf Dimensionen brauchen Aufmerksamkeit.';
+      } else {
+        introText = 'Diese Bereiche bilden gemeinsam Ihren Engpass \u2014 solange sie nicht aufholen, k\u00F6nnen Ihre St\u00E4rken ihr Potenzial nicht entfalten.';
+      }
+      var multiDimList = bn.weakDims.map(function (wi) {
+        return '<li>' + DIM_STAGE_TEXTS[wi][bn.minStage] + '</li>';
+      }).join('');
+      bottleneckHtml =
+        '<div class="bottleneck-eyebrow">&#x26A1; Ihr Engpass</div>' +
+        '<p class="bottleneck-leadin">Hier bremst sich Ihr Unternehmen selbst aus:</p>' +
+        '<p class="bottleneck-text">' + introText + '</p>' +
+        '<ul class="bottleneck-dim-list">' + multiDimList + '</ul>' +
+        '<p class="bottleneck-closing">Je mehr Bereiche gleichzeitig schwach sind, desto wichtiger ist ein klarer Einstiegspunkt. Nicht alles auf einmal \u2014 sondern den einen Hebel finden, der die anderen Dimensionen mitzieht.</p>';
+    }
+
+    // v2: Next steps — outcome + dream outcome + soft CTA
+    var nextStepsHtml = '';
+    var dreamHtml = '';
+    if (bn.type === 'equal') {
+      var equalNextText;
+      var equalDreamText;
+      if (overallStage === 0) {
+        equalNextText = 'Den Anfang machen \u2014 einen Bereich ausw\u00E4hlen und dort die Grundlage schaffen.';
+        equalDreamText = 'Danach haben Sie einen klaren Startpunkt \u2014 und wissen genau, welcher erste Schritt den gr\u00F6\u00DFten Unterschied macht.';
+      } else if (overallStage <= 2) {
+        equalNextText = 'Den n\u00E4chsten Sprung planen \u2014 von einzelnen Verbesserungen zu einem vernetzten System.';
+        equalDreamText = 'Danach haben Sie einen konkreten Plan, wie aus Einzell\u00F6sungen ein zusammenh\u00E4ngendes System wird.';
+      } else {
+        equalNextText = 'Kontinuierlich optimieren \u2014 Automatisierung ausbauen und datengetrieben skalieren.';
+        equalDreamText = 'Danach wissen Sie, wo die n\u00E4chsten Effizienzgewinne liegen \u2014 und wie Sie sie heben.';
+      }
+      nextStepsHtml = '<p class="next-step-text">' + equalNextText + '</p>';
+      dreamHtml = '<p class="next-step-dream">' + equalDreamText + '</p>';
+    } else if (bn.weakDims.length === 1) {
+      nextStepsHtml = '<p class="next-step-text">' + OUTCOME_TEXTS[bn.weakDims[0]] + '</p>';
+      dreamHtml = '<p class="next-step-dream">' + OUTCOME_DREAMS[bn.weakDims[0]] + '</p>';
+    } else {
+      var outcomeItems = bn.weakDims.slice(0, 3).map(function (wi) {
+        return '<li>' + OUTCOME_TEXTS[wi] + '</li>';
+      }).join('');
+      nextStepsHtml =
+        '<p class="next-step-intro">Basierend auf Ihrem Profil sind das Ihre wichtigsten n\u00E4chsten Schritte:</p>' +
+        '<ol class="next-step-list">' + outcomeItems + '</ol>';
+      dreamHtml = '<p class="next-step-dream">Am Ende haben Sie einen klaren Fahrplan \u2014 was zuerst kommt, was es bringt, und wie Sie Schritt f\u00FCr Schritt vorankommen.</p>';
+    }
+
+    // Warm intro text
+    var introName = state.name ? escHtml(state.name) + ', hier' : 'Hier';
 
     var el = $('[data-phase="results"]');
     el.innerHTML =
       '<div class="quiz-container">' +
-        // Header
-        '<div class="quiz-eyebrow">Ihr Digitalisierungs-Level</div>' +
-        (state.name ? '<div class="results-for">Ergebnis für <strong>' + escHtml(state.name) + '</strong></div>' : '') +
 
-        // Stage gauge card
+        // Stage gauge card with warm intro + personalized summary
         '<div class="quiz-card">' +
-          '<div style="text-align:center;margin:32px 0">' +
+          '<div class="quiz-eyebrow" style="margin-bottom:8px">Ihr Digitalisierungs-Profil</div>' +
+          '<p class="results-intro">' + introName + ' ist Ihre pers\u00F6nliche Auswertung \u2014 basierend auf Ihren Antworten \u00FCber alle f\u00FCnf Dimensionen.</p>' +
+          '<div style="text-align:center;margin:28px 0">' +
             '<div class="gauge-bars">' + gaugeBars + '</div>' +
             '<div class="stage-label" style="color:' + stageData.textColor + '">Level ' + (overallStage + 1) + ': ' + stageData.label + '</div>' +
             '<div class="stage-tagline">\u201E' + escHtml(stageData.tagline) + '\u201C</div>' +
           '</div>' +
-          '<p class="stage-desc">' + escHtml(stageData.desc) + '</p>' +
-          '<div class="comparison-box">&#x1F4CA; <strong>Zum Vergleich:</strong> ' + comparisonText + '</div>' +
+          summaryHtml +
         '</div>' +
 
         // Radar chart card
         '<div class="quiz-card" style="margin-top:20px">' +
           '<h3 class="card-title" style="text-align:center">Ihr Dimensions-Profil</h3>' +
-          '<p class="card-subtitle" style="text-align:center">Je weiter außen, desto reifer die Dimension</p>' +
-          '<div class="radar-wrap">' + renderRadarChart(dimScores) + '</div>' +
+          '<p class="card-subtitle" style="text-align:center">Je weiter au\u00DFen, desto reifer die Dimension</p>' +
+          '<div class="radar-wrap">' + renderRadarChart(dimScores, bn.type !== 'equal' ? bn.weakDims : []) + '</div>' +
           '<div class="dim-grid">' + dimBreakdown + '</div>' +
         '</div>' +
 
         // Bottleneck reveal card
         '<div class="quiz-card bottleneck-card" style="margin-top:20px">' +
-          '<div class="bottleneck-eyebrow">' + (bottleneck ? '&#x26A1; Ihr Engpass' : '&#x26A1; Ihr Aha-Moment') + '</div>' +
-          '<h3 class="bottleneck-title">' + escHtml(reveal.title) + '</h3>' +
-          '<p class="bottleneck-text">' + escHtml(reveal.text) + '</p>' +
+          bottleneckHtml +
         '</div>' +
 
-        // Next steps card
+        // Next steps card with dream outcome + soft CTA
         '<div class="quiz-card" style="margin-top:20px">' +
-          '<h3 class="card-title">Ihr nächster Schritt</h3>' +
-          '<p class="quiz-subtitle" style="margin-bottom:24px">' + nextStepText + '</p>' +
-          '<a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="btn-primary btn-large" style="display:block;text-align:center;text-decoration:none">' + escHtml(routing.cta) + '</a>' +
-          '<div class="quiz-hint" style="text-align:center;margin-top:10px">' + escHtml(routing.ctaSub) + '</div>' +
-        '</div>' +
-
-        // Offer mapping
-        '<div class="offer-box">' +
-          '<div class="offer-header">Was passt zu Ihrem Level?</div>' +
-          offerHtml +
+          '<h3 class="card-title">Ihr n\u00E4chster Schritt</h3>' +
+          '<p class="next-step-leadin">' + (overallStage < 3 ? 'So erreichen Sie Level ' + (overallStage + 2) + ': ' + STAGES[overallStage + 1].label : 'So sichern Sie Ihren Vorsprung') + '</p>' +
+          nextStepsHtml +
+          dreamHtml +
+          '<div class="next-step-cta-wrap">' +
+            '<h4 class="next-step-cta-headline">Wir helfen Ihnen gerne</h4>' +
+            '<p class="next-step-cta-text">Wie das konkret bei Ihnen aussehen kann, kl\u00E4ren wir in einem kostenlosen 30-Minuten-Gespr\u00E4ch \u2014 unverbindlich, mit konkreten Antworten auf Ihre Fragen.</p>' +
+            '<a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="btn-primary btn-large" style="display:block;text-align:center;text-decoration:none">Kostenloses Erstgespr\u00E4ch buchen</a>' +
+            '<div class="quiz-hint" style="text-align:center;margin-top:8px">30 Minuten, unverbindlich \u2014 Ihre Fragen, konkrete Antworten.</div>' +
+          '</div>' +
         '</div>' +
 
         // Debug section
-        (DEBUG ? renderDebug(dimScores, dimStages, overallStage, bottleneck) : '') +
+        (DEBUG ? renderDebug(dimScores, dimStages, overallStage, bn) : '') +
 
         // Restart link
         '<div style="text-align:center;margin:40px 0 20px"><button class="results-restart" style="background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:14px;color:var(--color-subtle);text-decoration:underline">Nochmal machen</button></div>' +
@@ -1012,18 +1206,32 @@
   }
 
   // ─── DEBUG SECTION ──────────────────────────────────────────────
-  function renderDebug(dimScores, dimStages, overallStage, bottleneck) {
+  function renderDebug(dimScores, dimStages, overallStage, bn) {
     var maxStage = Math.max.apply(null, dimStages);
     var minStage = Math.min.apply(null, dimStages);
 
     // Raw scores table
     var scoreRows = DIMENSIONS.map(function (d, i) {
-      return '<tr><td class="debug-td">' + escHtml(d) + '</td><td class="debug-td" style="font-weight:700">' + dimScores[i] + '</td><td class="debug-td">' + (dimStages[i] + 1) + '</td><td class="debug-td">' + STAGES[dimStages[i]].label + '</td></tr>';
+      var isWeak = bn.weakDims.indexOf(i) !== -1 && bn.type !== 'equal';
+      return '<tr' + (isWeak ? ' style="background:rgba(196,85,58,0.08)"' : '') + '><td class="debug-td">' + escHtml(d) + (isWeak ? ' &#x26A0;' : '') + '</td><td class="debug-td" style="font-weight:700">' + dimScores[i] + '</td><td class="debug-td">' + (dimStages[i] + 1) + '</td><td class="debug-td">' + STAGES[dimStages[i]].label + '</td></tr>';
     }).join('');
-    scoreRows += '<tr style="border-top:2px solid rgba(0,0,0,0.06)"><td class="debug-td" style="font-weight:700">Gesamt</td><td class="debug-td" style="font-weight:700">' + dimScores.reduce(function (a, b) { return a + b; }, 0) + ' / 30</td><td class="debug-td" style="font-weight:700">' + (overallStage + 1) + '</td><td class="debug-td" style="font-weight:700">' + STAGES[overallStage].label + '</td></tr>';
+    scoreRows += '<tr style="border-top:2px solid rgba(0,0,0,0.06)"><td class="debug-td" style="font-weight:700">Gesamt (Minimum)</td><td class="debug-td" style="font-weight:700">' + dimScores.reduce(function (a, b) { return a + b; }, 0) + ' / 30</td><td class="debug-td" style="font-weight:700">' + (overallStage + 1) + '</td><td class="debug-td" style="font-weight:700">' + STAGES[overallStage].label + '</td></tr>';
 
-    // Ranked bottleneck variants
-    var rankedVariants = Object.keys(DISCREPANCY_TEXTS).map(function (key) {
+    // Bottleneck scenario info
+    var scenarioLabel = bn.type === 'equal' ? 'C (Keine Diskrepanz)' : bn.type === 'single' ? 'A (Einzelner Engpass)' : bn.type === 'cluster' ? 'B (2 Engp\u00E4sse, Cluster)' : 'B2 (3+ Engp\u00E4sse)';
+    var scenarioHtml =
+      '<div class="debug-variant active">' +
+        '<div class="debug-variant-badges"><span class="debug-badge green">ACTIVE</span></div>' +
+        '<div class="debug-variant-title">Szenario ' + scenarioLabel + '</div>' +
+        '<div class="debug-dims">Schwache Dims: ' + (bn.weakDims.length > 0 ? bn.weakDims.map(function (i) { return DIM_SHORT[i] + ' (L' + (dimStages[i] + 1) + ')'; }).join(', ') : 'keine') + '</div>' +
+        '<div class="debug-dims">Starke Dims: ' + (bn.strongDims.length > 0 ? bn.strongDims.map(function (i) { return DIM_SHORT[i] + ' (L' + (dimStages[i] + 1) + ')'; }).join(', ') : 'keine') + '</div>' +
+        (bn.type === 'single' ? '<div class="debug-variant-text">Discrepancy-Key: ' + (bn.highDim !== undefined ? bn.highDim + 'h-' + bn.lowDim + 'l' : 'n/a') + ' &rarr; ' + escHtml(bn.title) + '</div>' : '') +
+        (bn.type === 'cluster' ? '<div class="debug-variant-text">Cluster-Key: ' + bn.weakDims.join('-') + ' &rarr; ' + escHtml(bn.label) + '</div>' : '') +
+        (bn.type === 'equal' ? '<div class="debug-variant-text">Fallback: ' + escHtml(bn.title) + '</div>' : '') +
+      '</div>';
+
+    // All discrepancy texts reference
+    var discRows = Object.keys(DISCREPANCY_TEXTS).map(function (key) {
       var val = DISCREPANCY_TEXTS[key];
       var parts = key.split('-');
       var highIdx = parseInt(parts[0]);
@@ -1031,102 +1239,41 @@
       var highStage = dimStages[highIdx];
       var lowStage = dimStages[lowIdx];
       var discrepancy = highStage - lowStage;
-      var directionMatch = highStage > lowStage ? 1 : 0;
-      var matchScore = discrepancy * 2 + directionMatch;
-      var isActive = bottleneck && bottleneck.title === val.title;
-      return { key: key, title: val.title, text: val.text, highIdx: highIdx, lowIdx: lowIdx, highStage: highStage, lowStage: lowStage, discrepancy: discrepancy, directionMatch: directionMatch, matchScore: matchScore, isActive: isActive };
-    });
-    rankedVariants.sort(function (a, b) { return b.matchScore - a.matchScore; });
-
-    var variantRows = rankedVariants.map(function (v, i) {
-      var cls = v.isActive ? 'debug-variant active' : (i === 0 && !v.isActive ? 'debug-variant top-match' : 'debug-variant');
-      return '<div class="' + cls + '">' +
-        '<div class="debug-variant-header">' +
-          '<div class="debug-variant-badges">' +
-            '<span class="debug-badge' + (v.matchScore > 2 ? ' green' : v.matchScore > 0 ? ' orange' : ' red') + '">Score: ' + v.matchScore + '</span>' +
-            (v.isActive ? '<span class="debug-badge orange">&#x2605; Active</span>' : '') +
-            '<span class="debug-key">' + v.key + '</span>' +
-          '</div>' +
-          '<span class="debug-rank">#' + (i + 1) + '</span>' +
+      var isActive = bn.type === 'single' && bn.title === val.title;
+      return '<div class="debug-variant' + (isActive ? ' active' : '') + '">' +
+        '<div class="debug-variant-badges">' +
+          '<span class="debug-badge' + (discrepancy > 0 ? ' green' : '') + '">&Delta;' + discrepancy + '</span>' +
+          (isActive ? '<span class="debug-badge orange">&#x2605; Active</span>' : '') +
+          '<span class="debug-key">' + key + '</span>' +
         '</div>' +
-        '<div class="debug-dims">' + escHtml(DIMENSIONS[v.highIdx]) + ' (Stufe ' + (v.highStage + 1) + ') &uarr; &times; ' + escHtml(DIMENSIONS[v.lowIdx]) + ' (Stufe ' + (v.lowStage + 1) + ') &darr; &middot; &Delta;' + v.discrepancy + ' &middot; Direction: ' + (v.directionMatch ? '&#x2713;' : '&#x2717;') + '</div>' +
-        '<div class="debug-variant-title">' + escHtml(v.title) + '</div>' +
-        '<div class="debug-variant-text">' + escHtml(v.text) + '</div>' +
+        '<div class="debug-dims">' + escHtml(DIMENSIONS[highIdx]) + ' (L' + (highStage + 1) + ') &uarr; &times; ' + escHtml(DIMENSIONS[lowIdx]) + ' (L' + (lowStage + 1) + ') &darr;</div>' +
+        '<div class="debug-variant-title">' + escHtml(val.title) + '</div>' +
       '</div>';
     }).join('');
 
-    // Fallbacks
-    var fallbackItems = [
-      { key: 'fallback-allSame-low', title: 'Sauberer Anfang', text: 'Start bei Null — und das ist kein Nachteil. Kein Altlasten-Chaos, kein Tool-Friedhof. Sie können von Anfang an richtig aufbauen.', condition: 'Alle Dimensionen ≤ Stufe 1', conditionMet: dimStages.every(function (s) { return s <= 1; }) && maxStage - minStage === 0 },
-      { key: 'fallback-allSame-high', title: 'Top-Ausgangslage', text: 'Top 10% der KMU. Sie haben die Basis geschaffen. Die Frage ist nicht ob, sondern wie schnell Sie den nächsten Schritt machen.', condition: 'Alle Dimensionen ≥ Stufe 3', conditionMet: dimStages.every(function (s) { return s >= 2; }) && maxStage - minStage === 0 },
-      { key: 'fallback-balanced', title: 'Solides Fundament', text: 'Überall angefangen, nirgends durchgezogen — typisch für KMU in Ihrer Größe. Die gute Nachricht: Ein fokussierter Schritt bringt sofort Ergebnisse.', condition: 'Alle Dimensionen auf ähnlichem Level (Fallback)', conditionMet: !bottleneck },
-    ];
-
-    var fallbackRows = fallbackItems.map(function (fb) {
-      var isActiveFb = fb.conditionMet && !bottleneck;
-      var cls = isActiveFb ? 'debug-variant active' : (fb.conditionMet ? 'debug-variant match' : 'debug-variant');
-      return '<div class="' + cls + '">' +
+    // Cluster texts reference
+    var clusterRows = Object.keys(CLUSTER_TEXTS).map(function (key) {
+      var val = CLUSTER_TEXTS[key];
+      var isActive = bn.type === 'cluster' && bn.label === val.label;
+      return '<div class="debug-variant' + (isActive ? ' active' : '') + '">' +
         '<div class="debug-variant-badges">' +
-          '<span class="debug-badge' + (fb.conditionMet ? ' green' : '') + '">' + (fb.conditionMet ? 'MATCH' : 'NO MATCH') + '</span>' +
-          (isActiveFb ? '<span class="debug-badge orange">&#x2605; Active</span>' : '') +
+          (isActive ? '<span class="debug-badge orange">&#x2605; Active</span>' : '<span class="debug-badge">&#x2014;</span>') +
+          '<span class="debug-key">' + key + '</span>' +
         '</div>' +
-        '<div class="debug-dims">Bedingung: ' + fb.condition + '</div>' +
-        '<div class="debug-variant-title">' + escHtml(fb.title) + '</div>' +
-        '<div class="debug-variant-text">' + escHtml(fb.text) + '</div>' +
+        '<div class="debug-variant-title">' + escHtml(val.label) + '</div>' +
+        '<div class="debug-variant-text">' + escHtml(val.text) + '</div>' +
       '</div>';
     }).join('');
 
-    // Stage routes
-    var stageRoutes = [
-      { id: 'stage-1-2', label: 'Stufe 1–2 → Aha! Moment Workshop', copy: 'Am meisten profitieren Sie jetzt von Klarheit: verstehen, wo die größten Hebel liegen, bevor Sie investieren.', cta: 'Aha! Moment Workshop buchen', ctaSub: 'Ein Tag, ein Durchblick — wo Ihre größten Hebel liegen', stageMatch: overallStage <= 1, stageScore: overallStage <= 1 ? 3 : overallStage === 2 ? 1 : 0 },
-      { id: 'stage-2-3', label: 'Stufe 2–3 → Tech Upgrade', copy: 'Sie haben die Grundlage — jetzt geht es darum, Systeme zu verbinden und Engpässe gezielt zu lösen.', cta: 'Tech Upgrade Gespräch vereinbaren', ctaSub: 'Engpass gefunden? Wir lösen ihn.', stageMatch: overallStage >= 1 && overallStage <= 2, stageScore: overallStage === 1 || overallStage === 2 ? 3 : 1 },
-      { id: 'stage-3-4', label: 'Stufe 3–4 → Laufende Begleitung', copy: 'Sie sind weiter als die meisten. Jetzt geht es um kontinuierliche Optimierung und strategische Skalierung.', cta: 'Gespräch für laufende Begleitung vereinbaren', ctaSub: 'Technische Führung ohne Fixkosten. CIO as a Service.', stageMatch: overallStage >= 2, stageScore: overallStage >= 2 ? 3 : overallStage === 1 ? 1 : 0 },
-      { id: 'stage-discrepancy', label: 'Große Diskrepanz → Aha! Moment (Bottleneck first)', copy: 'Ihre Dimensionen sind sehr unterschiedlich entwickelt. Der größte Hebel liegt darin, zuerst den Engpass zu identifizieren und gezielt zu lösen.', cta: 'Aha! Moment Workshop buchen', ctaSub: 'Erst Klarheit, dann Umsetzung.', stageMatch: maxStage - minStage >= 2, stageScore: maxStage - minStage >= 2 ? 4 : 0 },
-    ];
-    stageRoutes.sort(function (a, b) { return b.stageScore - a.stageScore; });
-    var activeStageRoute = stageRoutes.find(function (r) { return r.stageMatch; }) || stageRoutes[0];
-
-    var stageRouteRows = stageRoutes.map(function (r) {
-      var isA = r.id === activeStageRoute.id;
-      var cls = isA ? 'debug-variant active' : 'debug-variant';
-      return '<div class="' + cls + '">' +
+    // Outcome texts
+    var outcomeRows = OUTCOME_TEXTS.map(function (text, i) {
+      var isActive = bn.weakDims.indexOf(i) !== -1 && bn.type !== 'equal';
+      return '<div class="debug-variant' + (isActive ? ' active' : '') + '">' +
         '<div class="debug-variant-badges">' +
-          '<span class="debug-badge' + (r.stageScore >= 3 ? ' green' : r.stageScore > 0 ? ' orange' : '') + '">Stage-Score: ' + r.stageScore + '</span>' +
-          (isA ? '<span class="debug-badge orange">&#x2605; Active</span>' : '') +
+          '<span class="debug-badge' + (isActive ? ' green' : '') + '">' + (isActive ? 'ACTIVE' : '\u2014') + '</span>' +
+          '<span class="debug-key">' + DIM_SHORT[i] + '</span>' +
         '</div>' +
-        '<div class="debug-variant-title">' + escHtml(r.label) + '</div>' +
-        '<div class="debug-variant-text"><em>Body:</em> ' + escHtml(r.copy) + '</div>' +
-        '<div class="debug-dims"><strong>CTA:</strong> ' + escHtml(r.cta) + ' &middot; <em>' + escHtml(r.ctaSub) + '</em></div>' +
-      '</div>';
-    }).join('');
-
-    // Pref routes
-    var prefRouteRows = ROUTING.map(function (r, i) {
-      var prefMatch = state.qualAnswers[3] === i;
-      var cls = prefMatch ? 'debug-variant active' : 'debug-variant';
-      return '<div class="' + cls + '">' +
-        '<div class="debug-variant-badges">' +
-          '<span class="debug-badge' + (prefMatch ? ' blue' : '') + '">' + (prefMatch ? 'SELECTED' : '—') + '</span>' +
-          (prefMatch ? '<span class="debug-badge orange">&#x2605; Active</span>' : '') +
-        '</div>' +
-        '<div class="debug-dims">Antwort: \u201E' + escHtml(QUAL_QUESTIONS[3].opts[i]) + '\u201C</div>' +
-        '<div class="debug-variant-title">' + escHtml(r.cta) + '</div>' +
-        '<div class="debug-variant-text">' + escHtml(r.ctaSub) + ' &middot; Typ: ' + r.type + '</div>' +
-      '</div>';
-    }).join('');
-
-    // Stage descriptions
-    var stageDescRows = STAGES.map(function (s, i) {
-      var isA = i === overallStage;
-      var cls = isA ? 'debug-variant active' : 'debug-variant';
-      return '<div class="' + cls + '">' +
-        '<div class="debug-variant-badges">' +
-          '<span class="debug-badge" style="background:' + s.color + ';color:#fff">Stufe ' + (i + 1) + '</span>' +
-          (isA ? '<span class="debug-badge orange">&#x2605; Active</span>' : '') +
-          '<span class="debug-variant-title" style="margin:0;font-size:14px">' + s.label + '</span>' +
-        '</div>' +
-        '<div class="debug-dims" style="font-style:italic">\u201E' + escHtml(s.tagline) + '\u201C</div>' +
-        '<div class="debug-variant-text">' + escHtml(s.desc) + '</div>' +
+        '<div class="debug-variant-text">' + escHtml(text) + '</div>' +
       '</div>';
     }).join('');
 
@@ -1145,36 +1292,34 @@
     }
 
     return '<div class="debug-section">' +
-      '<div class="debug-header">&#x1F6E0; Debug Output — Copy Evaluation</div>' +
-      '<div class="debug-intro">Alle Bottleneck- und Next-Step-Varianten, sortiert nach Match-Score für diesen User. Die aktiv angezeigte Variante ist markiert.</div>' +
+      '<div class="debug-header">&#x1F6E0; Debug Output v2 \u2014 Multi-Bottleneck</div>' +
+      '<div class="debug-intro">Gesamtlevel = Minimum aller Dimensions-Stufen. Bottleneck-Szenario, Outcome-Routing und Offer-Mapping basierend auf schwachen Dimensionen.</div>' +
 
       '<div class="debug-card">' +
         '<div class="debug-card-title">&#x1F4D0; Raw Scores</div>' +
-        '<table class="debug-table"><thead><tr><th class="debug-th">Dimension</th><th class="debug-th">Score (0–6)</th><th class="debug-th">Stufe</th><th class="debug-th">Label</th></tr></thead><tbody>' + scoreRows + '</tbody></table>' +
-        '<div class="debug-dims" style="margin-top:8px">Max Diskrepanz: Stufe ' + (maxStage + 1) + ' (' + escHtml(DIMENSIONS[dimStages.indexOf(maxStage)]) + ') &rarr; Stufe ' + (minStage + 1) + ' (' + escHtml(DIMENSIONS[dimStages.indexOf(minStage)]) + ') = &Delta;' + (maxStage - minStage) + '</div>' +
+        '<table class="debug-table"><thead><tr><th class="debug-th">Dimension</th><th class="debug-th">Score (0\u20136)</th><th class="debug-th">Stufe</th><th class="debug-th">Label</th></tr></thead><tbody>' + scoreRows + '</tbody></table>' +
+        '<div class="debug-dims" style="margin-top:8px">Min: Stufe ' + (minStage + 1) + ' \u2014 Max: Stufe ' + (maxStage + 1) + ' \u2014 &Delta;' + (maxStage - minStage) + '</div>' +
       '</div>' +
 
       '<div class="debug-card">' +
-        '<div class="debug-card-title">&#x26A1; Bottleneck-Reveal Varianten (ranked by match)</div>' +
-        '<div class="debug-intro">Match-Score = Diskrepanz zwischen den beiden referenzierten Dimensionen. Höher = besser passend. Fallbacks werden gezeigt wenn keine Diskrepanz existiert.</div>' +
-        variantRows +
-        '<div class="debug-subheader">Fallback-Texte</div>' +
-        fallbackRows +
+        '<div class="debug-card-title">&#x26A1; Bottleneck-Szenario</div>' +
+        scenarioHtml +
       '</div>' +
 
       '<div class="debug-card">' +
-        '<div class="debug-card-title">&#x1F3AF; Next Steps Copy Variants (ranked by match)</div>' +
-        '<div class="debug-intro">Kombination aus Reifegrad-Routing (welches Offer passt) und Frage-14-Routing (Präferenz). Die aktiv angezeigte Variante ist markiert.</div>' +
-        '<div class="debug-subheader">Nach Reifegrad</div>' +
-        stageRouteRows +
-        '<div class="debug-subheader">Nach Frage 14 (Präferenz)</div>' +
-        prefRouteRows +
+        '<div class="debug-card-title">&#x1F50D; Discrepancy-Texte (20 Paare)</div>' +
+        discRows +
       '</div>' +
 
       '<div class="debug-card">' +
-        '<div class="debug-card-title">&#x1F3F7; Stufen-Beschreibungen (alle 4)</div>' +
-        '<div class="debug-intro">Die Beschreibung der zugewiesenen Stufe wird auf der Ergebnis-Seite angezeigt. Alle vier hier zum Vergleich.</div>' +
-        stageDescRows +
+        '<div class="debug-card-title">&#x1F517; Cluster-Texte (10 Zweier-Kombinationen)</div>' +
+        clusterRows +
+      '</div>' +
+
+      '<div class="debug-card">' +
+        '<div class="debug-card-title">&#x1F3AF; Outcome-Texte (Next Steps)</div>' +
+        '<div class="debug-intro">Outcome-Texte f\u00FCr schwache Dimensionen. Priorit\u00E4t: Prozesse &gt; Tools &gt; Daten &gt; Team &gt; F\u00FChrung</div>' +
+        outcomeRows +
       '</div>' +
 
       '<div class="debug-card">' +

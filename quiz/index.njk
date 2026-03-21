@@ -407,14 +407,6 @@ lang: de
   }
 
   /* ─── Results ─────────────────────────────────────────────── */
-  .results-for {
-    font-family: var(--font-body);
-    font-size: 15px;
-    color: var(--color-subtle);
-    margin-bottom: 32px;
-  }
-  .results-for strong { color: var(--color-text); }
-
   .gauge-bars {
     display: flex;
     justify-content: center;
@@ -453,20 +445,6 @@ lang: de
     max-width: 520px;
     margin: 0 auto;
   }
-  .comparison-box {
-    margin-top: 20px;
-    padding: 14px 18px;
-    background: var(--color-cream);
-    border-radius: 8px;
-    border: 1px solid rgba(0,0,0,0.06);
-    text-align: center;
-    font-family: var(--font-body);
-    font-size: 14px;
-    color: var(--color-subtle);
-    line-height: 1.5;
-  }
-  .comparison-box strong { color: var(--color-text); }
-
   .card-title {
     font-family: var(--font-headline);
     font-size: 22px;
@@ -488,6 +466,13 @@ lang: de
     margin: 0 auto;
   }
   .radar-chart { width: 100%; height: auto; }
+  @keyframes radar-pulse {
+    0%, 100% { r: 8; opacity: 0.3; }
+    50% { r: 14; opacity: 0.08; }
+  }
+  .radar-dot-pulse {
+    animation: radar-pulse 2s ease-in-out infinite;
+  }
   .radar-label {
     font-family: var(--font-ui);
     font-size: 12px;
@@ -536,6 +521,13 @@ lang: de
     color: #D4943A;
     margin-bottom: 12px;
   }
+  .bottleneck-leadin {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    margin: 0 0 8px 0;
+    letter-spacing: 0.02em;
+  }
   .bottleneck-title {
     font-family: var(--font-headline);
     font-size: 26px;
@@ -551,47 +543,143 @@ lang: de
     color: rgba(255,255,255,0.8);
     margin: 0;
   }
-
-  /* ─── Offer Box ───────────────────────────────────────────── */
-  .offer-box {
-    margin-top: 20px;
-    padding: 28px 24px;
-    background: var(--color-cream);
-    border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.06);
-  }
-  .offer-header {
-    font-family: var(--font-ui);
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-terracotta);
-    margin-bottom: 16px;
-  }
-  .offer-row {
-    display: flex;
-    gap: 14px;
-    padding: 14px 0;
-  }
-  .offer-row.offer-dim { opacity: 0.45; }
-  .offer-icon { font-size: 24px; flex-shrink: 0; }
-  .offer-name {
-    font-family: var(--font-ui);
-    font-weight: 600;
-    font-size: 15px;
-    color: var(--color-text);
-  }
-  .offer-stage {
-    font-weight: 400;
-    color: var(--color-subtle);
-    font-size: 13px;
-  }
-  .offer-desc {
+  .bottleneck-dim-detail {
     font-family: var(--font-body);
     font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.6);
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .bottleneck-dim-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0 0;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding-top: 12px;
+  }
+  .bottleneck-dim-list li {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 8px;
+    padding-left: 12px;
+    position: relative;
+  }
+  .bottleneck-dim-list li::before {
+    content: '\2022';
+    position: absolute;
+    left: 0;
+    color: var(--color-terracotta);
+  }
+  .bottleneck-dim-list li strong {
+    color: rgba(255,255,255,0.9);
+  }
+  .bottleneck-closing {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.6);
+    margin: 12px 0 0 0;
+    font-style: italic;
+  }
+
+  /* ─── Level Summary (v2) ─────────────────────────────────── */
+  .level-summary {
+    text-align: left;
+    padding: 0 4px;
+  }
+  .level-summary p {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--color-text);
+    margin: 0 0 12px 0;
+  }
+  .level-summary-strong { color: var(--color-text); }
+  .level-summary-weak { color: var(--color-text); }
+  .level-summary-note {
+    font-style: italic;
+    color: var(--color-subtle) !important;
+    font-size: 14px !important;
+  }
+
+  /* ─── Results Intro (v2) ──────────────────────────────────── */
+  .results-intro {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.6;
     color: var(--color-subtle);
-    margin-top: 2px;
+    text-align: center;
+    margin: 0 auto 4px auto;
+    max-width: 480px;
+  }
+
+  /* ─── Next Steps (v2) ────────────────────────────────────── */
+  .next-step-leadin {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-subtle);
+    margin: 0 0 16px 0;
+  }
+  .next-step-text {
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--color-text);
+    margin: 0 0 24px 0;
+  }
+  .next-step-intro {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-subtle);
+    margin: 0 0 12px 0;
+  }
+  .next-step-list {
+    padding-left: 20px;
+    margin: 0 0 24px 0;
+  }
+  .next-step-list li {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--color-text);
+    margin-bottom: 10px;
+  }
+  .next-step-dream {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--color-text);
+    font-weight: 500;
+    margin: 0 0 4px 0;
+    padding: 12px 16px;
+    background: var(--color-cream);
+    border-radius: 8px;
+    border-left: 3px solid var(--color-terracotta);
+  }
+  .next-step-cta-wrap {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  .next-step-cta-headline {
+    font-family: var(--font-headline);
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    text-align: center;
+    color: var(--color-text);
+  }
+  .next-step-cta-text {
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--color-subtle);
+    margin: 0 0 16px 0;
+    text-align: center;
   }
 
   /* ─── Debug Section ───────────────────────────────────────── */
