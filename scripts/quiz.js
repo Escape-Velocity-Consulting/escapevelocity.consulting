@@ -7,6 +7,19 @@
 
   var DEBUG = new URLSearchParams(window.location.search).get('debug') === 'true';
 
+  // Shared results via URL: /quiz/?r=53211 (5 digits, one per dimension score 0–6)
+  var SHARED_SCORES = (function () {
+    var r = new URLSearchParams(window.location.search).get('r');
+    if (!r || r.length !== 5) return null;
+    var scores = [];
+    for (var i = 0; i < 5; i++) {
+      var v = parseInt(r[i], 10);
+      if (isNaN(v) || v < 0 || v > 6) return null;
+      scores.push(v);
+    }
+    return scores;
+  })();
+
   // ─── DATA ───────────────────────────────────────────────────────
   var DIMENSIONS = [
     'Prozesse & Workflows',
@@ -1038,8 +1051,8 @@
   }
 
   // ─── RESULTS ────────────────────────────────────────────────────
-  function renderResults() {
-    var dimScores = scoreDimensions(state.scoredAnswers);
+  function renderResults(sharedDimScores) {
+    var dimScores = sharedDimScores || scoreDimensions(state.scoredAnswers);
     var overallStage = getOverallStage(dimScores);
     var dimStages = dimScores.map(dimToStage);
     var stageData = STAGES[overallStage];
@@ -1193,6 +1206,12 @@
           summaryHtml +
         '</div>' +
 
+        // Shared view: first "selbst machen" CTA after summary
+        (SHARED_SCORES ? '<div class="quiz-card shared-cta-card" style="margin-top:20px;text-align:center">' +
+          '<p class="shared-cta-text">Wie digital ist Ihr Unternehmen?</p>' +
+          '<a href="/quiz/" class="btn-primary btn-large" style="display:inline-flex;text-align:center;text-decoration:none">Jetzt selbst den Digital-Check machen</a>' +
+        '</div>' : '') +
+
         // Radar chart card
         '<div class="quiz-card" style="margin-top:20px">' +
           '<h3 class="card-title" style="text-align:center">Ihr Dimensions-Profil</h3>' +
@@ -1218,19 +1237,43 @@
           '<div class="next-step-cta-wrap">' +
             '<h4 class="next-step-cta-headline">Lassen Sie uns gemeinsam draufschauen</h4>' +
             '<p class="next-step-cta-text">In einem kostenlosen 30-Minuten-Gespr\u00E4ch schauen wir gemeinsam auf Ihr Ergebnis, identifizieren den gr\u00F6\u00DFten Hebel und skizzieren die ersten konkreten Schritte \u2014 unverbindlich und auf den Punkt.</p>' +
-            '<a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="btn-primary btn-large" style="display:block;text-align:center;text-decoration:none">Kostenloses Erstgespr\u00E4ch buchen</a>' +
+            '<a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="' + (SHARED_SCORES ? 'btn-outline' : 'btn-primary') + ' btn-large" style="display:block;text-align:center;text-decoration:none">Kostenloses Erstgespr\u00E4ch buchen</a>' +
             '<div class="quiz-hint" style="text-align:center;margin-top:8px">30 Minuten, unverbindlich \u2014 Ihre Fragen, konkrete Antworten.</div>' +
           '</div>' +
+          // Shared view: second "selbst machen" CTA after next steps
+          (SHARED_SCORES ? '<div style="text-align:center;margin-top:20px">' +
+            '<a href="/quiz/" class="btn-primary btn-large" style="display:inline-flex;text-align:center;text-decoration:none">Jetzt selbst den Digital-Check machen</a>' +
+          '</div>' : '') +
         '</div>' +
 
         // Debug section
         (DEBUG ? renderDebug(dimScores, dimStages, overallStage, bn) : '') +
 
         // Restart link
-        '<div style="text-align:center;margin:40px 0 20px"><button class="results-restart" style="background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:14px;color:var(--color-subtle);text-decoration:underline">Nochmal machen</button></div>' +
+        // Footer: share link + restart
+        '<div style="text-align:center;margin:40px 0 20px">' +
+          (!SHARED_SCORES ? '<button class="results-share" style="background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:14px;color:var(--color-subtle);text-decoration:underline;margin-right:16px">Link teilen</button>' : '') +
+          '<button class="results-restart" style="background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:14px;color:var(--color-subtle);text-decoration:underline">' + (SHARED_SCORES ? 'Selbst den Check machen' : 'Nochmal machen') + '</button>' +
+        '</div>' +
       '</div>';
 
+    // Share link button
+    var shareBtn = el.querySelector('.results-share');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', function () {
+        var shareUrl = window.location.origin + window.location.pathname + '?r=' + dimScores.join('');
+        navigator.clipboard.writeText(shareUrl).then(function () {
+          shareBtn.textContent = 'Link kopiert!';
+          setTimeout(function () { shareBtn.textContent = 'Link teilen'; }, 2000);
+        });
+      });
+    }
+
     el.querySelector('.results-restart').addEventListener('click', function () {
+      if (SHARED_SCORES) {
+        window.location.href = '/quiz/';
+        return;
+      }
       clearState();
       state.phase = 'landing';
       state.currentQ = 0;
@@ -1398,6 +1441,14 @@
   }
 
   // ─── INIT ───────────────────────────────────────────────────────
+  if (SHARED_SCORES) {
+    state.phase = 'results';
+    state.name = '';
+    show('results');
+    renderResults(SHARED_SCORES);
+    return;
+  }
+
   var saved = loadState();
   if (saved && saved.phase === 'results') {
     // Completed quiz — restore results directly, no banner
