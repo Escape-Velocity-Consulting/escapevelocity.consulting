@@ -4,7 +4,15 @@ title: "Digital-Check — Escape Velocity"
 lang: de
 ---
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+
 <style>
+  :root {
+    --font-display: 'DM Serif Display', serif;
+    --font-landing: 'DM Sans', sans-serif;
+  }
+
   /* ─── Quiz Layout ─────────────────────────────────────────── */
   #quiz-app {
     min-height: 100vh;
@@ -14,9 +22,10 @@ lang: de
     transition: opacity 0.3s, transform 0.3s;
     padding-top: 72px;
   }
+  html { overflow-y: scroll; }
   #quiz-app.fade-out {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(-12px);
   }
   #quiz-app.fade-in {
     opacity: 1;
@@ -32,51 +41,52 @@ lang: de
     margin: 0 auto;
     padding: 48px 24px;
   }
+  .quiz-container--wide { max-width: 960px; padding-top: 100px; padding-bottom: 100px; }
 
   /* ─── Eyebrow ─────────────────────────────────────────────── */
   .quiz-eyebrow {
-    font-family: var(--font-ui);
+    font-family: var(--font-landing);
     font-weight: 600;
-    font-size: 11px;
-    letter-spacing: 0.12em;
+    font-size: 12px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--color-terracotta);
-    margin-bottom: 24px;
+    margin-bottom: 28px;
     text-align: center;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    gap: 14px;
   }
   .quiz-eyebrow::before, .quiz-eyebrow::after {
     content: '';
-    flex: 1;
-    height: 0.5px;
+    width: 40px;
+    height: 1px;
     background: var(--color-terracotta);
-    opacity: 0.35;
+    opacity: 0.4;
   }
 
   /* ─── Hero ────────────────────────────────────────────────── */
   .quiz-hero-title {
-    font-family: var(--font-headline);
-    font-size: clamp(32px, 5vw, 52px);
-    font-weight: 700;
-    line-height: 1.12;
-    letter-spacing: -0.025em;
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 400;
+    line-height: 1.15;
     color: var(--color-text);
-    margin: 0 0 20px 0;
+    margin: 0 0 24px 0;
     text-align: center;
   }
   .quiz-hero-title em {
-    font-style: normal;
+    font-style: italic;
     color: var(--color-terracotta);
   }
   .quiz-hero-sub {
-    font-family: var(--font-body);
-    font-size: 16px;
+    font-family: var(--font-landing);
+    font-size: 17px;
     color: var(--color-subtle);
-    line-height: 1.6;
-    max-width: 540px;
-    margin: 0 auto 40px;
+    line-height: 1.65;
+    max-width: 500px;
+    margin: 0 auto 36px;
     text-align: center;
   }
 
@@ -84,60 +94,87 @@ lang: de
   .landing-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-bottom: 32px;
+    gap: 24px;
+    margin-bottom: 56px;
   }
   .landing-card {
     background: #fff;
-    border: 0.5px solid rgba(0,0,0,0.08);
-    border-radius: 12px;
-    padding: 20px;
+    border: 1px solid rgba(212,120,74,0.18);
+    border-radius: 16px;
+    padding: 36px 28px 32px;
     position: relative;
     text-align: left;
+    transition: all 0.3s ease;
+  }
+  .landing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
   }
   .landing-card.featured {
-    border: 1.5px solid var(--color-terracotta);
-    background: #FDF8F5;
+    border-color: var(--color-terracotta);
+    box-shadow: 0 0 0 1px var(--color-terracotta);
   }
   .landing-card-num {
-    font-family: var(--font-ui);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(0,0,0,0.25);
-    font-weight: 500;
+    font-family: var(--font-display);
+    font-size: 42px;
+    color: var(--color-terracotta);
+    opacity: 0.85;
+    font-weight: 400;
+    line-height: 1;
     margin-bottom: 12px;
+  }
+  .landing-section-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.5vw, 38px);
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.25;
+    margin-bottom: 56px;
+    color: var(--color-text);
+  }
+  .landing-icon-wrap {
+    width: 48px;
+    height: 48px;
+    background: rgba(212,120,74,0.15);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
   }
   .landing-icon {
-    width: 32px;
-    height: 32px;
-    margin-bottom: 12px;
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-terracotta);
+    stroke-width: 2;
+    fill: none;
   }
   .landing-card-title {
-    font-family: var(--font-ui);
-    font-weight: 500;
-    font-size: 14px;
+    font-family: var(--font-landing);
+    font-weight: 700;
+    font-size: 18px;
     color: var(--color-text);
-    margin-bottom: 4px;
+    margin-bottom: 10px;
   }
   .landing-card-body {
-    font-family: var(--font-body);
-    font-size: 13px;
+    font-family: var(--font-landing);
+    font-size: 14.5px;
     color: var(--color-subtle);
-    line-height: 1.5;
+    line-height: 1.6;
   }
   .landing-badge {
     position: absolute;
-    top: -1px;
-    right: 12px;
+    top: -11px;
+    right: 20px;
     background: var(--color-terracotta);
     color: #fff;
-    font-family: var(--font-ui);
-    font-size: 10px;
-    font-weight: 500;
-    padding: 3px 9px;
-    border-radius: 0 0 6px 6px;
-    letter-spacing: 0.04em;
+    font-family: var(--font-landing);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 6px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
   }
   .landing-divider {
     border: none;
@@ -145,22 +182,24 @@ lang: de
     margin-bottom: 32px;
   }
   .landing-trust {
-    font-family: var(--font-body);
-    font-size: 12px;
+    font-family: var(--font-landing);
+    font-size: 13px;
     color: var(--color-subtle);
+    letter-spacing: 0.3px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 6px;
-    margin-top: 12px;
+    margin-top: 16px;
   }
   .landing-trust::before {
     content: '';
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    background: #7BB87B;
+    background: var(--color-terracotta);
     display: inline-block;
+    margin-right: 8px;
   }
   .btn-primary .btn-arrow {
     opacity: 0.7;
@@ -238,7 +277,23 @@ lang: de
   }
   .btn-primary:hover { background: var(--color-terracotta-hover); }
   .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-  .btn-primary.btn-large { max-width: 360px; font-size: 18px; padding: 16px 32px; margin: 0 auto; display: block; }
+  .btn-primary.btn-large {
+    font-family: var(--font-landing);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 16px 44px;
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 50px;
+    width: auto;
+    transition: all 0.3s ease;
+  }
+  .btn-primary.btn-large:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 30px rgba(212,120,74,0.3);
+  }
 
   .btn-back {
     font-family: var(--font-body);
@@ -683,126 +738,274 @@ lang: de
   }
   .debug-variant.active .debug-variant-text { color: rgba(255,255,255,0.85); }
 
-  /* ─── Stages Progression ──────────────────────────────────── */
+  /* ─── Levels Roadmap ─────────────────────────────────────── */
   .landing-stages {
-    max-width: 720px;
+    max-width: 960px;
     margin: 0 auto;
-    padding: 48px 24px 56px;
+    padding: 100px 24px;
     text-align: center;
   }
   .landing-stages h2 {
-    font-family: var(--font-headline);
-    font-size: clamp(22px, 3.5vw, 30px);
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.5vw, 38px);
+    font-weight: 400;
     color: var(--color-text);
-    margin: 0 0 28px 0;
+    margin: 0 0 56px 0;
   }
-  .stages-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 32px;
-  }
-  .stage-card {
-    background: #fff;
-    border-radius: 10px;
-    border-top: 3px solid;
-    border-left: 0.5px solid rgba(0,0,0,0.06);
-    border-right: 0.5px solid rgba(0,0,0,0.06);
-    border-bottom: 0.5px solid rgba(0,0,0,0.06);
-    padding: 20px;
-    text-align: left;
-  }
-  .stage-card-num {
-    font-family: var(--font-ui);
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(0,0,0,0.25);
-    font-weight: 500;
-    margin-bottom: 8px;
-  }
-  .stage-card-label {
-    font-family: var(--font-ui);
-    font-weight: 600;
-    font-size: 15px;
-    color: var(--color-text);
-    margin-bottom: 4px;
-  }
-  .stage-card-tagline {
-    font-family: var(--font-body);
-    font-size: 13px;
-    color: var(--color-subtle);
-    font-style: italic;
-    line-height: 1.45;
-  }
-  .stage-card {
+  .levels-roadmap {
+    display: flex;
+    align-items: stretch;
     position: relative;
   }
-  .stage-card:not(:last-child)::after {
-    content: '\2192';
+  .levels-roadmap::before {
+    content: '';
     position: absolute;
-    right: -12px;
-    top: 50%;
-    transform: translate(50%, -50%);
-    font-size: 16px;
-    color: rgba(0,0,0,0.2);
+    top: 24px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right,
+      rgba(212,120,74,0.15) 0%,
+      rgba(212,120,74,0.5) 50%,
+      var(--color-terracotta) 100%
+    );
+    z-index: 0;
+  }
+  .level-item {
+    flex: 1;
+    text-align: center;
+    padding: 0 12px;
+    position: relative;
+  }
+  .level-dot {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 3px solid var(--color-terracotta);
+    background: var(--color-cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-family: var(--font-landing);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--color-terracotta);
+    position: relative;
     z-index: 1;
+    transition: all 0.3s ease;
+  }
+  .level-item:hover .level-dot {
+    background: var(--color-terracotta);
+    color: #fff;
+    transform: scale(1.1);
+  }
+  .level-label {
+    font-family: var(--font-landing);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--color-terracotta);
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+  .level-name {
+    font-family: var(--font-landing);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 8px;
+  }
+  .level-quote {
+    font-family: var(--font-landing);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--color-subtle);
+    line-height: 1.55;
   }
 
   /* ─── Results Preview (Dark) ────────────────────────────────── */
   .landing-preview {
     background: var(--color-black);
     color: #fff;
-    padding: 64px 24px;
+    padding: 100px 24px;
+  }
+  .dark-header {
     text-align: center;
+    margin-bottom: 60px;
   }
   .landing-preview h2 {
-    font-family: var(--font-headline);
-    font-size: clamp(22px, 3.5vw, 30px);
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.5vw, 38px);
+    font-weight: 400;
     color: #fff;
-    margin: 0 0 12px 0;
+    line-height: 1.25;
+    margin: 0 0 16px 0;
   }
   .landing-preview-sub {
-    color: rgba(255,255,255,0.7);
-    font-family: var(--font-body);
+    color: rgba(255,255,255,0.65);
+    font-family: var(--font-landing);
     font-size: 16px;
     line-height: 1.6;
-    max-width: 540px;
-    margin: 0 auto 32px;
+    max-width: 520px;
+    margin: 0 auto 0;
   }
-  .radar-preview {
-    max-width: 360px;
-    margin: 0 auto 32px;
+  .radar-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 960px;
+    margin: 0 auto 56px;
   }
-  .radar-preview .radar-chart { width: 100%; height: auto; }
-  .radar-preview .radar-label {
-    font-family: var(--font-ui);
-    font-size: 12px;
-    fill: rgba(255,255,255,0.6);
-  }
-  .preview-features {
+  .radar-chart-wrap {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    text-align: left;
-    max-width: 380px;
-    margin: 0 auto 32px;
-    color: rgba(255,255,255,0.8);
-    font-family: var(--font-body);
+    justify-content: center;
+  }
+  .radar-chart-wrap .radar-chart { width: 100%; height: auto; max-width: 380px; }
+  .radar-chart-wrap .radar-label {
+    font-family: var(--font-landing);
+    font-size: 13px;
+    font-weight: 600;
+    fill: rgba(255,255,255,0.85);
+  }
+  .benefit-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 28px;
+  }
+  .benefit-item:last-child { margin-bottom: 0; }
+  .benefit-check {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(212,120,74,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+  .benefit-check svg {
+    width: 14px;
+    height: 14px;
+    stroke: var(--color-terracotta);
+    stroke-width: 2.5;
+    fill: none;
+  }
+  .benefit-text h4 {
+    font-family: var(--font-landing);
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 4px 0;
+  }
+  .benefit-text p {
+    font-family: var(--font-landing);
     font-size: 14px;
-    line-height: 1.5;
+    color: rgba(255,255,255,0.65);
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  /* ─── Contact Modal ─────────────────────────────────────── */
+  .quiz-modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(30, 28, 26, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .quiz-modal-backdrop.active {
+    display: flex;
+    animation: modal-fade-in 0.25s ease;
+  }
+  .quiz-modal {
+    background: #fff;
+    border-radius: 16px;
+    max-width: 480px;
+    width: 100%;
+    padding: 48px 40px 40px;
+    position: relative;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.15);
+    animation: modal-slide-up 0.3s ease;
+  }
+  .quiz-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--color-subtle);
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+  }
+  .quiz-modal-close:hover { background: rgba(0,0,0,0.06); }
+  .quiz-modal h2 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--color-text);
+    margin: 0 0 12px 0;
+  }
+  .quiz-modal .quiz-subtitle {
+    font-family: var(--font-landing);
+    font-size: 15px;
+    color: var(--color-subtle);
+    line-height: 1.6;
+    margin: 0 0 28px 0;
+  }
+  @keyframes modal-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes modal-slide-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   /* ─── Responsive ──────────────────────────────────────────── */
   @media (max-width: 768px) {
     .quiz-container { padding: 32px 16px; }
     .quiz-card { padding: 28px 20px; }
-    .landing-cards { grid-template-columns: 1fr; }
+    .landing-cards { grid-template-columns: 1fr; gap: 20px; }
     .stage-label { font-size: 32px; }
-    .stages-grid { grid-template-columns: repeat(2, 1fr); }
-    .stage-card:not(:last-child)::after { display: none; }
+    .levels-roadmap {
+      flex-direction: column;
+      gap: 32px;
+    }
+    .levels-roadmap::before {
+      width: 3px;
+      height: 100%;
+      top: 0;
+      left: 24px;
+      right: auto;
+    }
+    .level-item {
+      text-align: left;
+      padding-left: 60px;
+    }
+    .level-dot {
+      position: absolute;
+      left: 0;
+      margin: 0;
+    }
+    .radar-layout { grid-template-columns: 1fr; gap: 40px; }
   }
   @media (max-width: 480px) {
     .quiz-container { padding: 24px 12px; }
@@ -810,10 +1013,11 @@ lang: de
     .dim-grid { grid-template-columns: 1fr; }
     .dim-card.dim-full { grid-column: auto; }
     .stage-label { font-size: 28px; }
-    .btn-primary.btn-large { max-width: 100%; }
-    .stages-grid { grid-template-columns: 1fr; }
-    .landing-stages { padding: 32px 16px 40px; }
-    .landing-preview { padding: 48px 16px; }
+    .btn-primary.btn-large { width: auto; }
+    .landing-stages { padding: 60px 16px; }
+    .landing-preview { padding: 60px 16px; }
+    .quiz-modal-backdrop { align-items: flex-end; padding: 0; }
+    .quiz-modal { border-radius: 16px 16px 0 0; padding: 36px 24px 32px; max-width: 100%; }
   }
 
   /* ─── Screen-reader only ────────────────────────────────────── */
@@ -912,6 +1116,7 @@ lang: de
   <section class="phase" data-phase="freetext" aria-label="Freitext"></section>
   <section class="phase" data-phase="results" aria-label="Ergebnis"></section>
   <div id="quiz-toast" class="quiz-toast" role="alert" aria-live="polite" style="display:none"></div>
+  <div id="quiz-modal-backdrop" class="quiz-modal-backdrop" role="dialog" aria-modal="true" aria-label="Kontaktdaten"></div>
 </main>
 
 {% include "footer.njk" %}

@@ -507,7 +507,7 @@
 
     // ── Section 1: Hero ──
     var hero =
-      '<div class="quiz-container" style="text-align:center">' +
+      '<div class="quiz-container" style="text-align:center;padding-top:80px;padding-bottom:100px">' +
         '<div class="quiz-eyebrow">Escape Velocity &middot; Digital-Check</div>' +
         '<h1 class="quiz-hero-title">Wo bremst sich Ihr<br>Unternehmen <em>selbst</em> aus?</h1>' +
         '<p class="quiz-hero-sub">15 Fragen. 5 Minuten. Danach wissen Sie, was Ihr Wachstum blockiert \u2014 und was der n\u00E4chste Schritt ist.</p>' +
@@ -520,16 +520,14 @@
 
     // ── Section 2: Value-Prop Cards ──
     var cards =
-      '<div class="quiz-container" style="text-align:center">' +
+      '<div class="quiz-container quiz-container--wide">' +
+        '<h2 class="landing-section-title">So funktioniert der Digital-Check</h2>' +
         '<div class="landing-cards">' +
           '<div class="landing-card">' +
             '<div class="landing-card-num">01</div>' +
-            '<svg class="landing-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-              '<rect x="4" y="18" width="5" height="10" rx="1.5" fill="var(--color-terracotta)" opacity="0.3"/>' +
-              '<rect x="12" y="12" width="5" height="16" rx="1.5" fill="var(--color-terracotta)" opacity="0.6"/>' +
-              '<rect x="20" y="6" width="5" height="22" rx="1.5" fill="var(--color-terracotta)"/>' +
-              '<path d="M6 14l7-6 7 4 6-8" stroke="var(--color-terracotta)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>' +
-            '</svg>' +
+            '<div class="landing-icon-wrap">' +
+              '<svg class="landing-icon" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 5-9"/></svg>' +
+            '</div>' +
             '<div class="landing-card-title">Ihr Level sehen</div>' +
             '<div class="landing-card-body">Wo steht Ihr Unternehmen wirklich \u2014 Level 1 oder Level 4? Kein Bauchgef\u00FChl, sondern ein klares Bild \u00FCber 5 Dimensionen.</div>' +
           '</div>' +
@@ -537,49 +535,48 @@
           '<div class="landing-card featured">' +
             '<div class="landing-badge">Kernanalyse</div>' +
             '<div class="landing-card-num">02</div>' +
-            '<svg class="landing-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-              '<circle cx="14" cy="14" r="8" stroke="var(--color-terracotta)" stroke-width="1.5"/>' +
-              '<path d="M20 20L27 27" stroke="var(--color-terracotta)" stroke-width="1.5" stroke-linecap="round"/>' +
-              '<path d="M11 14h6M14 11v6" stroke="var(--color-terracotta)" stroke-width="1.3" stroke-linecap="round"/>' +
-            '</svg>' +
+            '<div class="landing-icon-wrap">' +
+              '<svg class="landing-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>' +
+            '</div>' +
             '<div class="landing-card-title">Den Engpass finden</div>' +
             '<div class="landing-card-body">Eine Dimension bremst alle anderen. Wir zeigen Ihnen, welche \u2014 und warum genau dort Zeit und Geld verloren gehen.</div>' +
           '</div>' +
 
           '<div class="landing-card">' +
             '<div class="landing-card-num">03</div>' +
-            '<svg class="landing-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-              '<circle cx="16" cy="16" r="10" stroke="var(--color-terracotta)" stroke-width="1.5"/>' +
-              '<circle cx="16" cy="16" r="3" fill="var(--color-terracotta)"/>' +
-              '<path d="M16 6V9M16 23v3M6 16H9M23 16h3" stroke="var(--color-terracotta)" stroke-width="1.3" stroke-linecap="round"/>' +
-            '</svg>' +
+            '<div class="landing-icon-wrap">' +
+              '<svg class="landing-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>' +
+            '</div>' +
             '<div class="landing-card-title">Ihren n\u00E4chsten Schritt erfahren</div>' +
             '<div class="landing-card-body">Keine generische To-do-Liste. Sie erhalten eine konkrete Empfehlung, die zu Ihrem Level und Ihrem Engpass passt.</div>' +
           '</div>' +
         '</div>' +
       '</div>';
 
-    // ── Section 3: Stages Progression ──
-    var stagesCards = '';
+    // ── Section 3: Levels Roadmap ──
+    var levelItems = '';
     for (var i = 0; i < STAGES.length; i++) {
-      stagesCards +=
-        '<div class="stage-card" style="border-top-color:' + STAGES[i].color + '">' +
-          '<div class="stage-card-num">Level ' + (i + 1) + '</div>' +
-          '<div class="stage-card-label">' + STAGES[i].label + '</div>' +
-          '<div class="stage-card-tagline">\u201E' + STAGES[i].tagline + '\u201C</div>' +
+      levelItems +=
+        '<div class="level-item">' +
+          '<div class="level-dot">' + (i + 1) + '</div>' +
+          '<div class="level-label">Level ' + (i + 1) + '</div>' +
+          '<div class="level-name">' + STAGES[i].label + '</div>' +
+          '<div class="level-quote">\u201E' + STAGES[i].tagline + '\u201C</div>' +
         '</div>';
     }
 
     var stages =
       '<div class="landing-stages">' +
         '<h2>4 Level. Eines davon ist Ihres.</h2>' +
-        '<div class="stages-grid">' + stagesCards + '</div>' +
-        '<button class="btn-primary btn-large landing-cta">Mein Level herausfinden <span class="btn-arrow">&rarr;</span></button>' +
+        '<div class="levels-roadmap">' + levelItems + '</div>' +
+        '<div style="text-align:center;margin-top:48px">' +
+          '<button class="btn-primary btn-large landing-cta">Mein Level herausfinden <span class="btn-arrow">&rarr;</span></button>' +
+        '</div>' +
       '</div>';
 
     // ── Section 3: Results Preview (Dark) ──
     // Static radar chart with sample data for dark background
-    var sampleScores = [4, 2, 5, 3, 4];
+    var sampleScores = [3, 2, 1, 4, 4];
     var rcx = 200, rcy = 160, rmaxR = 120;
     var rn = 5, rmaxVal = 6;
     var rLabels = ['Prozesse', 'Tools', 'Daten', 'Team', 'F\u00FChrung'];
@@ -606,32 +603,58 @@
     // Data polygon
     var dataPts = [];
     for (var j = 0; j < rn; j++) dataPts.push(rPt(j, sampleScores[j]).join(','));
-    radarSvg += '<polygon points="' + dataPts.join(' ') + '" fill="var(--color-terracotta)" fill-opacity="0.25" stroke="var(--color-terracotta)" stroke-width="2"/>';
+    radarSvg += '<polygon points="' + dataPts.join(' ') + '" fill="var(--color-terracotta)" fill-opacity="0.2" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linejoin="round"/>';
     // Data dots
     for (var j = 0; j < rn; j++) {
       var dp = rPt(j, sampleScores[j]);
-      radarSvg += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" r="5" fill="var(--color-terracotta)" stroke="rgba(255,255,255,0.9)" stroke-width="2"/>';
+      radarSvg += '<circle cx="' + dp[0] + '" cy="' + dp[1] + '" r="6" fill="var(--color-terracotta)"/>';
     }
     // Labels
     var rLabelOffsets = [[0, -14], [14, 0], [10, 14], [-10, 14], [-14, 0]];
     var rAnchors = ['middle', 'start', 'start', 'end', 'end'];
     for (var j = 0; j < rn; j++) {
       var lp = rPt(j, rmaxVal);
-      radarSvg += '<text x="' + (lp[0] + rLabelOffsets[j][0]) + '" y="' + (lp[1] + rLabelOffsets[j][1]) + '" text-anchor="' + rAnchors[j] + '" class="radar-label">' + rLabels[j] + '</text>';
+      radarSvg += '<text x="' + (lp[0] + rLabelOffsets[j][0]) + '" y="' + (lp[1] + rLabelOffsets[j][1]) + '" text-anchor="' + rAnchors[j] + '" class="radar-label" font-weight="600">' + rLabels[j] + '</text>';
     }
     radarSvg += '</svg>';
 
+    var checkSvg = '<svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>';
+
     var preview =
       '<div class="landing-preview">' +
-        '<h2>In 5 Minuten wissen Sie mehr als nach dem letzten Strategie-Meeting</h2>' +
-        '<p class="landing-preview-sub">Der Digital-Check liefert keine Theorie \u2014 sondern ein konkretes Profil Ihres Unternehmens. Das hier erwartet Sie:</p>' +
-        '<div class="radar-preview">' + radarSvg + '</div>' +
-        '<div class="preview-features">' +
-          '<div>\u2713 Ihr Digitalisierungs-Level auf einen Blick \u2014 \u00FCber 5 Dimensionen ausgewertet</div>' +
-          '<div>\u2713 Der Engpass, der alles andere ausbremst \u2014 konkret benannt, nicht geraten</div>' +
-          '<div>\u2713 Ein n\u00E4chster Schritt, der zu Ihrer Situation passt \u2014 nicht von der Stange</div>' +
+        '<div class="dark-header">' +
+          '<h2>In 5 Minuten wissen Sie mehr als nach dem letzten Strategie-Meeting</h2>' +
+          '<p class="landing-preview-sub">Der Digital-Check liefert keine Theorie \u2014 sondern ein konkretes Profil Ihres Unternehmens. Das hier erwartet Sie:</p>' +
         '</div>' +
-        '<button class="btn-primary btn-large landing-cta">Jetzt Digital-Check starten <span class="btn-arrow">&rarr;</span></button>' +
+        '<div class="radar-layout">' +
+          '<div class="radar-chart-wrap">' + radarSvg + '</div>' +
+          '<div class="radar-benefits">' +
+            '<div class="benefit-item">' +
+              '<div class="benefit-check">' + checkSvg + '</div>' +
+              '<div class="benefit-text">' +
+                '<h4>Digitalisierungs-Level auf einen Blick</h4>' +
+                '<p>\u00DCber 5 Dimensionen ausgewertet \u2014 Prozesse, Tools, Daten, Team und F\u00FChrung.</p>' +
+              '</div>' +
+            '</div>' +
+            '<div class="benefit-item">' +
+              '<div class="benefit-check">' + checkSvg + '</div>' +
+              '<div class="benefit-text">' +
+                '<h4>Der Engpass, konkret benannt</h4>' +
+                '<p>Nicht geraten \u2014 sondern aus Ihren Antworten abgeleitet.</p>' +
+              '</div>' +
+            '</div>' +
+            '<div class="benefit-item">' +
+              '<div class="benefit-check">' + checkSvg + '</div>' +
+              '<div class="benefit-text">' +
+                '<h4>Ein n\u00E4chster Schritt, der passt</h4>' +
+                '<p>Zu Ihrer Situation \u2014 nicht von der Stange.</p>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="text-align:center">' +
+          '<button class="btn-primary btn-large landing-cta">Jetzt Digital-Check starten <span class="btn-arrow">&rarr;</span></button>' +
+        '</div>' +
       '</div>';
 
     el.innerHTML = hero + cards + stages + preview;
@@ -640,36 +663,38 @@
     var ctas = el.querySelectorAll('.landing-cta');
     for (var i = 0; i < ctas.length; i++) {
       ctas[i].addEventListener('click', function () {
-        transition(function () { state.phase = 'contact'; });
+        openContactModal();
       });
     }
   }
 
-  // ─── CONTACT ────────────────────────────────────────────────────
-  function renderContact() {
-    var el = $('[data-phase="contact"]');
-    el.innerHTML =
-      '<div class="quiz-container">' +
-        '<div class="quiz-card">' +
-          '<div class="quiz-eyebrow">Bevor es losgeht</div>' +
-          '<h2 class="quiz-title">Wohin dürfen wir Ihre Auswertung senden?</h2>' +
-          '<p class="quiz-subtitle">Sie erhalten Ihr persönliches Digitalisierungs-Profil direkt im Anschluss — und per E-Mail zum Nachschlagen.</p>' +
-          '<div class="form-fields">' +
-            '<label for="input-name" class="sr-only">Ihr Name</label>' +
-            '<input type="text" class="quiz-input" id="input-name" placeholder="Ihr Name" value="' + escHtml(state.name) + '">' +
-            '<label for="input-email" class="sr-only">Ihre E-Mail-Adresse</label>' +
-            '<input type="email" class="quiz-input" id="input-email" placeholder="Ihre E-Mail-Adresse" value="' + escHtml(state.email) + '">' +
-            '<label class="consent-label"><input type="checkbox" id="input-consent"' + (state.consent ? ' checked' : '') + '> Ich stimme zu, dass meine Daten zur Auswertung des Digital-Checks und zur Kontaktaufnahme verarbeitet werden. <a href="/datenschutz/" target="_blank">Datenschutz</a></label>' +
-            '<button class="btn-primary" id="contact-submit" disabled>Quiz starten &rarr;</button>' +
-          '</div>' +
-          '<div class="quiz-hint" style="text-align:center">Kein Spam. Wir respektieren Ihre Daten.</div>' +
+  // ─── CONTACT MODAL ─────────────────────────────────────────────
+  var $modalBackdrop = document.getElementById('quiz-modal-backdrop');
+
+  function openContactModal() {
+    $modalBackdrop.innerHTML =
+      '<div class="quiz-modal">' +
+        '<button class="quiz-modal-close" aria-label="Schließen">&times;</button>' +
+        '<h2>Wohin d\u00FCrfen wir Ihre Auswertung senden?</h2>' +
+        '<p class="quiz-subtitle">Sie erhalten Ihr pers\u00F6nliches Digitalisierungs-Profil direkt im Anschluss \u2014 und per E-Mail zum Nachschlagen.</p>' +
+        '<div class="form-fields">' +
+          '<label for="input-name" class="sr-only">Ihr Name</label>' +
+          '<input type="text" class="quiz-input" id="input-name" placeholder="Ihr Name" value="' + escHtml(state.name) + '">' +
+          '<label for="input-email" class="sr-only">Ihre E-Mail-Adresse</label>' +
+          '<input type="email" class="quiz-input" id="input-email" placeholder="Ihre E-Mail-Adresse" value="' + escHtml(state.email) + '">' +
+          '<label class="consent-label"><input type="checkbox" id="input-consent"' + (state.consent ? ' checked' : '') + '> Ich stimme zu, dass meine Daten zur Auswertung des Digital-Checks und zur Kontaktaufnahme verarbeitet werden. <a href="/datenschutz/" target="_blank">Datenschutz</a></label>' +
+          '<button class="btn-primary" id="contact-submit" disabled>Quiz starten &rarr;</button>' +
         '</div>' +
+        '<div class="quiz-hint" style="text-align:center">Kein Spam. Wir respektieren Ihre Daten.</div>' +
       '</div>';
 
-    var nameInput = $('#input-name');
-    var emailInput = $('#input-email');
-    var consentInput = $('#input-consent');
-    var submitBtn = $('#contact-submit');
+    $modalBackdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    var nameInput = document.getElementById('input-name');
+    var emailInput = document.getElementById('input-email');
+    var consentInput = document.getElementById('input-consent');
+    var submitBtn = document.getElementById('contact-submit');
 
     function validateContact() {
       state.name = nameInput.value;
@@ -683,10 +708,43 @@
     consentInput.addEventListener('change', validateContact);
     validateContact();
 
+    // Submit
     submitBtn.addEventListener('click', function () {
       submitContact().catch(showSubmissionError);
+      closeContactModal();
       transition(function () { state.phase = 'quiz'; state.currentQ = 0; });
     });
+
+    // Close on backdrop click
+    $modalBackdrop.addEventListener('click', function (e) {
+      if (e.target === $modalBackdrop) closeContactModal();
+    });
+
+    // Close button
+    $modalBackdrop.querySelector('.quiz-modal-close').addEventListener('click', closeContactModal);
+
+    // Escape key
+    document.addEventListener('keydown', handleModalEsc);
+
+    // Focus the name input
+    setTimeout(function () { nameInput.focus(); }, 100);
+  }
+
+  function closeContactModal() {
+    $modalBackdrop.classList.remove('active');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', handleModalEsc);
+  }
+
+  function handleModalEsc(e) {
+    if (e.key === 'Escape') closeContactModal();
+  }
+
+  // Legacy: if someone resumes with state.phase === 'contact', show the modal on landing instead
+  function renderContact() {
+    state.phase = 'landing';
+    render();
+    openContactModal();
   }
 
   // ─── SCORED QUIZ ────────────────────────────────────────────────
@@ -829,7 +887,6 @@
 
   // ─── RESULTS ────────────────────────────────────────────────────
   function renderResults() {
-    clearState();
     var dimScores = scoreDimensions(state.scoredAnswers);
     var overallStage = getOverallStage(dimScores);
     var dimStages = dimScores.map(dimToStage);
@@ -929,7 +986,23 @@
 
         // Debug section
         (DEBUG ? renderDebug(dimScores, dimStages, overallStage, bottleneck) : '') +
+
+        // Restart link
+        '<div style="text-align:center;margin:40px 0 20px"><button class="results-restart" style="background:none;border:none;cursor:pointer;font-family:var(--font-body);font-size:14px;color:var(--color-subtle);text-decoration:underline">Nochmal machen</button></div>' +
       '</div>';
+
+    el.querySelector('.results-restart').addEventListener('click', function () {
+      clearState();
+      state.phase = 'landing';
+      state.currentQ = 0;
+      state.scoredAnswers = {};
+      state.qualAnswers = {};
+      state.freetext = '';
+      state.name = '';
+      state.email = '';
+      state.consent = false;
+      render();
+    });
   }
 
   // ─── PROGRESS BAR ──────────────────────────────────────────────
@@ -1136,7 +1209,10 @@
 
   // ─── INIT ───────────────────────────────────────────────────────
   var saved = loadState();
-  if (saved && saved.phase !== 'landing' && saved.phase !== 'results') {
+  if (saved && saved.phase === 'results') {
+    // Completed quiz — restore results directly, no banner
+    Object.assign(state, saved);
+  } else if (saved && saved.phase !== 'landing') {
     var banner = document.createElement('div');
     banner.id = 'quiz-resume-banner';
     banner.className = 'quiz-resume-banner';

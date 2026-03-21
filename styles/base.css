@@ -1,3 +1,7 @@
+/* ===== ESCAPE VELOCITY — SHARED DESIGN TOKENS ===== */
+
+@import './tokens.css';
+
 /* ===== ESCAPE VELOCITY — SELF-HOSTED FONTS ===== */
 
 /* Space Grotesk — Headlines */
@@ -52,24 +56,6 @@
   font-display: swap;
   src: url(/fonts/inter-ext.woff2) format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-}
-
-/* ===== ESCAPE VELOCITY — SHARED DESIGN TOKENS ===== */
-
-:root {
-  --color-cream: #F9F7F4;
-  --color-black: #1E1C1A;
-  --color-terracotta: #D4784A;
-  --color-terracotta-hover: #C2653A;
-  --color-accent: #E8865A;
-  --color-light: #F5F3F0;
-  --color-muted: #C4BEB8;
-  --color-subtle: #807A74;
-  --color-body: #5C5650;
-  --color-text: #1A1816;
-  --font-headline: 'Space Grotesk', sans-serif;
-  --font-ui: 'Manrope', sans-serif;
-  --font-body: 'Inter', sans-serif;
 }
 
 /* ===== RESET + BASE ===== */
