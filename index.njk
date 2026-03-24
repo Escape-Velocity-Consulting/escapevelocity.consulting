@@ -358,7 +358,7 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
 <section class="hero">
   <div class="hero-inner">
     <h1>Sie brauchen einen <span class="accent">CTO!</span></h1>
-    <p class="hero-appendix"><em>(Nur noch nicht in Vollzeit.)</em></p>
+    <p class="hero-appendix"><em>(Nur noch nicht in Vollzeit)</em></p>
     <p class="hero-sub">Sie wollen digitalisieren, automatisieren, wachsen.<br>Aber wer führt das Ganze?</p>
     <a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="hero-cta">Erstgespräch buchen →</a>
   </div>
@@ -385,8 +385,6 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
     <h2>Digitale Prozesse, die mitwachsen.</h2>
     <p>KMU mit Wachstumsschmerzen: Das Team wird größer. Tools, Daten und Prozesse werden mehr, aber es ist noch zu früh für den eigenen Tech Lead. Für den nächsten Wachstumsschritt brauchen Sie eine IT, die für Sie arbeitet.</p>
   </div>
-
-  <span class="clarity-line" id="clarityLine"></span>
 
   <div class="quiz-box" id="quizBox">
     <div class="quiz-box-inner">
@@ -543,6 +541,8 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
     });
   }, { threshold: 0.5 });
 
+  var tt = document.getElementById('transitionText');
+  if (tt) observer.observe(tt);
 </script>
 
 {% include "footer.njk" %}
