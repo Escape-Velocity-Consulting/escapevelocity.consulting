@@ -5,17 +5,19 @@
   .footer-inner {
     max-width: 1100px; margin: 0 auto; padding: 0 40px;
   }
+  .footer-cta-wrap {
+    background: var(--color-cream); padding: 64px 40px;
+    text-align: center;
+  }
   .footer-cta-section {
-    text-align: center; padding-bottom: 48px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    margin-bottom: 32px;
+    max-width: 1100px; margin: 0 auto;
   }
   .footer-cta-section h2 {
     font-family: var(--font-headline); font-size: 32px; font-weight: 700;
-    color: var(--color-light); margin-bottom: 12px;
+    color: var(--color-text); margin-bottom: 12px;
   }
   .footer-cta-section p {
-    font-size: 16px; color: var(--color-muted); margin-bottom: 28px;
+    font-size: 16px; color: var(--color-body); margin-bottom: 28px;
   }
   .footer-cta-btn {
     display: inline-flex; padding: 16px 40px; background: var(--color-terracotta); color: #fff;
@@ -29,27 +31,31 @@
   }
   .footer-bottom a { color: var(--color-subtle); text-decoration: none; }
   .footer-bottom a:hover { color: var(--color-muted); }
-  .footer-links { display: flex; gap: 24px; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
 
   @media (max-width: 768px) {
+    .footer-cta-wrap { padding: 48px 24px; }
     .footer-inner { padding: 0 24px; }
     .footer-cta-section h2 { font-size: 24px; }
     .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
     .footer-links { justify-content: center; }
   }
   @media (max-width: 480px) {
+    .footer-cta-wrap { padding: 40px 16px; }
     .footer-inner { padding: 0 16px; }
     .footer-cta-section h2 { font-size: 22px; }
     .footer-cta-btn { padding: 14px 28px; font-size: 15px; }
   }
 </style>
-<footer class="footer" id="contact">
+<div class="footer-cta-wrap" id="contact">
+  <div class="footer-cta-section">
+    <h2>Bereit für das Erstgespräch?</h2>
+    <p>30 Minuten. Kostenlos. Wir schauen gemeinsam, wo Ihr größter Hebel liegt.</p>
+    <a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="footer-cta-btn">Erstgespräch vereinbaren →</a>
+  </div>
+</div>
+<footer class="footer">
   <div class="footer-inner">
-    <div class="footer-cta-section">
-      <h2>Bereit für das Erstgespräch?</h2>
-      <p>30 Minuten. Kostenlos. Wir schauen gemeinsam, wo Ihr größter Hebel liegt.</p>
-      <a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="footer-cta-btn">Erstgespräch vereinbaren →</a>
-    </div>
     <div class="footer-bottom">
       <span>© 2026 Escape Velocity · Digitalisierung & Prozessoptimierung für Unternehmen</span>
       <div class="footer-links">

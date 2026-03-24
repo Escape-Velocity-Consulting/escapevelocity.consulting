@@ -3,82 +3,128 @@ layout: base.njk
 title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehmen"
 ---
 <style>
-  /* ===== HERO (page-specific overrides) ===== */
+  /* ===== HERO ===== */
   .hero {
-    padding-top: 60px; /* nav offset */
-    padding-bottom: 60px;
-  }
-  .hero-bg {
-    position: absolute; left: 0; right: 0; top: 0; bottom: 0; width: 100%;
-    -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 15%, rgba(0,0,0,0.4) 28%, transparent 38%, transparent 62%, rgba(0,0,0,0.4) 72%, rgba(0,0,0,0.8) 85%, rgba(0,0,0,1) 100%);
-    mask-image: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 15%, rgba(0,0,0,0.4) 28%, transparent 38%, transparent 62%, rgba(0,0,0,0.4) 72%, rgba(0,0,0,0.8) 85%, rgba(0,0,0,1) 100%);
-    z-index: 0; overflow: hidden;
-  }
-  .hero-bg svg {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 2200px; height: 600px; opacity: 0.55;
-  }
-  .hero-bg::before {
-    content: ''; position: absolute; top: 30%; left: 50%; transform: translateX(-50%); width: 600px; height: 300px;
-    background: radial-gradient(ellipse, rgba(212,120,74,0.06) 0%, transparent 65%);
-    z-index: -1;
+    min-height: calc(90vh - 56px);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 120px 40px 80px;
+    position: relative;
   }
   .hero-inner {
-    max-width: 1100px; margin: 0 auto; padding: 120px 40px 60px;
+    max-width: 1100px; margin: 0 auto;
     position: relative; z-index: 1;
-    text-align: center;
   }
   .hero h1 {
-    font-size: 72px; line-height: 1.05; margin-bottom: 32px;
+    font-size: 72px; line-height: 1.05; margin-bottom: 8px;
+    animation: fadeInUp 0.8s ease both; animation-delay: 0.2s;
+  }
+  .hero .hero-appendix {
+    font-family: var(--font-body); font-size: 26px; font-style: italic;
+    color: var(--color-subtle); margin-bottom: 32px;
+    animation: fadeInUp 0.8s ease both; animation-delay: 0.4s;
   }
   .hero .hero-sub {
-    font-size: 20px; line-height: 1.7; color: var(--color-muted); max-width: 600px; margin: 0 auto 16px;
+    font-size: 20px; line-height: 1.7; color: var(--color-muted); max-width: 600px; margin: 0 auto 48px;
+    animation: fadeInUp 0.8s ease both; animation-delay: 0.6s;
   }
-  .hero .hero-qualifier {
+  .hero .hero-cta {
+    animation: fadeInUp 0.8s ease both; animation-delay: 0.8s;
+  }
+
+  /* ===== TRANSITION SECTION ===== */
+  .transition-section {
+    padding: 80px 40px;
+    position: relative;
+    z-index: 2;
+    background: var(--color-black);
+  }
+  .tool-chaos {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 10px; max-width: 700px; margin: 0 auto 48px;
+    animation: fadeInUp 0.8s ease both; animation-delay: 1s;
+  }
+  .tool-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 100px;
     font-family: var(--font-ui); font-size: 14px; font-weight: 500;
-    color: var(--color-subtle); margin-bottom: 48px;
+    color: var(--color-muted);
+    white-space: nowrap;
+    transition: all 0.6s ease;
   }
-  .hero .hero-enemy {
-    font-size: 15px; line-height: 1.6; color: var(--color-subtle); max-width: 520px; margin-bottom: 40px;
+  .tool-pill .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--color-muted); opacity: 0.4;
   }
-  /* ===== SECTION 2: VALUE CAPTURE (overlaps hero) ===== */
-  .hero-vc-overlap {
-    position: relative; z-index: 2;
-    max-width: 900px; margin: 0 auto;
-    margin-top: 80px;
-    margin-bottom: -120px; /* pull into next section */
+  .tool-chaos.scattered .tool-pill {
+    animation: scatter 0.8s ease forwards;
   }
-  .vc-wrapper {
-    background: #FFFFFF; border-radius: 16px; padding: 40px 48px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.08);
-    border: 1px solid rgba(0,0,0,0.04);
+  .tool-chaos.scattered .tool-pill:nth-child(odd) { --scatter-x: -14px; --scatter-y: -10px; --scatter-r: -3deg; }
+  .tool-chaos.scattered .tool-pill:nth-child(even) { --scatter-x: 10px; --scatter-y: 8px; --scatter-r: 2deg; }
+  .tool-chaos.scattered .tool-pill:nth-child(3n) { --scatter-x: -6px; --scatter-y: 12px; --scatter-r: -4deg; }
+  .tool-chaos.scattered .tool-pill:nth-child(4n+1) { --scatter-x: 8px; --scatter-y: -14px; --scatter-r: 5deg; }
+
+  .transition-text {
+    text-align: center; max-width: 650px; margin: 0 auto;
   }
-  .vc-header {
-    text-align: center; margin-bottom: 24px;
+  .transition-text h2 {
+    font-family: var(--font-headline); font-size: 28px; font-weight: 700;
+    color: var(--color-light); line-height: 1.3; margin-bottom: 16px;
   }
-  .vc-header h2 {
-    font-family: var(--font-headline); font-size: 26px; font-weight: 700;
-    color: var(--color-text); line-height: 1.2; margin-bottom: 8px;
+  .transition-text p {
+    font-size: 17px; color: var(--color-muted); line-height: 1.8; margin-bottom: 12px;
   }
-  .vc-header h2 .accent { color: var(--color-terracotta); }
-  .vc-header p {
-    font-size: 15px; line-height: 1.6; color: var(--color-body);
+  .transition-text .highlight {
+    color: var(--color-terracotta); font-weight: 600;
   }
-  .vc-pillars {
-    display: flex; gap: 12px; justify-content: center; margin-bottom: 24px;
+  .clarity-line {
+    display: block; width: 60px; height: 2px;
+    background: var(--color-terracotta);
+    margin: 32px auto 0;
   }
-  .vc-pillar {
-    padding: 5px 14px; border-radius: 6px; font-family: var(--font-ui);
-    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+
+  /* ===== QUIZ BOX ===== */
+  .quiz-box {
+    max-width: 600px; margin: 32px auto 0;
   }
-  .vc-pillar.geht { background: rgba(212,120,74,0.1); color: var(--color-terracotta); }
-  .vc-pillar.kommt { background: rgba(59,130,246,0.08); color: #3B82F6; }
-  .vc-pillar.tun { background: rgba(34,197,94,0.08); color: #16A34A; }
-  .vc-input-row {
-    display: flex; gap: 8px; max-width: 480px; margin: 0 auto;
+  .quiz-box-inner {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    border-top: 1px solid rgba(212,120,74,0.4);
+    border-bottom: 1px solid rgba(212,120,74,0.4);
+    padding: 20px 0;
   }
+  .quiz-box h3 {
+    font-family: var(--font-headline); font-size: 17px; font-weight: 700;
+    color: var(--color-light); margin-bottom: 4px;
+  }
+  .quiz-box p {
+    font-size: 14px; color: var(--color-muted); margin: 0;
+  }
+  .btn-quiz {
+    display: inline-flex; align-items: center; gap: 6px;
+    white-space: nowrap; color: var(--color-terracotta);
+    font-family: var(--font-ui); font-size: 15px; font-weight: 600;
+    text-decoration: none; transition: color 0.3s;
+  }
+  .btn-quiz:hover { color: var(--color-accent); }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scatter {
+    0% { transform: translate(0,0) rotate(0); opacity: 1; }
+    100% { transform: translate(var(--scatter-x), var(--scatter-y)) rotate(var(--scatter-r)); opacity: 0.3; }
+  }
+
+  /* ===== FORM INPUTS ===== */
   .vc-input {
-    flex: 1; padding: 14px 18px; border-radius: 8px; border: 1px solid #E0DCD8;
+    padding: 14px 18px; border-radius: 8px; border: 1px solid #E0DCD8;
     background: var(--color-cream); color: var(--color-text); font-size: 15px;
     font-family: var(--font-body);
   }
@@ -89,9 +135,6 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
     font-size: 15px; cursor: pointer;
   }
   .vc-submit:hover { background: var(--color-terracotta-hover); }
-  .vc-privacy {
-    font-size: 12px; color: #A09A94; margin-top: 10px; line-height: 1.5; text-align: center;
-  }
 
   /* ===== NEWSLETTER FORM ===== */
   .ev-newsletter-form { width: 100%; }
@@ -140,48 +183,6 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
   }
   .ev-newsletter-form--bottom .ev-form-consent {
     max-width: none; margin: 0;
-  }
-
-  /* ===== SECTION 2: PAIN (bridge overlap) ===== */
-  .pain-wrap {
-    position: relative;
-    margin-top: -1px; /* seamless join with hero */
-  }
-  .pain-wrap::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 50%;
-    background: var(--color-black);
-    z-index: 0;
-  }
-  .pain-wrap::after {
-    content: '';
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 50%;
-    background: var(--color-cream);
-    z-index: 0;
-  }
-  .pain {
-    position: relative; z-index: 1;
-    max-width: 900px; margin: 0 auto; padding: 0 40px;
-  }
-  .pain-inner {
-    background: #FFFFFF; border-radius: 16px; padding: 48px 56px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.08);
-    border: 1px solid rgba(0,0,0,0.04);
-    text-align: center;
-    max-width: 100%;
-  }
-  .pain-headline {
-    font-family: var(--font-headline); font-size: 26px; font-weight: 700;
-    color: var(--color-text); margin-bottom: 16px; line-height: 1.3;
-  }
-  .pain p {
-    font-size: 17px; line-height: 1.8; color: var(--color-body); margin-bottom: 16px;
-    max-width: 560px; margin-left: auto; margin-right: auto;
-  }
-  .pain p.pain-kicker {
-    color: var(--color-terracotta); font-weight: 600; margin-bottom: 0;
   }
 
   /* ===== SECTION 3: PORTFOLIO ===== */
@@ -275,6 +276,10 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
     background: rgba(212,120,74,0.06); border-left: 3px solid var(--color-terracotta);
     padding: 20px 24px; border-radius: 0 8px 8px 0; margin-top: 24px;
   }
+  .about-aha {
+    font-family: var(--font-headline); font-size: 24px; font-weight: 700;
+    color: var(--color-light); margin-top: 32px; margin-bottom: 12px;
+  }
   .about-quote p {
     font-family: var(--font-headline); font-size: 17px; font-weight: 500;
     color: var(--color-light); line-height: 1.5; font-style: italic; margin-bottom: 0;
@@ -303,33 +308,16 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
 
   /* ===== TABLET: 768px ===== */
   @media (max-width: 768px) {
-    /* Hero */
+    .hero { padding: 80px 24px 0; }
     .hero h1 { font-size: 48px; }
+    .hero .hero-appendix { font-size: 22px; }
     .hero .hero-sub { font-size: 18px; }
-    .hero-inner { padding: 80px 24px 40px; }
-    .hero-bg svg { width: 1400px; height: 400px; }
-
-    /* Hero CTA buttons */
-    .hero-cta, .hero-cta-secondary { padding: 12px 24px; font-size: 15px; }
-    .hero-cta-secondary { margin-left: 0; margin-top: 8px; }
-
-    /* Value Capture */
-    .hero-vc-overlap { margin-top: 48px; margin-bottom: -80px; }
-    .vc-wrapper { padding: 28px 24px; }
-    .vc-header h2 { font-size: 22px; }
-    .vc-input-row { flex-direction: column; }
-    .vc-input, .vc-submit { width: 100%; }
-
-    /* Pain */
-    .pain { padding: 0 24px; }
-    .pain-inner { padding: 32px 28px; }
-    .pain-headline { font-size: 22px; }
-    .pain p { font-size: 16px; }
-    /* Portfolio */
+    .hero-cta { padding: 12px 24px; font-size: 15px; }
+    .transition-section { padding: 60px 24px; }
+    .transition-text h2 { font-size: 24px; }
     .portfolio { padding: 40px 24px 60px; }
     .section-title { font-size: 28px; }
     .portfolio-grid { grid-template-columns: 1fr; gap: 16px; }
-    /* About */
     .about-inner {
       grid-template-columns: 1fr; gap: 32px; padding: 0 24px;
       text-align: center;
@@ -337,8 +325,6 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
     .about-photo-wrap { width: 200px; height: 240px; margin: 0 auto; }
     .about-text h2 { font-size: 28px; }
     .about-quote { text-align: left; }
-
-    /* Newsletter CTA */
     .newsletter-cta { padding: 0 24px 60px; }
     .nl-cta-wrapper {
       grid-template-columns: 1fr; text-align: center; padding: 32px 24px;
@@ -349,27 +335,18 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
 
   /* ===== MOBILE: 480px ===== */
   @media (max-width: 480px) {
+    .hero { padding: 70px 16px 0; }
     .hero h1 { font-size: 36px; }
+    .hero .hero-appendix { font-size: 18px; }
     .hero .hero-sub { font-size: 16px; }
-    .hero-inner { padding: 70px 16px 32px; }
-    .hero-bg svg { width: 1000px; height: 300px; }
-
-    .vc-wrapper { padding: 24px 16px; }
-    .vc-header h2 { font-size: 20px; }
-    .vc-pillars { gap: 6px; }
-    .vc-pillar { font-size: 11px; padding: 4px 10px; }
-
-    .pain { padding: 0 16px; }
-    .pain-inner { padding: 24px 20px; }
-    .pain-headline { font-size: 20px; }
-    .pain p { font-size: 15px; }
+    .transition-section { padding: 48px 16px; }
+    .tool-pill { font-size: 12px; padding: 6px 12px; }
+    .transition-text h2 { font-size: 22px; }
     .portfolio { padding: 32px 16px 48px; }
     .section-title { font-size: 24px; }
     .p-card { padding: 24px; }
-
     .about-inner { padding: 0 16px; }
     .about-photo-wrap { width: 160px; height: 200px; }
-
     .newsletter-cta { padding: 0 16px 48px; }
     .nl-cta-wrapper { padding: 24px 16px; }
   }
@@ -379,130 +356,65 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
 
 <!-- SECTION 1: HERO -->
 <section class="hero">
-  <div class="hero-bg">
-    <svg viewBox="0 0 2200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- ===== LEFT SIDE — data intake flow ===== -->
-      <rect x="40" y="180" width="95" height="52" rx="8" fill="rgba(212,120,74,0.12)" stroke="rgba(212,120,74,0.35)" stroke-width="1.5"/>
-      <circle cx="58" cy="206" r="6" fill="rgba(212,120,74,0.5)"/>
-      <rect x="72" y="198" width="48" height="5" rx="2" fill="rgba(212,120,74,0.4)"/>
-      <rect x="72" y="208" width="34" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
-      <path d="M 135 195 C 190 195, 200 130, 250 130" stroke="rgba(212,120,74,0.3)" stroke-width="2" fill="none"/>
-      <path d="M 135 210 C 190 210, 210 250, 260 250" stroke="rgba(212,120,74,0.25)" stroke-width="2" fill="none"/>
-      <path d="M 135 215 C 175 220, 200 340, 250 350" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
-      <rect x="250" y="105" width="125" height="50" rx="8" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-      <rect x="264" y="119" width="12" height="12" rx="2" fill="rgba(212,120,74,0.3)"/>
-      <rect x="282" y="121" width="58" height="5" rx="2" fill="rgba(255,255,255,0.15)"/>
-      <rect x="282" y="131" width="40" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
-      <rect x="260" y="225" width="125" height="50" rx="8" fill="rgba(212,120,74,0.08)" stroke="rgba(212,120,74,0.25)" stroke-width="1.5"/>
-      <rect x="274" y="239" width="12" height="12" rx="6" fill="rgba(212,120,74,0.35)"/>
-      <rect x="292" y="241" width="68" height="5" rx="2" fill="rgba(255,255,255,0.12)"/>
-      <rect x="292" y="251" width="48" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
-      <rect x="220" y="330" width="115" height="48" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="3 3"/>
-      <rect x="234" y="343" width="12" height="12" rx="2" fill="rgba(255,255,255,0.08)"/>
-      <rect x="252" y="345" width="58" height="5" rx="2" fill="rgba(255,255,255,0.08)"/>
-      <path d="M 375 130 C 420 130, 430 195, 470 195" stroke="rgba(212,120,74,0.2)" stroke-width="2" fill="none"/>
-      <path d="M 385 250 C 420 250, 440 210, 470 210" stroke="rgba(212,120,74,0.2)" stroke-width="2" fill="none"/>
-      <rect x="470" y="175" width="65" height="65" rx="12" fill="rgba(212,120,74,0.1)" stroke="rgba(212,120,74,0.3)" stroke-width="1.5"/>
-      <circle cx="502" cy="200" r="9" fill="none" stroke="rgba(212,120,74,0.4)" stroke-width="1.5"/>
-      <circle cx="502" cy="200" r="3.5" fill="rgba(212,120,74,0.5)"/>
-      <rect x="484" y="218" width="38" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
-      <path d="M 535 190 C 570 190, 575 150, 600 150" stroke="rgba(212,120,74,0.2)" stroke-width="1.5" fill="none"/>
-      <path d="M 535 210 C 570 210, 580 265, 610 265" stroke="rgba(255,255,255,0.07)" stroke-width="1.5" fill="none"/>
-      <rect x="600" y="132" width="100" height="38" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
-      <rect x="612" y="144" width="8" height="8" rx="2" fill="rgba(34,197,94,0.3)"/>
-      <rect x="626" y="146" width="52" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
-      <rect x="610" y="248" width="100" height="38" rx="7" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-      <rect x="622" y="260" width="8" height="8" rx="2" fill="rgba(59,130,246,0.25)"/>
-      <rect x="636" y="262" width="46" height="4" rx="2" fill="rgba(255,255,255,0.07)"/>
-      <path d="M 700 150 C 750 150, 780 190, 830 195" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
-      <path d="M 710 265 C 750 265, 770 230, 810 225" stroke="rgba(255,255,255,0.03)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
-      <!-- ===== RIGHT SIDE ===== -->
-      <path d="M 1380 220 C 1420 220, 1440 175, 1480 170" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
-      <path d="M 1400 260 C 1430 260, 1450 300, 1480 305" stroke="rgba(255,255,255,0.03)" stroke-width="1" fill="none" stroke-dasharray="4 4"/>
-      <rect x="1480" y="155" width="90" height="50" rx="8" fill="rgba(212,120,74,0.1)" stroke="rgba(212,120,74,0.3)" stroke-width="1.5"/>
-      <rect x="1496" y="168" width="14" height="14" rx="3" fill="rgba(212,120,74,0.35)"/>
-      <rect x="1516" y="170" width="38" height="5" rx="2" fill="rgba(255,255,255,0.12)"/>
-      <rect x="1516" y="180" width="28" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
-      <path d="M 1570 168 C 1610 168, 1620 110, 1660 108" stroke="rgba(212,120,74,0.3)" stroke-width="2" fill="none"/>
-      <path d="M 1570 178 C 1610 178, 1630 200, 1660 200" stroke="rgba(212,120,74,0.25)" stroke-width="2" fill="none"/>
-      <path d="M 1570 190 C 1610 195, 1640 290, 1680 295" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
-      <rect x="1660" y="85" width="110" height="44" rx="7" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-      <rect x="1674" y="98" width="10" height="10" rx="2" fill="rgba(212,120,74,0.3)"/>
-      <rect x="1690" y="100" width="50" height="5" rx="2" fill="rgba(255,255,255,0.15)"/>
-      <rect x="1690" y="110" width="35" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
-      <rect x="1680" y="140" width="110" height="44" rx="7" fill="rgba(212,120,74,0.06)" stroke="rgba(212,120,74,0.2)" stroke-width="1"/>
-      <rect x="1694" y="153" width="10" height="10" rx="2" fill="rgba(212,120,74,0.25)"/>
-      <rect x="1710" y="155" width="55" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
-      <rect x="1660" y="185" width="130" height="52" rx="8" fill="rgba(212,120,74,0.08)" stroke="rgba(212,120,74,0.25)" stroke-width="1.5"/>
-      <circle cx="1680" cy="211" r="7" fill="rgba(212,120,74,0.35)"/>
-      <rect x="1694" y="200" width="72" height="5" rx="2" fill="rgba(255,255,255,0.12)"/>
-      <rect x="1694" y="210" width="55" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
-      <rect x="1694" y="220" width="40" height="4" rx="2" fill="rgba(255,255,255,0.04)"/>
-      <rect x="1680" y="275" width="115" height="48" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="3 3"/>
-      <rect x="1694" y="288" width="12" height="12" rx="2" fill="rgba(255,255,255,0.06)"/>
-      <rect x="1712" y="290" width="55" height="5" rx="2" fill="rgba(255,255,255,0.06)"/>
-      <path d="M 1790 200 C 1830 200, 1840 165, 1870 165" stroke="rgba(212,120,74,0.2)" stroke-width="1.5" fill="none"/>
-      <path d="M 1790 215 C 1830 215, 1850 250, 1880 250" stroke="rgba(255,255,255,0.07)" stroke-width="1.5" fill="none"/>
-      <path d="M 1770 108 C 1810 108, 1820 130, 1850 135" stroke="rgba(212,120,74,0.15)" stroke-width="1.5" fill="none"/>
-      <rect x="1870" y="140" width="70" height="55" rx="10" fill="rgba(212,120,74,0.1)" stroke="rgba(212,120,74,0.3)" stroke-width="1.5"/>
-      <circle cx="1905" cy="160" r="8" fill="none" stroke="rgba(212,120,74,0.35)" stroke-width="1.5"/>
-      <circle cx="1905" cy="160" r="3" fill="rgba(212,120,74,0.4)"/>
-      <rect x="1884" y="176" width="42" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
-      <path d="M 1940 158 C 1970 158, 1975 140, 2000 140" stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none"/>
-      <path d="M 1940 168 C 1970 168, 1980 185, 2010 185" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
-      <rect x="2000" y="125" width="80" height="32" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-      <rect x="2012" y="136" width="6" height="6" rx="1" fill="rgba(34,197,94,0.2)"/>
-      <rect x="2024" y="137" width="40" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
-      <rect x="1880" y="232" width="95" height="40" rx="7" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
-      <rect x="1894" y="245" width="8" height="8" rx="2" fill="rgba(59,130,246,0.2)"/>
-      <rect x="1908" y="247" width="45" height="4" rx="2" fill="rgba(255,255,255,0.06)"/>
-      <!-- ===== JUNCTION DOTS ===== -->
-      <circle cx="135" cy="206" r="3" fill="rgba(212,120,74,0.5)"/>
-      <circle cx="250" cy="130" r="3" fill="rgba(255,255,255,0.15)"/>
-      <circle cx="260" cy="250" r="3" fill="rgba(212,120,74,0.35)"/>
-      <circle cx="470" cy="200" r="3" fill="rgba(212,120,74,0.3)"/>
-      <circle cx="1570" cy="178" r="3" fill="rgba(212,120,74,0.3)"/>
-      <circle cx="1660" cy="108" r="3" fill="rgba(255,255,255,0.15)"/>
-      <circle cx="1660" cy="200" r="3" fill="rgba(212,120,74,0.35)"/>
-      <circle cx="1870" cy="165" r="3" fill="rgba(212,120,74,0.25)"/>
-    </svg>
-  </div>
   <div class="hero-inner">
-    <h1>Der <span class="accent">Aha!</span> Moment</h1>
-    <p class="hero-sub">Ich bringe Klarheit in Ihr Business, löse den Engpass und zünde die nächste Wachstumsstufe.</p>
-    <p class="hero-qualifier">Für Unternehmer mit 5–50 Mitarbeitern, die spüren dass mehr drin ist.</p>
+    <h1>Sie brauchen einen <span class="accent">CTO!</span></h1>
+    <p class="hero-appendix"><em>(Nur noch nicht in Vollzeit.)</em></p>
+    <p class="hero-sub">Sie wollen digitalisieren, automatisieren, wachsen.<br>Aber wer führt das Ganze?</p>
     <a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="hero-cta">Erstgespräch buchen →</a>
-
   </div>
 </section>
 
-<!-- SECTION 2: PAIN (bridge card) -->
-<div class="pain-wrap">
-  <section class="pain">
-    <div class="pain-inner">
-      <h2 class="pain-headline">Ihre Prozesse sind über die Jahre gewachsen. Aber nicht mitgewachsen.</h2>
-      <p>Das Team kämpft mit Workarounds, Sie mit Firefighting. Es gibt zu viele Baustellen und zu wenig Überblick, wo der größte Hebel liegt.</p>
-      <p class="pain-kicker">Was Sie wirklich kostet, ist nicht die Veränderung.<br>Es ist der Stillstand.</p>
+<!-- SECTION 2: TRANSITION (chaos → clarity) -->
+<section class="transition-section">
+  <div class="tool-chaos" id="toolChaos">
+    <span class="tool-pill"><span class="dot"></span>Rechnungen</span>
+    <span class="tool-pill"><span class="dot"></span>Angebote</span>
+    <span class="tool-pill"><span class="dot"></span>Excel</span>
+    <span class="tool-pill"><span class="dot"></span>CRM</span>
+    <span class="tool-pill"><span class="dot"></span>E-Mail</span>
+    <span class="tool-pill"><span class="dot"></span>Projektmanagement</span>
+    <span class="tool-pill"><span class="dot"></span>Teams</span>
+    <span class="tool-pill"><span class="dot"></span>Buchhaltung</span>
+    <span class="tool-pill"><span class="dot"></span>Google Drive</span>
+    <span class="tool-pill"><span class="dot"></span>WhatsApp</span>
+    <span class="tool-pill"><span class="dot"></span>Zettelwirtschaft</span>
+    <span class="tool-pill"><span class="dot"></span>Bauchgefühl</span>
+  </div>
+
+  <div class="transition-text" id="transitionText">
+    <h2>Digitale Prozesse, die mitwachsen.</h2>
+    <p>KMU mit Wachstumsschmerzen: Das Team wird größer. Tools, Daten und Prozesse werden mehr, aber es ist noch zu früh für den eigenen Tech Lead. Für den nächsten Wachstumsschritt brauchen Sie eine IT, die für Sie arbeitet.</p>
+  </div>
+
+  <span class="clarity-line" id="clarityLine"></span>
+
+  <div class="quiz-box" id="quizBox">
+    <div class="quiz-box-inner">
+      <div>
+        <h3>Wo stehen Sie?</h3>
+        <p>Finden Sie in 2 Minuten heraus, wo Ihr Unternehmen digital steht.</p>
+      </div>
+      <a href="/quiz" class="btn-quiz">Digitalisierungs-Check →</a>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 
 <!-- SECTION 3: PORTFOLIO -->
 <section class="portfolio" id="portfolio">
   <div class="section-eyebrow">So arbeite ich</div>
-  <h2 class="section-title">Vom Engpass zur nächsten Stufe</h2>
-  <p class="section-subtitle">Die meisten Unternehmen brauchen keinen Rundumschlag. Sie brauchen einen <span class="accent">Aha!</span> Moment. Jemanden, der mit CIO-Blick auf das ganze Bild schaut und den einen Hebel findet, der den größten Unterschied macht.</p>
+  <h2 class="section-title">Ihr technischer Sparringpartner</h2>
+  <p class="section-subtitle">Ob Sie bestehende Abläufe modernisieren oder neue Strukturen von Grund auf richtig aufsetzen wollen: Ich komme mit dem CTO-Blick und finde die Hebel, die für Sie den größten Unterschied machen.</p>
 
   <div class="portfolio-grid">
     <div class="p-card">
       <h3><span class="accent">Aha!</span> Moment Workshop</h3>
-      <p>Der Einstieg. Halber Tag, voller Durchblick: wo Ihre größten Hebel liegen. Wir schauen uns Marketing, Vertrieb, Back-Office und Operations an.</p>
+      <p>Halber Tag, voller Durchblick: wo Ihre größten Hebel liegen. Wir schauen uns Marketing, Vertrieb, Back-Office und Operations an.</p>
       <div class="card-result">→ Top 3 Hebel</div>
     </div>
     <div class="p-card featured">
       <div class="badge">Flagship</div>
       <h3>Tech Upgrade</h3>
-      <p>Engpass gefunden? Wir lösen ihn. Prozesse digitalisieren, Systeme verbinden, Automatisierung aufsetzen.</p>
+      <p>Hebel gefunden? Jetzt umsetzen: Prozesse digitalisieren, Systeme verbinden, Automatisierung aufsetzen.</p>
       <div class="card-result card-result--light">→ Prozesse, die skalieren</div>
     </div>
     <div class="p-card">
@@ -523,19 +435,21 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
     <div class="about-text">
       <div class="section-eyebrow">Über mich</div>
       <h2 style="color: #F5F3F0;">Tommi Enenkel</h2>
-      <p class="about-role">Ihr externer CIO</p>
+      <p class="about-role">Ihr externer CTO</p>
       <p>17 Jahre als <strong>Tech Lead, Marketing Lead und Organisationsentwickler</strong>. IT-Systeme aufgebaut, Teams durch Transformationen geführt, Technologie-Strategie auf jeder Ebene. Vom mittelständischen Unternehmen bis zur internationalen Organisation.</p>
-      <p>Heute durchleuchte ich Geschäftsmodell, Prozesse und Systeme für KMU und setze die Lösung um. Nicht mit PowerPoints, sondern mit Ergebnissen.</p>
+      <p>Heute durchleuchte ich Geschäftsmodell, Prozesse und Systeme für KMU und suche die Hebel, die die nächste Wachstumsstufe freischalten.</p>
+      <h3 class="about-aha">Der <span class="accent">Aha!</span> Moment</h3>
+      <p>In meinen Workshops gibt es diesen einen Moment, wo die Augen groß werden. Wo wir den Haken im Geschäftsmodell finden. Fehlende Analytics. Ein Tool, das sofort Stunden einspart. Der Moment, wo klar wird: wir sind an einer Lösung dran.</p>
       <div class="about-quote">
-        <p>„Ihr nächster 3x Hebel liegt nicht in mehr Arbeit, sondern in weniger."</p>
+        <p>„Jeder redet über KI. Aber die echte Frage ist: Wo ist der Prozess, bei dem ich 20 Stunden pro Woche einsparen kann?"</p>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- SECTION 6: NEWSLETTER CTA (second capture) -->
-<section class="newsletter-cta" id="newsletter">
+<!-- SECTION 6: NEWSLETTER CTA (second capture) — hidden for now -->
+<section class="newsletter-cta" id="newsletter" style="display:none;">
   <div class="nl-cta-wrapper">
     <div class="nl-cta-text">
       <h3>Dranbleiben. Ohne Zeitaufwand.</h3>
@@ -611,6 +525,24 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
       });
     });
   });
+</script>
+
+<!-- Scroll-triggered animations -->
+<script>
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        if (entry.target.id === 'transitionText') {
+          var chaos = document.getElementById('toolChaos');
+          if (chaos && !chaos.classList.contains('scattered')) {
+            setTimeout(function() { chaos.classList.add('scattered'); }, 1200);
+          }
+        }
+      }
+    });
+  }, { threshold: 0.5 });
+
 </script>
 
 {% include "footer.njk" %}
