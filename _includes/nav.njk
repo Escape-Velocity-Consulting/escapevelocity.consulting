@@ -19,6 +19,11 @@
     color: var(--color-muted); text-decoration: none;
   }
   .nav-links a:hover { color: var(--color-light); }
+  .nav-cta-secondary {
+    padding: 8px 20px; border: 1.5px solid var(--color-terracotta); color: var(--color-terracotta) !important;
+    border-radius: 6px; font-weight: 600 !important;
+  }
+  .nav-cta-secondary:hover { background: rgba(232,134,90,0.1); color: var(--color-terracotta) !important; }
   .nav-cta {
     padding: 8px 20px; background: var(--color-terracotta); color: #fff !important;
     border-radius: 6px; font-weight: 600 !important;
@@ -37,7 +42,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
     .nav-links.open { display: flex; }
-    .nav-cta { text-align: center; }
+    .nav-cta-secondary, .nav-cta { text-align: center; }
   }
 </style>
 <nav class="nav">
@@ -49,7 +54,7 @@
     <div class="nav-links">
       <a href="/#portfolio">Leistungen</a>
       <a href="/#about">Über mich</a>
-      <a href="/#newsletter">Newsletter</a>
+      <a href="/quiz/" class="nav-cta-secondary">Quiz</a>
       <a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="nav-cta">Erstgespräch →</a>
     </div>
   </div>

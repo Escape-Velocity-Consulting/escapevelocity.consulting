@@ -42,14 +42,14 @@
       tagline: 'Wir haben die Tools, aber sie reden nicht miteinander.',
       color: '#D4943A',
       textColor: '#9A6A1E',
-      desc: 'Sie haben in digitale Werkzeuge investiert — Buchhaltung, CRM, Cloud. Aber die Systeme arbeiten nicht zusammen. Daten werden mehrfach eingegeben, Medienbrüche kosten Zeit, und niemand nutzt die Software so, wie sie gedacht war.',
+      desc: 'Sie haben in digitale Werkzeuge investiert: Buchhaltung, CRM, Cloud. Aber die Systeme arbeiten nicht zusammen. Daten werden mehrfach eingegeben, Medienbrüche kosten Zeit, und niemand nutzt die Software so, wie sie gedacht war.',
     },
     {
       label: 'Vernetzt',
-      tagline: 'Es läuft — auch wenn ich nicht da bin.',
+      tagline: 'Es läuft, auch wenn ich nicht da bin.',
       color: '#3A8F6E',
       textColor: '#2D7358',
-      desc: 'Ihre Kernprozesse sind standardisiert und Systeme verbunden. Daten fließen, Routineaufgaben werden teilweise automatisiert. Das Team arbeitet nach definierten Abläufen. Sie haben einen klaren Überblick — jetzt geht es um die nächste Stufe.',
+      desc: 'Ihre Kernprozesse sind standardisiert und Systeme verbunden. Daten fließen, Routineaufgaben werden teilweise automatisiert. Das Team arbeitet nach definierten Abläufen. Sie haben einen klaren Überblick. Jetzt geht es um die nächste Stufe.',
     },
     {
       label: 'Optimiert',
@@ -76,10 +76,10 @@
       dim: 0,
       q: 'Was passiert, wenn ein wichtiger Mitarbeiter zwei Wochen ausfällt?',
       opts: [
-        'Kein Problem — Abläufe sind dokumentiert, andere können übernehmen',
+        'Kein Problem, Abläufe sind dokumentiert und andere können übernehmen',
         'Es holpert, aber wir kriegen es hin',
-        'Es wird eng — vieles bleibt liegen',
-        'Chaos — nur diese Person weiß, wie bestimmte Dinge laufen',
+        'Es wird eng, vieles bleibt liegen',
+        'Chaos, denn nur diese Person weiß, wie bestimmte Dinge laufen',
       ],
     },
     {
@@ -117,11 +117,11 @@
     },
     {
       dim: 2,
-      q: 'Wenn Sie den aktuellen Stand eines Kundenprojekts oder einer Aufgabe wissen müssen — wie schnell finden Sie die Information?',
+      q: 'Wenn Sie den aktuellen Stand eines Kundenprojekts oder einer Aufgabe wissen müssen: Wie schnell finden Sie die Information?',
       opts: [
-        'Sofort — alles ist zentral und aktuell abrufbar',
-        'In ein paar Minuten — ich muss in verschiedenen Systemen nachschauen',
-        'Es dauert — ich muss Kollegen fragen oder E-Mails durchsuchen',
+        'Sofort, alles ist zentral und aktuell abrufbar',
+        'In ein paar Minuten, ich muss in verschiedenen Systemen nachschauen',
+        'Es dauert, ich muss Kollegen fragen oder E-Mails durchsuchen',
         'Ich hab keinen verlässlichen Weg, das herauszufinden',
       ],
     },
@@ -129,7 +129,7 @@
       dim: 3,
       q: 'Wie steht Ihr Team dem Thema Digitalisierung und neue Tools gegenüber?',
       opts: [
-        'Offen und neugierig — einige treiben das Thema aktiv voran',
+        'Offen und neugierig, einige treiben das Thema aktiv voran',
         'Grundsätzlich offen, aber unsicher im Umgang',
         'Eher skeptisch oder ängstlich',
         'Das Thema kam bei uns noch nie auf',
@@ -199,42 +199,42 @@
     {
       q: 'Welche Art von Unterstützung passt am besten zu Ihnen?',
       opts: [
-        'Schulung — Wir wollen es selbst können',
-        'Workshop — Wir brauchen eine klare Analyse und Strategie',
-        'Umsetzung — Wir wollen, dass jemand das für uns baut',
+        'Schulung: Wir wollen es selbst können',
+        'Workshop: Wir brauchen eine klare Analyse und Strategie',
+        'Umsetzung: Wir wollen, dass jemand das für uns baut',
         'Weiß ich noch nicht',
       ],
     },
   ];
 
   var DISCREPANCY_TEXTS = {
-    '0h-1l': { title: 'Gute Abl\u00E4ufe, schwache Systeme', text: 'Ihre Abl\u00E4ufe sind durchdacht \u2014 aber Ihre Systeme halten nicht mit. Vieles, was l\u00E4ngst automatisch laufen k\u00F6nnte, wird noch von Hand erledigt.' },
+    '0h-1l': { title: 'Gute Abl\u00E4ufe, schwache Systeme', text: 'Ihre Abl\u00E4ufe sind durchdacht, doch Ihre Systeme halten nicht mit. Vieles, was l\u00E4ngst automatisch laufen k\u00F6nnte, wird noch von Hand erledigt.' },
     '0h-2l': { title: 'Abl\u00E4ufe ohne \u00DCberblick', text: 'Ihre Prozesse funktionieren, aber Ihre Daten geben kein klares Bild. Ohne eine solide Datenbasis bleiben Verbesserungen schwer zu priorisieren.' },
     '0h-3l': { title: 'Prozesse ohne Mannschaft', text: 'Ihre Abl\u00E4ufe sind gut durchdacht, aber Ihr Team braucht noch Unterst\u00FCtzung, um sie im Alltag umzusetzen. Gute Prozesse entfalten ihre Wirkung erst, wenn das Team sie mittr\u00E4gt.' },
-    '0h-4l': { title: 'Abl\u00E4ufe ohne Strategie', text: 'Ihre Abl\u00E4ufe funktionieren \u2014 aber eher aus Gewohnheit als aus Strategie. Ohne eine F\u00FChrung, die das Thema aktiv steuert, fehlt die Richtung f\u00FCr den n\u00E4chsten Schritt.' },
-    '1h-0l': { title: 'Tools ohne Fundament', text: 'Sie haben in Software investiert, aber die Abl\u00E4ufe darunter sind noch nicht standardisiert. Ohne klare Prozesse nutzt jeder die gleichen Tools anders \u2014 und die Investition wirkt nicht so, wie sie k\u00F6nnte.' },
-    '1h-2l': { title: 'Systeme ohne Substanz', text: 'Sie haben gute Systeme im Einsatz \u2014 aber die Daten darin halten nicht mit. Gute Software kann nur so gut arbeiten wie die Daten, die sie bekommt.' },
-    '1h-3l': { title: 'Werkzeuge ohne Anwender', text: 'Sie haben in gute Systeme investiert, aber Ihr Team nutzt sie noch nicht voll aus. Das Potenzial ist da \u2014 es braucht Begleitung, damit die Tools im Alltag ankommen.' },
+    '0h-4l': { title: 'Abl\u00E4ufe ohne Strategie', text: 'Ihre Abl\u00E4ufe funktionieren, doch eher aus Gewohnheit als aus Strategie. Ohne eine F\u00FChrung, die das Thema aktiv steuert, fehlt die Richtung f\u00FCr den n\u00E4chsten Schritt.' },
+    '1h-0l': { title: 'Tools ohne Fundament', text: 'Sie haben in Software investiert, aber die Abl\u00E4ufe darunter sind noch nicht standardisiert. Ohne klare Prozesse nutzt jeder die gleichen Tools anders, und die Investition wirkt nicht so, wie sie k\u00F6nnte.' },
+    '1h-2l': { title: 'Systeme ohne Substanz', text: 'Sie haben gute Systeme im Einsatz, doch die Daten darin halten nicht mit. Gute Software kann nur so gut arbeiten wie die Daten, die sie bekommt.' },
+    '1h-3l': { title: 'Werkzeuge ohne Anwender', text: 'Sie haben in gute Systeme investiert, aber Ihr Team nutzt sie noch nicht voll aus. Das Potenzial ist da. Es braucht Begleitung, damit die Tools im Alltag ankommen.' },
     '1h-4l': { title: 'Werkzeuge ohne Richtung', text: 'Die Tools sind da, aber es fehlt die strategische Steuerung. Ohne klare Richtung von oben entscheidet jeder selbst, was er wie nutzt.' },
     '2h-0l': { title: 'Daten ohne Prozesse', text: 'Ihre Daten sind in gutem Zustand, aber Ihre Abl\u00E4ufe sind noch nicht strukturiert genug, um davon zu profitieren. Saubere Daten in unklaren Prozessen sind ungenutztes Potenzial.' },
-    '2h-1l': { title: 'Daten ohne Infrastruktur', text: 'Ihre Daten w\u00E4ren bereit \u2014 aber Ihre Systeme k\u00F6nnen noch nicht genug damit anfangen. Die Grundlage ist da, die technische Infrastruktur muss nachziehen.' },
+    '2h-1l': { title: 'Daten ohne Infrastruktur', text: 'Ihre Daten w\u00E4ren bereit, doch Ihre Systeme k\u00F6nnen noch nicht genug damit anfangen. Die Grundlage ist da, die technische Infrastruktur muss nachziehen.' },
     '2h-3l': { title: 'Daten ohne Kompetenz', text: 'Ihre Daten sind solide, aber Ihr Team braucht noch das Know-how, um sie gezielt zu nutzen. Mit der richtigen Begleitung wird aus Datenbasis echte Entscheidungsgrundlage.' },
-    '2h-4l': { title: 'Daten ohne Richtung', text: 'Ihre Datengrundlage ist solide, aber sie wird noch nicht strategisch genutzt. Die Basis f\u00FCr bessere Entscheidungen ist da \u2014 es fehlt der Plan, sie einzusetzen.' },
-    '3h-0l': { title: 'Motivation ohne Struktur', text: 'Ihr Team ist digital-affin und motiviert, aber es fehlen standardisierte Abl\u00E4ufe. Ohne klare Prozesse wird improvisiert \u2014 engagiert, aber schwer skalierbar.' },
+    '2h-4l': { title: 'Daten ohne Richtung', text: 'Ihre Datengrundlage ist solide, aber sie wird noch nicht strategisch genutzt. Die Basis f\u00FCr bessere Entscheidungen ist da, doch es fehlt der Plan, sie einzusetzen.' },
+    '3h-0l': { title: 'Motivation ohne Struktur', text: 'Ihr Team ist digital-affin und motiviert, aber es fehlen standardisierte Abl\u00E4ufe. Ohne klare Prozesse wird improvisiert: engagiert, aber schwer skalierbar.' },
     '3h-1l': { title: 'Kompetenz ohne Werkzeuge', text: 'Ihr Team w\u00E4re bereit f\u00FCr bessere Werkzeuge, aber die Systeme halten noch nicht mit. Digitale Kompetenz wird durch fehlende oder veraltete Software ausgebremst.' },
     '3h-2l': { title: 'Team ohne Datenbasis', text: 'Ihr Team ist offen f\u00FCr Digitalisierung, aber die Datenbasis fehlt noch. Bevor Ihr Team richtig loslegen kann, m\u00FCssen die Grundlagen stimmen.' },
-    '3h-4l': { title: 'Motivation ohne Mandat', text: 'Ihr Team w\u00E4re bereit \u2014 aber es fehlt das klare Signal von oben. Ohne R\u00FCckendeckung der F\u00FChrung bleiben gute Initiativen auf halber Strecke stehen.' },
+    '3h-4l': { title: 'Motivation ohne Mandat', text: 'Ihr Team w\u00E4re bereit, doch es fehlt das klare Signal von oben. Ohne R\u00FCckendeckung der F\u00FChrung bleiben gute Initiativen auf halber Strecke stehen.' },
     '4h-0l': { title: 'Vision ohne Fundament', text: 'Die Gesch\u00E4ftsf\u00FChrung hat eine klare digitale Vision, aber die Abl\u00E4ufe im Tagesgesch\u00E4ft sind noch nicht darauf ausgerichtet. Damit die Strategie greift, braucht es ein solides Prozess-Fundament.' },
-    '4h-1l': { title: 'Plan ohne Werkzeuge', text: 'Sie haben den Plan, aber noch nicht die Werkzeuge. Die strategische Richtung stimmt \u2014 jetzt braucht es die technische Infrastruktur, um sie umzusetzen.' },
+    '4h-1l': { title: 'Plan ohne Werkzeuge', text: 'Sie haben den Plan, aber noch nicht die Werkzeuge. Die strategische Richtung stimmt. Jetzt braucht es die technische Infrastruktur, um sie umzusetzen.' },
     '4h-2l': { title: 'Strategie ohne Datenbasis', text: 'Die F\u00FChrung treibt Digitalisierung voran, aber die Datenbasis ist noch l\u00FCckenhaft. Strategische Entscheidungen brauchen verl\u00E4ssliche Daten als Grundlage.' },
-    '4h-3l': { title: 'F\u00FChrung ohne Buy-in', text: 'Die Gesch\u00E4ftsf\u00FChrung will vorw\u00E4rts \u2014 aber das Team ist noch nicht mit an Bord. Ohne Buy-in im Team bleibt jede Initiative ein Pilotprojekt.' },
+    '4h-3l': { title: 'F\u00FChrung ohne Buy-in', text: 'Die Gesch\u00E4ftsf\u00FChrung will vorw\u00E4rts, doch das Team ist noch nicht mit an Bord. Ohne Buy-in im Team bleibt jede Initiative ein Pilotprojekt.' },
   };
 
   // v2: Dimension-Stage full sentences — each dimension self-contained, no cross-references
   var DIM_STAGE_TEXTS = [
     // Prozesse & Workflows
     [
-      'Ihre Prozesse sind nicht standardisiert \u2014 jeder arbeitet nach eigenem System.',
+      'Ihre Prozesse sind nicht standardisiert, und jeder arbeitet nach eigenem System.',
       'Ihre Prozesse haben Grundroutinen, sind aber nicht durchg\u00E4ngig dokumentiert.',
       'Ihre Prozesse sind klar definiert und werden einheitlich gelebt.',
       'Ihre Prozesse sind durchgehend automatisiert und werden kontinuierlich verbessert.',
@@ -244,7 +244,7 @@
       'In Ihrem Unternehmen sind kaum digitale Werkzeuge im Einsatz.',
       'Sie nutzen einzelne digitale Tools, aber ohne einheitliche Strategie dahinter.',
       'Ihre wichtigsten Systeme sind aufeinander abgestimmt und werden gezielt eingesetzt.',
-      'Ihre Systemlandschaft ist durchg\u00E4ngig integriert \u2014 jedes Tool hat seinen Platz.',
+      'Ihre Systemlandschaft ist durchg\u00E4ngig integriert, und jedes Tool hat seinen Platz.',
     ],
     // Daten & Information
     [
@@ -255,7 +255,7 @@
     ],
     // Team & Kompetenz
     [
-      'Ihrem Team fehlt digitales Know-how \u2014 Digitalisierung ist kein Thema.',
+      'Ihrem Team fehlt digitales Know-how, und Digitalisierung ist kein Thema.',
       'Im Team ist Offenheit da, aber es fehlt an Sicherheit im Umgang mit digitalen Tools.',
       'Ihr Team ist digital-kompetent und setzt neue Werkzeuge eigenst\u00E4ndig ein.',
       'Ihr Team treibt Verbesserungen aktiv voran und ist offen f\u00FCr Neues.',
@@ -275,14 +275,14 @@
   // v2: Cluster narratives for 2-bottleneck scenarios (spec section 5, Scenario B)
   var CLUSTER_TEXTS = {
     '0-1': { label: 'Operatives Fundament', text: 'Weder die Abl\u00E4ufe noch die Systeme sind auf dem n\u00F6tigen Stand. Sie arbeiten ohne standardisierte Prozesse und ohne die Werkzeuge, die sie tragen k\u00F6nnten. Das operative Fundament muss zuerst stehen.' },
-    '0-2': { label: 'Blinder Flug', text: 'Ihre Abl\u00E4ufe sind nicht standardisiert und Ihre Daten geben keinen \u00DCberblick. Sie steuern im Blindflug \u2014 ohne zu wissen, wo Zeit verloren geht und ohne die Zahlen, die es beweisen.' },
+    '0-2': { label: 'Blinder Flug', text: 'Ihre Abl\u00E4ufe sind nicht standardisiert und Ihre Daten geben keinen \u00DCberblick. Sie steuern im Blindflug, ohne zu wissen, wo Zeit verloren geht und ohne die Zahlen, die es beweisen.' },
     '0-3': { label: 'Execution Gap', text: 'Weder die Abl\u00E4ufe noch die Mannschaft sind bereit f\u00FCr den n\u00E4chsten Schritt. Es braucht beides: klare Prozesse UND ein Team das sie lebt.' },
     '0-4': { label: 'Strategie-Execution-L\u00FCcke', text: 'Weder von oben noch von unten gibt es klare Strukturen. Es fehlt sowohl die strategische Richtung als auch das operative Fundament.' },
-    '1-2': { label: 'Technische Infrastruktur', text: 'Ihre Abl\u00E4ufe sind klar und das Team ist bereit \u2014 aber die technische Infrastruktur h\u00E4lt nicht mit. Die Werkzeuge und die Datengrundlage m\u00FCssen aufholen.' },
-    '1-3': { label: 'Adoptions-L\u00FCcke', text: 'Die Werkzeuge fehlen und das Team hat nicht das Know-how, um neue Systeme zu nutzen. Beides muss zusammen aufgebaut werden \u2014 sonst wiederholt sich der Kreislauf aus Anschaffung und Nicht-Nutzung.' },
+    '1-2': { label: 'Technische Infrastruktur', text: 'Ihre Abl\u00E4ufe sind klar und das Team ist bereit, doch die technische Infrastruktur h\u00E4lt nicht mit. Die Werkzeuge und die Datengrundlage m\u00FCssen aufholen.' },
+    '1-3': { label: 'Adoptions-L\u00FCcke', text: 'Die Werkzeuge fehlen und das Team hat nicht das Know-how, um neue Systeme zu nutzen. Beides muss zusammen aufgebaut werden, sonst wiederholt sich der Kreislauf aus Anschaffung und Nicht-Nutzung.' },
     '1-4': { label: 'Investitionsstau', text: 'Es fehlt sowohl die technische Infrastruktur als auch die strategische F\u00FChrung, die Investitionen vorantreibt. Ohne ein Signal von oben und ohne die richtigen Werkzeuge passiert nichts.' },
     '2-3': { label: 'Wissensl\u00FCcke', text: 'Die Grundlagen fehlen auf zwei Seiten: Ihrem Team fehlt das Know-how und Ihren Daten fehlt die Struktur. Beides muss parallel aufgebaut werden.' },
-    '2-4': { label: 'Strategische Blindheit', text: 'Keine verl\u00E4sslichen Daten und keine F\u00FChrung, die datenbasiert entscheidet. Strategische Entscheidungen fallen aus dem Bauch \u2014 weil es weder die Zahlen noch den Plan gibt, es anders zu machen.' },
+    '2-4': { label: 'Strategische Blindheit', text: 'Keine verl\u00E4sslichen Daten und keine F\u00FChrung, die datenbasiert entscheidet. Strategische Entscheidungen fallen aus dem Bauch, weil es weder die Zahlen noch den Plan gibt, es anders zu machen.' },
     '3-4': { label: 'Organisatorische Verankerung', text: 'Die technische Grundlage steht, aber es fehlt die organisatorische Verankerung. Ohne ein Team das mitzieht und eine F\u00FChrung die das Thema treibt, bleiben gute Systeme ungenutzt.' },
   };
 
@@ -297,11 +297,11 @@
 
   // v2: Dream outcome per dimension — vivid after-picture, no prefix (lead-in is dynamic)
   var OUTCOME_DREAMS = [
-    'Ihr Team arbeitet nach klaren Abl\u00E4ufen. Kein Suchen, kein Improvisieren, keine Feuerwehreins\u00E4tze. Routineaufgaben laufen \u2014 und Sie haben den Kopf frei f\u00FCr das, was Ihr Unternehmen wirklich voranbringt.',
-    'Ihre Systeme arbeiten zusammen. Daten flie\u00DFen automatisch, kein Abtippen zwischen Programmen. Ihr Team \u00F6ffnet morgens ein Dashboard und sieht alles, was z\u00E4hlt \u2014 auf einen Blick.',
-    'Sie \u00F6ffnen ein Dashboard und sehen sofort, wo Ihr Unternehmen steht. Keine Excel-Suche, keine R\u00FCckfragen, keine veralteten Zahlen. Entscheidungen treffen Sie auf Basis von Fakten \u2014 nicht aus dem Bauch.',
-    'Ihr Team geht souver\u00E4n mit neuen Tools um. Keine Angst vor Ver\u00E4nderung, keine Workarounds. Neue Prozesse werden nicht nur eingef\u00FChrt \u2014 sie werden gelebt.',
-    'Sie haben einen klaren Plan. Sie wissen, was als N\u00E4chstes kommt, was es kostet und was es bringt. Keine endlosen Strategiemeetings \u2014 sondern eine Roadmap, der Ihr Team folgen kann.',
+    'Ihr Team arbeitet nach klaren Abl\u00E4ufen. Kein Suchen, kein Improvisieren, keine Feuerwehreins\u00E4tze. Routineaufgaben laufen, und Sie haben den Kopf frei f\u00FCr das, was Ihr Unternehmen wirklich voranbringt.',
+    'Ihre Systeme arbeiten zusammen. Daten flie\u00DFen automatisch, kein Abtippen zwischen Programmen. Ihr Team \u00F6ffnet morgens ein Dashboard und sieht alles, was z\u00E4hlt, auf einen Blick.',
+    'Sie \u00F6ffnen ein Dashboard und sehen sofort, wo Ihr Unternehmen steht. Keine Excel-Suche, keine R\u00FCckfragen, keine veralteten Zahlen. Entscheidungen treffen Sie auf Basis von Fakten, nicht aus dem Bauch.',
+    'Ihr Team geht souver\u00E4n mit neuen Tools um. Keine Angst vor Ver\u00E4nderung, keine Workarounds. Neue Prozesse werden nicht nur eingef\u00FChrt, sie werden gelebt.',
+    'Sie haben einen klaren Plan. Sie wissen, was als N\u00E4chstes kommt, was es kostet und was es bringt. Keine endlosen Strategiemeetings, sondern eine Roadmap, der Ihr Team folgen kann.',
   ];
 
   // v1 ROUTING kept for HubSpot backward compatibility in submitResults()
@@ -365,13 +365,13 @@
       var fallbackTitle, fallbackText;
       if (minStage === 0) {
         fallbackTitle = 'Sauberer Anfang';
-        fallbackText = 'Start bei Null \u2014 kein Altlasten-Chaos, kein Tool-Friedhof. Sie k\u00F6nnen von Anfang an richtig aufbauen.';
+        fallbackText = 'Start bei Null, ohne Altlasten-Chaos und ohne Tool-Friedhof. Sie k\u00F6nnen von Anfang an richtig aufbauen.';
       } else if (minStage >= 2) {
         fallbackTitle = 'Top-Ausgangslage';
         fallbackText = 'Top 10% der KMU. Die Frage ist nicht ob, sondern wie schnell Sie den n\u00E4chsten Schritt machen.';
       } else {
         fallbackTitle = 'Solides Fundament';
-        fallbackText = '\u00DCberall angefangen, nirgends durchgezogen \u2014 typisch f\u00FCr KMU in Ihrer Gr\u00F6\u00DFe. Ein fokussierter Schritt bringt sofort Ergebnisse.';
+        fallbackText = '\u00DCberall angefangen, nirgends durchgezogen. Typisch f\u00FCr KMU in Ihrer Gr\u00F6\u00DFe. Ein fokussierter Schritt bringt sofort Ergebnisse.';
       }
       return { type: 'equal', title: fallbackTitle, text: fallbackText, weakDims: weakDims, strongDims: strongDims, minStage: minStage, maxStage: maxStage };
     }
@@ -388,7 +388,7 @@
       return {
         type: 'single',
         title: DIMENSIONS[lowIdx] + ' bremst Sie',
-        text: 'Ihre schw\u00E4chste Dimension ist \u201E' + DIMENSIONS[lowIdx] + '\u201C \u2014 sie liegt deutlich hinter Ihren anderen Bereichen zur\u00FCck. Solange dieser Bereich nicht aufholt, k\u00F6nnen die anderen Dimensionen ihr Potenzial nicht entfalten.',
+        text: 'Ihre schw\u00E4chste Dimension ist \u201E' + DIMENSIONS[lowIdx] + '\u201C. Sie liegt deutlich hinter Ihren anderen Bereichen zur\u00FCck. Solange dieser Bereich nicht aufholt, k\u00F6nnen die anderen Dimensionen ihr Potenzial nicht entfalten.',
         weakDims: weakDims, strongDims: strongDims, minStage: minStage, maxStage: maxStage, highDim: highIdx, lowDim: lowIdx,
       };
     }
@@ -644,7 +644,7 @@
       '<div class="quiz-container" style="text-align:center;padding-top:80px;padding-bottom:100px">' +
         '<div class="quiz-eyebrow">Escape Velocity &middot; Digital-Check</div>' +
         '<h1 class="quiz-hero-title">Wo bremst sich Ihr<br>Unternehmen <em>selbst</em> aus?</h1>' +
-        '<p class="quiz-hero-sub">15 Fragen. 5 Minuten. Danach wissen Sie, was Ihr Wachstum blockiert \u2014 und was der n\u00E4chste Schritt ist.</p>' +
+        '<p class="quiz-hero-sub">15 Fragen. 5 Minuten. Danach wissen Sie, was Ihr Wachstum blockiert und was der n\u00E4chste Schritt ist.</p>' +
 
         '<div style="display:flex;flex-direction:column;align-items:center;gap:12px">' +
           '<button class="btn-primary btn-large landing-cta">Check starten <span class="btn-arrow">&rarr;</span></button>' +
@@ -663,7 +663,7 @@
               '<svg class="landing-icon" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 5-9"/></svg>' +
             '</div>' +
             '<div class="landing-card-title">Ihr Level sehen</div>' +
-            '<div class="landing-card-body">Wo steht Ihr Unternehmen wirklich \u2014 Level 1 oder Level 4? Kein Bauchgef\u00FChl, sondern ein klares Bild \u00FCber 5 Dimensionen.</div>' +
+            '<div class="landing-card-body">Wo steht Ihr Unternehmen wirklich? Level 1 oder Level 4? Kein Bauchgef\u00FChl, sondern ein klares Bild \u00FCber 5 Dimensionen.</div>' +
           '</div>' +
 
           '<div class="landing-card featured">' +
@@ -673,7 +673,7 @@
               '<svg class="landing-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>' +
             '</div>' +
             '<div class="landing-card-title">Den Engpass finden</div>' +
-            '<div class="landing-card-body">Eine Dimension bremst alle anderen. Wir zeigen Ihnen, welche \u2014 und warum genau dort Zeit und Geld verloren gehen.</div>' +
+            '<div class="landing-card-body">Eine Dimension bremst alle anderen. Wir zeigen Ihnen, welche, und warum genau dort Zeit und Geld verloren gehen.</div>' +
           '</div>' +
 
           '<div class="landing-card">' +
@@ -758,7 +758,7 @@
       '<div class="landing-preview">' +
         '<div class="dark-header">' +
           '<h2>In 5 Minuten wissen Sie mehr als nach dem letzten Strategie-Meeting</h2>' +
-          '<p class="landing-preview-sub">Der Digital-Check liefert keine Theorie \u2014 sondern ein konkretes Profil Ihres Unternehmens. Das hier erwartet Sie:</p>' +
+          '<p class="landing-preview-sub">Der Digital-Check liefert keine Theorie, sondern ein konkretes Profil Ihres Unternehmens. Das hier erwartet Sie:</p>' +
         '</div>' +
         '<div class="radar-layout">' +
           '<div class="radar-chart-wrap">' + radarSvg + '</div>' +
@@ -767,21 +767,21 @@
               '<div class="benefit-check">' + checkSvg + '</div>' +
               '<div class="benefit-text">' +
                 '<h4>Digitalisierungs-Level auf einen Blick</h4>' +
-                '<p>\u00DCber 5 Dimensionen ausgewertet \u2014 Prozesse, Tools, Daten, Team und F\u00FChrung.</p>' +
+                '<p>\u00DCber 5 Dimensionen ausgewertet: Prozesse, Tools, Daten, Team und F\u00FChrung.</p>' +
               '</div>' +
             '</div>' +
             '<div class="benefit-item">' +
               '<div class="benefit-check">' + checkSvg + '</div>' +
               '<div class="benefit-text">' +
                 '<h4>Der Engpass, konkret benannt</h4>' +
-                '<p>Nicht geraten \u2014 sondern aus Ihren Antworten abgeleitet.</p>' +
+                '<p>Nicht geraten, sondern aus Ihren Antworten abgeleitet.</p>' +
               '</div>' +
             '</div>' +
             '<div class="benefit-item">' +
               '<div class="benefit-check">' + checkSvg + '</div>' +
               '<div class="benefit-text">' +
                 '<h4>Ein n\u00E4chster Schritt, der passt</h4>' +
-                '<p>Zu Ihrer Situation \u2014 nicht von der Stange.</p>' +
+                '<p>Zu Ihrer Situation, nicht von der Stange.</p>' +
               '</div>' +
             '</div>' +
           '</div>' +
@@ -810,7 +810,7 @@
       '<div class="quiz-modal">' +
         '<button class="quiz-modal-close" aria-label="Schließen">&times;</button>' +
         '<h2>Wohin d\u00FCrfen wir Ihre Auswertung senden?</h2>' +
-        '<p class="quiz-subtitle">Sie erhalten Ihr pers\u00F6nliches Digitalisierungs-Profil direkt im Anschluss \u2014 und per E-Mail zum Nachschlagen.</p>' +
+        '<p class="quiz-subtitle">Sie erhalten Ihr pers\u00F6nliches Digitalisierungs-Profil direkt im Anschluss und per E-Mail zum Nachschlagen.</p>' +
         '<div class="form-fields">' +
           '<label for="input-name" class="sr-only">Ihr Name</label>' +
           '<input type="text" class="quiz-input" id="input-name" placeholder="Ihr Name" value="' + escHtml(state.name) + '">' +
@@ -1001,7 +1001,7 @@
         '<div class="quiz-meta">Frage ' + (qNum + 1) + ' von ' + totalQ + ' &middot; <strong>Letzte Frage</strong></div>' +
         '<div class="quiz-card">' +
           '<h2 class="quiz-title">Gibt es sonst etwas, das Sie uns sagen möchten?</h2>' +
-          '<p class="quiz-subtitle">Optional — alles was uns hilft, Ihre Auswertung relevanter zu machen.</p>' +
+          '<p class="quiz-subtitle">Optional. Alles, was uns hilft, Ihre Auswertung relevanter zu machen.</p>' +
           '<label for="freetext-input" class="sr-only">Ihre Gedanken</label>' +
           '<textarea class="quiz-textarea" id="freetext-input" rows="4" placeholder="Ihre Gedanken...">' + escHtml(state.freetext) + '</textarea>' +
           '<button class="btn-primary" id="freetext-submit">Auswertung anzeigen &rarr;</button>' +
@@ -1067,9 +1067,9 @@
     var summaryHtml = '';
     if (bn.type === 'equal') {
       summaryHtml = '<p class="stage-desc">Alle f\u00FCnf Dimensionen liegen auf einem vergleichbaren Niveau. ' +
-        (overallStage === 0 ? 'Sie stehen am Anfang \u2014 ohne Altlasten k\u00F6nnen Sie von Grund auf richtig aufbauen.' :
+        (overallStage === 0 ? 'Sie stehen am Anfang. Ohne Altlasten k\u00F6nnen Sie von Grund auf richtig aufbauen.' :
          overallStage <= 1 ? 'Sie haben erste Schritte gemacht. Jetzt geht es darum, einen Bereich konsequent durchzuziehen.' :
-         overallStage <= 2 ? 'Sie haben eine solide Grundlage geschaffen \u2014 Prozesse sind standardisiert, Systeme verbunden, Ihr Team ist kompetent und die F\u00FChrung treibt das Thema aktiv. Jetzt geht es darum, die n\u00E4chste Stufe zu erreichen.' :
+         overallStage <= 2 ? 'Sie haben eine solide Grundlage geschaffen: Prozesse sind standardisiert, Systeme verbunden, Ihr Team ist kompetent und die F\u00FChrung treibt das Thema aktiv. Jetzt geht es darum, die n\u00E4chste Stufe zu erreichen.' :
          'Sie geh\u00F6ren zu den am weitesten digitalisierten KMU. Kontinuierliche Optimierung und strategische Skalierung sind Ihre n\u00E4chsten Themen.') +
         '</p>';
     } else {
@@ -1129,11 +1129,11 @@
       // multi: 3+ weak dimensions
       var introText = '';
       if (bn.strongDims.length === 2) {
-        introText = 'Ihre St\u00E4rke liegt in ' + DIM_SHORT[bn.strongDims[0]] + ' und ' + DIM_SHORT[bn.strongDims[1]] + ' \u2014 aber ' + bn.weakDims.length + ' Bereiche hinken deutlich hinterher.';
+        introText = 'Ihre St\u00E4rke liegt in ' + DIM_SHORT[bn.strongDims[0]] + ' und ' + DIM_SHORT[bn.strongDims[1]] + ', doch ' + bn.weakDims.length + ' Bereiche hinken deutlich hinterher.';
       } else if (bn.strongDims.length === 1) {
-        introText = DIM_SHORT[bn.strongDims[0]] + ' ist Ihr Anker \u2014 aber ' + bn.weakDims.length + ' von f\u00FCnf Dimensionen brauchen Aufmerksamkeit.';
+        introText = DIM_SHORT[bn.strongDims[0]] + ' ist Ihr Anker, doch ' + bn.weakDims.length + ' von f\u00FCnf Dimensionen brauchen Aufmerksamkeit.';
       } else {
-        introText = 'Diese Bereiche bilden gemeinsam Ihren Engpass \u2014 solange sie nicht aufholen, k\u00F6nnen Ihre St\u00E4rken ihr Potenzial nicht entfalten.';
+        introText = 'Diese Bereiche bilden gemeinsam Ihren Engpass. Solange sie nicht aufholen, k\u00F6nnen Ihre St\u00E4rken ihr Potenzial nicht entfalten.';
       }
       var multiDimList = bn.weakDims.map(function (wi) {
         return '<li>' + DIM_STAGE_TEXTS[wi][bn.minStage] + '</li>';
@@ -1154,7 +1154,7 @@
     // Dynamic dream lead-in
     var dreamLeadin;
     if (overallStage < 3) {
-      dreamLeadin = 'Das wird bei Level ' + (overallStage + 2) + ' \u2014 ' + STAGES[overallStage + 1].label + ' \u2014 m\u00F6glich:';
+      dreamLeadin = 'Das wird bei Level ' + (overallStage + 2) + ', ' + STAGES[overallStage + 1].label + ', m\u00F6glich:';
     } else {
       dreamLeadin = 'Das sichern Sie sich, wenn Sie Ihren Vorsprung ausbauen:';
     }
@@ -1164,13 +1164,13 @@
       var equalDreamText;
       if (overallStage === 0) {
         equalNextText = 'Der wichtigste n\u00E4chste Schritt ist, einen klaren Startpunkt zu setzen. Ohne Altlasten haben Sie die Chance, von Anfang an die richtigen Grundlagen zu legen.';
-        equalDreamText = 'Statt \u00FCberall gleichzeitig anzufangen, haben Sie einen klaren Plan \u2014 welcher Bereich zuerst, was es bringt, und wie Sie Schritt f\u00FCr Schritt vorankommen.';
+        equalDreamText = 'Statt \u00FCberall gleichzeitig anzufangen, haben Sie einen klaren Plan: welcher Bereich zuerst, was es bringt, und wie Sie Schritt f\u00FCr Schritt vorankommen.';
       } else if (overallStage <= 2) {
-        equalNextText = 'Der wichtigste n\u00E4chste Schritt ist, von Einzell\u00F6sungen zu einem vernetzten System zu kommen. Die Grundlagen stehen \u2014 jetzt geht es darum, sie zusammenzuf\u00FChren.';
+        equalNextText = 'Der wichtigste n\u00E4chste Schritt ist, von Einzell\u00F6sungen zu einem vernetzten System zu kommen. Die Grundlagen stehen. Jetzt geht es darum, sie zusammenzuf\u00FChren.';
         equalDreamText = 'Ihre Systeme, Prozesse und Daten greifen ineinander. Kein Flickwerk mehr, sondern ein Unternehmen, das als Ganzes funktioniert.';
       } else {
-        equalNextText = 'Der wichtigste n\u00E4chste Schritt ist, die Optimierung zu systematisieren. Sie sind weiter als die meisten \u2014 jetzt geht es darum, diesen Vorsprung zu halten.';
-        equalDreamText = 'Ihr Unternehmen verbessert sich kontinuierlich \u2014 nicht durch gro\u00DFe Projekte, sondern durch eingespielte Routinen, die Effizienz zur Gewohnheit machen.';
+        equalNextText = 'Der wichtigste n\u00E4chste Schritt ist, die Optimierung zu systematisieren. Sie sind weiter als die meisten. Jetzt geht es darum, diesen Vorsprung zu halten.';
+        equalDreamText = 'Ihr Unternehmen verbessert sich kontinuierlich, nicht durch gro\u00DFe Projekte, sondern durch eingespielte Routinen, die Effizienz zur Gewohnheit machen.';
       }
       nextStepsHtml = '<p class="next-step-text">' + equalNextText + '</p>';
       dreamHtml = '<p class="next-step-dream-leadin">' + dreamLeadin + '</p><p class="next-step-dream">' + equalDreamText + '</p>';
@@ -1197,7 +1197,7 @@
         // Stage gauge card with warm intro + personalized summary
         '<div class="quiz-card">' +
           '<div class="quiz-eyebrow" style="margin-bottom:8px">Ihr Digitalisierungs-Profil</div>' +
-          '<p class="results-intro">' + introName + ' ist Ihre pers\u00F6nliche Auswertung \u2014 basierend auf Ihren Antworten \u00FCber alle f\u00FCnf Dimensionen.</p>' +
+          '<p class="results-intro">' + introName + ' ist Ihre pers\u00F6nliche Auswertung, basierend auf Ihren Antworten \u00FCber alle f\u00FCnf Dimensionen.</p>' +
           '<div style="text-align:center;margin:28px 0">' +
             '<div class="gauge-bars">' + gaugeBars + '</div>' +
             '<div class="stage-label" style="color:' + stageData.textColor + '">Level ' + (overallStage + 1) + ': ' + stageData.label + '</div>' +
@@ -1236,9 +1236,9 @@
           dreamHtml +
           '<div class="next-step-cta-wrap">' +
             '<h4 class="next-step-cta-headline">Lassen Sie uns gemeinsam draufschauen</h4>' +
-            '<p class="next-step-cta-text">In einem kostenlosen 30-Minuten-Gespr\u00E4ch schauen wir gemeinsam auf Ihr Ergebnis, identifizieren den gr\u00F6\u00DFten Hebel und skizzieren die ersten konkreten Schritte \u2014 unverbindlich und auf den Punkt.</p>' +
+            '<p class="next-step-cta-text">In einem kostenlosen 30-Minuten-Gespr\u00E4ch schauen wir gemeinsam auf Ihr Ergebnis, identifizieren den gr\u00F6\u00DFten Hebel und skizzieren die ersten konkreten Schritte. Unverbindlich und auf den Punkt.</p>' +
             '<a href="https://meetings-eu1.hubspot.com/tommi-enenkel/meeting" target="_blank" rel="noopener" class="' + (SHARED_SCORES ? 'btn-outline' : 'btn-primary') + ' btn-large" style="display:block;text-align:center;text-decoration:none">Kostenloses Erstgespr\u00E4ch buchen</a>' +
-            '<div class="quiz-hint" style="text-align:center;margin-top:8px">30 Minuten, unverbindlich \u2014 Ihre Fragen, konkrete Antworten.</div>' +
+            '<div class="quiz-hint" style="text-align:center;margin-top:8px">30 Minuten, unverbindlich. Ihre Fragen, konkrete Antworten.</div>' +
           '</div>' +
           // Shared view: second "selbst machen" CTA after next steps
           (SHARED_SCORES ? '<div style="text-align:center;margin-top:20px">' +
