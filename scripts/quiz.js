@@ -1591,6 +1591,22 @@
     return;
   }
 
+  // Bare /quiz/check/ (no hash, no ?s=) is a confusing entry point — users land
+  // on an empty page with just a modal. If the visitor has saved mid-quiz state,
+  // restore the URL hash from it and continue. Otherwise bounce to the landing.
+  if (!location.hash) {
+    var savedBare = loadState();
+    if (savedBare && savedBare.phase !== 'contact') {
+      Object.assign(state, savedBare);
+      history.replaceState(null, '', location.pathname + location.search + stateToHash());
+      _lastSyncedHash = location.hash;
+      render();
+      return;
+    }
+    location.replace('/quiz/');
+    return;
+  }
+
   var saved = loadState();
   var hasHash = !!location.hash;
 
