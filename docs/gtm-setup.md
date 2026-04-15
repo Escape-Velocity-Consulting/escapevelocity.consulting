@@ -212,6 +212,7 @@ This section is the **source of truth** for the dataLayer event contract. Any ch
 | `ev_quiz_book_meeting` | — | `quiz.js` results HubSpot meeting link click | `CE - ev_quiz_book_meeting` | GA4 - Quiz Book Meeting, X - Meeting Booked |
 | `ev_quiz_share` | — | `quiz.js` "Link teilen" button | `CE - ev_quiz_share` | GA4 - Quiz Share |
 | `ev_quiz_restart` | — | `quiz.js` "Nochmal machen" button | `CE - ev_quiz_restart` | GA4 - Quiz Restart |
+| `ev_newsletter_submit` | `form_location` (e.g. `'bottom'`, `'hero'`) | `index.njk` inline handler on `.ev-newsletter-form` HubSpot `res.ok` | `CE - ev_newsletter_submit` | GA4 - Newsletter Signup, GA4 - Sign Up (key event), X - Newsletter Lead Conversion |
 
 **No PII rule:** email, name, freetext, HubSpot form field values **never** go into dataLayer. Only structural/behavioral data (scores, categories, question indices). PII flows exclusively through HubSpot Forms API submissions in `quiz.js`.
 
@@ -243,6 +244,26 @@ Any new tag that sets cookies or sends identifying data to a third party needs:
 - [ ] Drittlandtransfer disclosure in `datenschutz.njk` section 7 if the vendor is non-EU and not DPF-certified
 - [ ] Consent Settings on the GTM tag: "Require additional consent for tag to fire" with the appropriate signals
 - [ ] CSP update in Caddy if the tag loads scripts / makes requests to new domains
+
+### Dual-event pattern for conversions
+
+For any conversion worth measuring as a **GA4 key event** (leads, signups, bookings, purchases), fire **two** GA4 event tags off the same Custom Event trigger:
+
+1. A **custom event** (`newsletter_signup`, `quiz_contact_submit`, `quiz_book_meeting`) — descriptive name you control, rich parameter set for your own funnel reports
+2. A **GA4 recommended event** (`sign_up`, `generate_lead`, `schedule`, `purchase`) — standard name that unlocks GA4 built-in reports, Google Ads conversion import, cross-property consistency. Mark this one as a **Key Event** in GA4 Admin.
+
+Why both? The custom name keeps reports readable ("newsletter signup" is self-explanatory); the recommended name is what GA4's modeling, predictive audiences, and Google Ads bidding recognize. Small extra tag, big reporting benefit.
+
+Recommended event mapping in this project:
+
+| Funnel step | Custom event | GA4 recommended event | Key event |
+|---|---|---|---|
+| Newsletter signup | `newsletter_signup` | `sign_up` (method=`newsletter`) | ✅ |
+| Quiz email submit | `quiz_contact_submit` | `generate_lead` *(add if lead-gen becomes primary goal)* | ✅ if added |
+| Quiz completed | `quiz_complete` | — | ❌ (mid-funnel) |
+| Meeting booked | `quiz_book_meeting` | `schedule` *(add if tracking appointments as conversions)* | ✅ if added |
+
+Include `currency` + `value` parameters on key events where possible — feeds GA4 predictive metrics and Google Ads smart bidding.
 
 ### Where the authoritative IDs live
 

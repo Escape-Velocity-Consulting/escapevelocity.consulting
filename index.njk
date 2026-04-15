@@ -503,6 +503,13 @@ title: "Escape Velocity — Digitalisierung & Prozessoptimierung für Unternehme
       })
       .then(function(res) {
         if (res.ok) {
+          // Analytics: newsletter signup succeeded. No PII (email stays in HubSpot).
+          // form_location lets GA4 compare conversion by form position (bottom/hero/etc).
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({
+            event: 'ev_newsletter_submit',
+            form_location: form.dataset.form || 'unknown'
+          });
           msg.style.display = 'block';
           msg.className = 'ev-form-message ev-form-success';
           msg.textContent = 'Willkommen an Bord! Bestätigen Sie bitte Ihre E-Mail.';
