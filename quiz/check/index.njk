@@ -1,0 +1,29 @@
+---
+layout: base.njk
+title: "Digital-Check — Escape Velocity"
+lang: de
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles/quiz.css">
+
+{% include "nav.njk" %}
+<style>
+  .nav-links, .nav-toggle { display: none !important; }
+  .footer-cta-section { display: none; }
+</style>
+
+<main id="quiz-app">
+  <section class="phase" data-phase="contact" aria-label="Kontaktdaten"></section>
+  <section class="phase" data-phase="quiz" aria-label="Digital-Check Fragen"></section>
+  <section class="phase" data-phase="qual" aria-label="Qualifikationsfragen"></section>
+  <section class="phase" data-phase="freetext" aria-label="Freitext"></section>
+  <section class="phase" data-phase="results" aria-label="Ergebnis"></section>
+  <div id="quiz-toast" class="quiz-toast" role="alert" aria-live="polite" style="display:none"></div>
+  <div id="quiz-modal-backdrop" class="quiz-modal-backdrop" role="dialog" aria-modal="true" aria-label="Kontaktdaten"></div>
+</main>
+
+{% include "footer.njk" %}
+
+<script src="/scripts/quiz.js"></script>

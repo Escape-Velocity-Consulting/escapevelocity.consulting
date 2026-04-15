@@ -7,13 +7,20 @@
 
   var DEBUG = new URLSearchParams(window.location.search).get('debug') === 'true';
 
-  // Shared results via URL: /quiz/?r=53211 (5 digits, one per dimension score 0–6)
+  // Path routing — quiz.js only runs interactive logic on /quiz/check/.
+  // The /quiz/ landing page has its own tiny inline script for CTA tracking.
+  var IS_CHECK_PAGE = location.pathname.indexOf('/quiz/check') === 0;
+
+  // Shared results via URL query. Canonical: /quiz/check/?s=53211 (5 digits, one
+  // per dimension score 0–6). Legacy /quiz/?r=... is redirected by an inline
+  // script in quiz/index.njk to the canonical URL.
   var SHARED_SCORES = (function () {
-    var r = new URLSearchParams(window.location.search).get('r');
-    if (!r || r.length !== 5) return null;
+    var params = new URLSearchParams(window.location.search);
+    var code = params.get('s') || params.get('r');
+    if (!code || code.length !== 5) return null;
     var scores = [];
     for (var i = 0; i < 5; i++) {
-      var v = parseInt(r[i], 10);
+      var v = parseInt(code[i], 10);
       if (isNaN(v) || v < 0 || v > 6) return null;
       scores.push(v);
     }
@@ -423,7 +430,7 @@
 
   // ─── STATE ──────────────────────────────────────────────────────
   var state = {
-    phase: 'landing',
+    phase: 'contact',
     currentQ: 0,
     scoredAnswers: {},
     qualAnswers: {},
@@ -474,6 +481,16 @@
     setTimeout(function () {
       fn();
       saveState();
+      // On /quiz/check/, each forward step pushes a new hash onto history so
+      // browser Back navigates to the previous step. render()→syncUrl() uses
+      // replaceState, so we do the pushState here explicitly.
+      if (IS_CHECK_PAGE) {
+        var target = stateToHash();
+        if (target && location.hash !== target) {
+          history.pushState(null, '', location.pathname + location.search + target);
+          _lastSyncedHash = target;
+        }
+      }
       render();
       $app.classList.remove('fade-out');
       $app.classList.add('fade-in');
@@ -624,14 +641,73 @@
     setTimeout(function () { toast.style.display = 'none'; }, 12000);
   }
 
+  // ─── URL / HASH ROUTING ─────────────────────────────────────────
+  // Hash encodes the current step on /quiz/check/ so browser Back navigates
+  // per-question. Layout: #contact → #f1..#f{SCORED} → #f{SCORED+1}..#f{SCORED+QUAL} → #freetext.
+  function stateToHash() {
+    if (state.phase === 'contact') return '#contact';
+    if (state.phase === 'quiz') return '#f' + (state.currentQ + 1);
+    if (state.phase === 'qual') return '#f' + (SCORED_QUESTIONS.length + state.currentQ + 1);
+    if (state.phase === 'freetext') return '#freetext';
+    return ''; // results uses ?s= query, no hash
+  }
+
+  function applyHash() {
+    // Parse location.hash → update state.phase + state.currentQ. Returns true if state changed.
+    var h = location.hash.replace(/^#/, '');
+    if (!h || h === 'contact') {
+      state.phase = 'contact';
+      return true;
+    }
+    var m = h.match(/^f(\d+)$/);
+    if (m) {
+      var n = parseInt(m[1], 10);
+      if (n >= 1 && n <= SCORED_QUESTIONS.length) {
+        state.phase = 'quiz';
+        state.currentQ = n - 1;
+        return true;
+      }
+      if (n > SCORED_QUESTIONS.length && n <= SCORED_QUESTIONS.length + QUAL_QUESTIONS.length) {
+        state.phase = 'qual';
+        state.currentQ = n - SCORED_QUESTIONS.length - 1;
+        return true;
+      }
+    }
+    if (h === 'freetext') {
+      state.phase = 'freetext';
+      return true;
+    }
+    return false;
+  }
+
+  // Called from render() to keep URL in sync with state (without creating a new history entry — that's done by transition()).
+  var _lastSyncedHash = null;
+  function syncUrl() {
+    if (!IS_CHECK_PAGE) return;
+    var target = stateToHash();
+    if (target && location.hash !== target && _lastSyncedHash !== target) {
+      // Use replaceState so the render() sync doesn't duplicate history entries.
+      history.replaceState(null, '', location.pathname + location.search + target);
+      _lastSyncedHash = target;
+    }
+  }
+
+  // popstate: browser Back/Forward changed the hash — sync state and re-render.
+  if (IS_CHECK_PAGE) {
+    window.addEventListener('popstate', function () {
+      if (applyHash()) {
+        _lastSyncedHash = location.hash;
+        render();
+      }
+    });
+  }
+
   // ─── RENDER ─────────────────────────────────────────────────────
   function render() {
     show(state.phase);
+    syncUrl();
 
     switch (state.phase) {
-      case 'landing':
-        renderLanding();
-        break;
       case 'contact':
         renderContact();
         break;
@@ -877,6 +953,7 @@
     submitBtn.addEventListener('click', function () {
       track('ev_quiz_contact_submit');
       submitContact().catch(showSubmissionError);
+      _contactSubmitting = true; // suppress the /quiz/ redirect on close
       closeContactModal();
       track('ev_quiz_start');
       transition(function () { state.phase = 'quiz'; state.currentQ = 0; });
@@ -901,16 +978,23 @@
     $modalBackdrop.classList.remove('active');
     document.body.style.overflow = '';
     document.removeEventListener('keydown', handleModalEsc);
+    // If user dismissed the modal without submitting (still on #contact,
+    // transition to 'quiz' phase is NOT about to run), they'd be left staring
+    // at an empty /quiz/check/ page. Send them back to the landing.
+    // _contactSubmitting is set by the submit click handler to suppress this.
+    if (IS_CHECK_PAGE && state.phase === 'contact' && !_contactSubmitting) {
+      window.location.href = '/quiz/';
+    }
+    _contactSubmitting = false;
   }
+  var _contactSubmitting = false;
 
   function handleModalEsc(e) {
     if (e.key === 'Escape') closeContactModal();
   }
 
-  // Legacy: if someone resumes with state.phase === 'contact', show the modal on landing instead
+  // /quiz/check/#contact renders the contact modal over an empty page.
   function renderContact() {
-    state.phase = 'landing';
-    render();
     openContactModal();
   }
 
@@ -1067,7 +1151,9 @@
         quiz_routing: ROUTING[_routingIdx].label
       });
       submitResults().catch(showSubmissionError);
-      transition(function () { state.phase = 'results'; });
+      // Navigate to the canonical results URL. Fire-and-forget HubSpot POST
+      // above continues through navigation. On reload, SHARED_SCORES kicks in.
+      window.location.href = '/quiz/check/?s=' + _ds.join('');
     });
     $('#freetext-back', el).addEventListener('click', function () {
       transition(function () { state.phase = 'qual'; state.currentQ = QUAL_QUESTIONS.length - 1; });
@@ -1325,7 +1411,7 @@
     if (shareBtn) {
       shareBtn.addEventListener('click', function () {
         track('ev_quiz_share');
-        var shareUrl = window.location.origin + window.location.pathname + '?r=' + dimScores.join('');
+        var shareUrl = window.location.origin + '/quiz/check/?s=' + dimScores.join('');
         navigator.clipboard.writeText(shareUrl).then(function () {
           shareBtn.textContent = 'Link kopiert!';
           setTimeout(function () { shareBtn.textContent = 'Link teilen'; }, 2000);
@@ -1335,20 +1421,9 @@
 
     el.querySelector('.results-restart').addEventListener('click', function () {
       track('ev_quiz_restart');
-      if (SHARED_SCORES) {
-        window.location.href = '/quiz/';
-        return;
-      }
       clearState();
-      state.phase = 'landing';
-      state.currentQ = 0;
-      state.scoredAnswers = {};
-      state.qualAnswers = {};
-      state.freetext = '';
-      state.name = '';
-      state.email = '';
-      state.consent = false;
-      render();
+      // Back to the landing page. User can start fresh from there.
+      window.location.href = '/quiz/';
     });
   }
 
@@ -1506,6 +1581,8 @@
   }
 
   // ─── INIT ───────────────────────────────────────────────────────
+  if (!IS_CHECK_PAGE) return; // defensive: quiz.js should only be loaded on /quiz/check/
+
   if (SHARED_SCORES) {
     state.phase = 'results';
     state.name = '';
@@ -1515,10 +1592,25 @@
   }
 
   var saved = loadState();
-  if (saved && saved.phase === 'results') {
+  var hasHash = !!location.hash;
+
+  if (hasHash) {
+    // Explicit URL hash wins. Carry over saved answer data so refresh mid-quiz
+    // restores previously-given answers, but respect the URL position.
+    applyHash();
+    _lastSyncedHash = location.hash;
+    if (saved) {
+      state.scoredAnswers = saved.scoredAnswers || {};
+      state.qualAnswers = saved.qualAnswers || {};
+      state.freetext = saved.freetext || '';
+      state.name = saved.name || '';
+      state.email = saved.email || '';
+      state.consent = !!saved.consent;
+    }
+  } else if (saved && saved.phase === 'results') {
     // Completed quiz — restore results directly, no banner
     Object.assign(state, saved);
-  } else if (saved && saved.phase !== 'landing') {
+  } else if (saved && saved.phase !== 'contact') {
     var banner = document.createElement('div');
     banner.id = 'quiz-resume-banner';
     banner.className = 'quiz-resume-banner';
