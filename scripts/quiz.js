@@ -7,9 +7,12 @@
 
   var DEBUG = new URLSearchParams(window.location.search).get('debug') === 'true';
 
-  // Path routing — quiz.js only runs interactive logic on /quiz/check/.
-  // The /quiz/ landing page has its own tiny inline script for CTA tracking.
+  // Path routing.
+  //   /quiz/        — landing, hosts the contact modal (opens on CTA click,
+  //                   submit navigates to /quiz/check/#f1)
+  //   /quiz/check/  — interactive quiz + results shell
   var IS_CHECK_PAGE = location.pathname.indexOf('/quiz/check') === 0;
+  var IS_LANDING_PAGE = /^\/quiz\/?$/.test(location.pathname);
 
   // Shared results via URL query. Canonical: /quiz/check/?s=53211 (5 digits, one
   // per dimension score 0–6). Legacy /quiz/?r=... is redirected by an inline
@@ -956,7 +959,16 @@
       _contactSubmitting = true; // suppress the /quiz/ redirect on close
       closeContactModal();
       track('ev_quiz_start');
-      transition(function () { state.phase = 'quiz'; state.currentQ = 0; });
+      if (IS_LANDING_PAGE) {
+        // Modal lived on /quiz/. Persist the contact + phase, then hard-nav
+        // to /quiz/check/#f1 where the scored quiz phase runs.
+        state.phase = 'quiz';
+        state.currentQ = 0;
+        saveState();
+        window.location.href = '/quiz/check/#f1';
+      } else {
+        transition(function () { state.phase = 'quiz'; state.currentQ = 0; });
+      }
     });
 
     // Close on backdrop click
@@ -1581,7 +1593,29 @@
   }
 
   // ─── INIT ───────────────────────────────────────────────────────
-  if (!IS_CHECK_PAGE) return; // defensive: quiz.js should only be loaded on /quiz/check/
+  // Landing: bind CTAs → open contact modal on the landing page itself.
+  if (IS_LANDING_PAGE) {
+    var landingCtas = document.querySelectorAll('.landing-cta');
+    for (var ci = 0; ci < landingCtas.length; ci++) {
+      landingCtas[ci].addEventListener('click', function (e) {
+        // Prevent the <a href="/quiz/check/#contact"> fallback navigation —
+        // the modal is the canonical entry point when JS is available.
+        e.preventDefault();
+        track('ev_quiz_cta_click');
+        openContactModal();
+      });
+    }
+    return;
+  }
+
+  if (!IS_CHECK_PAGE) return; // defensive
+
+  // Legacy: /quiz/check/#contact used to open the modal here. Modal now
+  // lives on /quiz/, so redirect.
+  if (location.hash === '#contact') {
+    location.replace('/quiz/');
+    return;
+  }
 
   if (SHARED_SCORES) {
     state.phase = 'results';
@@ -1591,9 +1625,9 @@
     return;
   }
 
-  // Bare /quiz/check/ (no hash, no ?s=) is a confusing entry point — users land
-  // on an empty page with just a modal. If the visitor has saved mid-quiz state,
-  // restore the URL hash from it and continue. Otherwise bounce to the landing.
+  // Bare /quiz/check/ (no hash, no ?s=) is a confusing entry point. If the
+  // visitor has saved mid-quiz state, restore the URL hash from it and
+  // continue. Otherwise bounce to the landing.
   if (!location.hash) {
     var savedBare = loadState();
     if (savedBare && savedBare.phase !== 'contact') {

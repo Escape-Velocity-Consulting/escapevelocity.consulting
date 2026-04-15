@@ -149,17 +149,10 @@ lang: de
     </div>
 
   </section>
+  <div id="quiz-toast" class="quiz-toast" role="alert" aria-live="polite" style="display:none"></div>
+  <div id="quiz-modal-backdrop" class="quiz-modal-backdrop" role="dialog" aria-modal="true" aria-label="Kontaktdaten"></div>
 </main>
 
 {% include "footer.njk" %}
 
-<script>
-// Landing-only analytics: CTAs are <a> links now (navigate to /quiz/check/#contact).
-// Track the intent before the browser navigates away.
-document.querySelectorAll('.landing-cta').forEach(function (cta) {
-  cta.addEventListener('click', function () {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: 'ev_quiz_cta_click' });
-  });
-});
-</script>
+<script src="/scripts/quiz.js"></script>
