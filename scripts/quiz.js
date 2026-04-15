@@ -654,6 +654,21 @@
   function renderLanding() {
     var el = $('[data-phase="landing"]');
 
+    // If the landing is pre-rendered as static HTML in quiz/index.njk
+    // (Phase 1 of the SEO refactor), skip innerHTML generation and just
+    // bind the CTAs. Detecting via .landing-cta presence is simpler than
+    // a marker class.
+    if (el.querySelector('.landing-cta')) {
+      var ctasStatic = el.querySelectorAll('.landing-cta');
+      for (var ic = 0; ic < ctasStatic.length; ic++) {
+        ctasStatic[ic].addEventListener('click', function () {
+          track('ev_quiz_cta_click');
+          openContactModal();
+        });
+      }
+      return;
+    }
+
     // ── Section 1: Hero ──
     var hero =
       '<div class="quiz-container" style="text-align:center;padding-top:80px;padding-bottom:100px">' +

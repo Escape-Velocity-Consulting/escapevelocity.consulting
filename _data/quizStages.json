@@ -1,0 +1,22 @@
+[
+  {
+    "level": 1,
+    "label": "Manuell",
+    "tagline": "Es funktioniert, weil die richtigen Leute wissen wie."
+  },
+  {
+    "level": 2,
+    "label": "Digitalisiert",
+    "tagline": "Wir haben die Tools, aber sie reden nicht miteinander."
+  },
+  {
+    "level": 3,
+    "label": "Vernetzt",
+    "tagline": "Es läuft, auch wenn ich nicht da bin."
+  },
+  {
+    "level": 4,
+    "label": "Optimiert",
+    "tagline": "Mein Team arbeitet an dem, was wirklich zählt."
+  }
+]

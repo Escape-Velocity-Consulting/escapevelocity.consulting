@@ -1296,7 +1296,134 @@ lang: de
 </style>
 
 <main id="quiz-app">
-  <section class="phase active" data-phase="landing" aria-label="Quiz Startseite"></section>
+  <section class="phase active" data-phase="landing" aria-label="Quiz Startseite">
+
+    {# ── Hero ── #}
+    <div class="quiz-container" style="text-align:center;padding-top:80px;padding-bottom:100px">
+      <div class="quiz-eyebrow">Escape Velocity · Digital-Check</div>
+      <h1 class="quiz-hero-title">Wo bremst sich Ihr<br>Unternehmen <em>selbst</em> aus?</h1>
+      <p class="quiz-hero-sub">15 Fragen. 5 Minuten. Danach wissen Sie, was Ihr Wachstum blockiert und was der nächste Schritt ist.</p>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+        <button class="btn-primary btn-large landing-cta">Check starten <span class="btn-arrow">&rarr;</span></button>
+        <div class="landing-trust">Kostenlos · Kein Login · Ergebnis sofort</div>
+      </div>
+    </div>
+
+    {# ── Value-Prop Cards ── #}
+    <div class="quiz-container quiz-container--wide">
+      <h2 class="landing-section-title">So funktioniert der Digital-Check</h2>
+      <div class="landing-cards">
+        <div class="landing-card">
+          <div class="landing-card-num">01</div>
+          <div class="landing-icon-wrap">
+            <svg class="landing-icon" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 5-9"/></svg>
+          </div>
+          <div class="landing-card-title">Ihr Level sehen</div>
+          <div class="landing-card-body">Wo steht Ihr Unternehmen wirklich? Level 1 oder Level 4? Kein Bauchgefühl, sondern ein klares Bild über 5 Dimensionen.</div>
+        </div>
+        <div class="landing-card featured">
+          <div class="landing-badge">Kernanalyse</div>
+          <div class="landing-card-num">02</div>
+          <div class="landing-icon-wrap">
+            <svg class="landing-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+          </div>
+          <div class="landing-card-title">Den Engpass finden</div>
+          <div class="landing-card-body">Eine Dimension bremst alle anderen. Wir zeigen Ihnen, welche, und warum genau dort Zeit und Geld verloren gehen.</div>
+        </div>
+        <div class="landing-card">
+          <div class="landing-card-num">03</div>
+          <div class="landing-icon-wrap">
+            <svg class="landing-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <div class="landing-card-title">Ihren nächsten Schritt erfahren</div>
+          <div class="landing-card-body">Keine generische To-do-Liste. Sie erhalten eine konkrete Empfehlung, die zu Ihrem Level und Ihrem Engpass passt.</div>
+        </div>
+      </div>
+    </div>
+
+    {# ── Levels Roadmap ── #}
+    <div class="landing-stages">
+      <h2>4 Level. Eines davon ist Ihres.</h2>
+      <div class="levels-roadmap">
+        {% for stage in quizStages %}
+        <div class="level-item">
+          <div class="level-dot">{{ stage.level }}</div>
+          <div class="level-label">Level {{ stage.level }}</div>
+          <div class="level-name">{{ stage.label }}</div>
+          <div class="level-quote">„{{ stage.tagline }}"</div>
+        </div>
+        {% endfor %}
+      </div>
+      <div style="text-align:center;margin-top:48px">
+        <button class="btn-primary btn-large landing-cta">Mein Level herausfinden <span class="btn-arrow">&rarr;</span></button>
+      </div>
+    </div>
+
+    {# ── Results Preview (Dark) — radar chart hard-coded with sample data [3, 2, 1, 4, 4] ── #}
+    <div class="landing-preview">
+      <div class="dark-header">
+        <h2>In 5 Minuten wissen Sie mehr als nach dem letzten Strategie-Meeting</h2>
+        <p class="landing-preview-sub">Der Digital-Check liefert keine Theorie, sondern ein konkretes Profil Ihres Unternehmens. Das hier erwartet Sie:</p>
+      </div>
+      <div class="radar-layout">
+        <div class="radar-chart-wrap">
+          <svg viewBox="0 0 400 320" class="radar-chart">
+            {# Grid rings at values 2, 4, 6 for a 5-axis radar, center (200,160), maxR 120 #}
+            <polygon points="200,120 238.04,147.64 223.51,192.36 176.49,192.36 161.96,147.64" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+            <polygon points="200,80 276.08,135.28 247.02,224.72 152.98,224.72 123.92,135.28" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+            <polygon points="200,40 314.13,122.92 270.53,257.08 129.47,257.08 85.87,122.92" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+            {# Axes from center #}
+            <line x1="200" y1="160" x2="200" y2="40" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <line x1="200" y1="160" x2="314.13" y2="122.92" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <line x1="200" y1="160" x2="270.53" y2="257.08" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <line x1="200" y1="160" x2="129.47" y2="257.08" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            <line x1="200" y1="160" x2="85.87" y2="122.92" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+            {# Data polygon: scores [3, 2, 1, 4, 4] #}
+            <polygon points="200,100 238.04,147.64 223.51,192.36 152.98,224.72 123.92,135.28" fill="var(--color-terracotta)" fill-opacity="0.2" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linejoin="round"/>
+            {# Data dots #}
+            <circle cx="200" cy="100" r="6" fill="var(--color-terracotta)"/>
+            <circle cx="238.04" cy="147.64" r="6" fill="var(--color-terracotta)"/>
+            <circle cx="223.51" cy="192.36" r="6" fill="var(--color-terracotta)"/>
+            <circle cx="152.98" cy="224.72" r="6" fill="var(--color-terracotta)"/>
+            <circle cx="123.92" cy="135.28" r="6" fill="var(--color-terracotta)"/>
+            {# Labels #}
+            <text x="200" y="26" text-anchor="middle" class="radar-label" font-weight="600">Prozesse</text>
+            <text x="328.13" y="122.92" text-anchor="start" class="radar-label" font-weight="600">Tools</text>
+            <text x="280.53" y="271.08" text-anchor="start" class="radar-label" font-weight="600">Daten</text>
+            <text x="119.47" y="271.08" text-anchor="end" class="radar-label" font-weight="600">Team</text>
+            <text x="71.87" y="122.92" text-anchor="end" class="radar-label" font-weight="600">Führung</text>
+          </svg>
+        </div>
+        <div class="radar-benefits">
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+            <div class="benefit-text">
+              <h4>Digitalisierungs-Level auf einen Blick</h4>
+              <p>Über 5 Dimensionen ausgewertet: Prozesse, Tools, Daten, Team und Führung.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+            <div class="benefit-text">
+              <h4>Der Engpass, konkret benannt</h4>
+              <p>Nicht geraten, sondern aus Ihren Antworten abgeleitet.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+            <div class="benefit-text">
+              <h4>Ein nächster Schritt, der passt</h4>
+              <p>Zu Ihrer Situation, nicht von der Stange.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <button class="btn-primary btn-large landing-cta">Jetzt Digital-Check starten <span class="btn-arrow">&rarr;</span></button>
+      </div>
+    </div>
+
+  </section>
   <section class="phase" data-phase="contact" aria-label="Kontaktdaten"></section>
   <section class="phase" data-phase="quiz" aria-label="Digital-Check Fragen"></section>
   <section class="phase" data-phase="qual" aria-label="Qualifikationsfragen"></section>
