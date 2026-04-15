@@ -134,10 +134,16 @@
   }
 
   function rejectOptional() {
-    var action = getConsent() ? 'update' : 'grant';
-    saveConsent({ analytics: false, marketing: false }, action);
+    var prev = getConsent();
+    var action = prev ? 'update' : 'grant';
+    var categories = { analytics: false, marketing: false };
+    saveConsent(categories, action);
     hideBanner();
     hideSettings();
+    if (window.updateConsent) window.updateConsent(categories);
+    // If any signal went from granted to denied, reload so already-loaded
+    // third-party tracking scripts are torn down.
+    if (downgraded(prev, categories)) window.location.reload();
   }
 
   function saveSelection() {
@@ -147,17 +153,20 @@
       analytics: ta ? ta.checked : false,
       marketing: tm ? tm.checked : false,
     };
-    var hadConsent = getConsent();
-    var action = hadConsent ? 'update' : 'grant';
+    var prev = getConsent();
+    var action = prev ? 'update' : 'grant';
     saveConsent(categories, action);
     hideBanner();
     hideSettings();
-    // Reload to ensure scripts are loaded/unloaded correctly
-    if (hadConsent) {
-      window.location.reload();
-    } else {
-      if (window.updateConsent) window.updateConsent(categories);
-    }
+    if (window.updateConsent) window.updateConsent(categories);
+    // Reload only on granted→denied transitions to unload tag scripts.
+    if (downgraded(prev, categories)) window.location.reload();
+  }
+
+  // True when any previously-granted category is now denied.
+  function downgraded(prev, next) {
+    if (!prev) return false;
+    return (prev.analytics && !next.analytics) || (prev.marketing && !next.marketing);
   }
 
   // --- Global function for footer/datenschutz link ---
