@@ -15,11 +15,18 @@
  */
 
 (function () {
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { window.dataLayer.push(arguments); }
-
+  // IMPORTANT: Use the GLOBAL window.gtag defined inline in base.njk <head>.
+  // A local gtag stub here would bypass any wrapping GTM adds later and result
+  // in a raw dataLayer entry that the Consent API does NOT process as a state
+  // change (symptom: "On-page update" stays empty in Tag Assistant even though
+  // dataLayer shows the consent entry).
   function updateConsent(consent) {
-    gtag('consent', 'update', {
+    if (typeof window.gtag !== 'function') {
+      // Fallback only if the head gtag stub somehow failed to define.
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+    }
+    window.gtag('consent', 'update', {
       ad_storage:         consent.marketing ? 'granted' : 'denied',
       ad_user_data:       consent.marketing ? 'granted' : 'denied',
       ad_personalization: consent.marketing ? 'granted' : 'denied',
