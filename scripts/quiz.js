@@ -17,6 +17,13 @@
   // Shared results via URL query. Canonical: /quiz/check/?s=53211 (5 digits, one
   // per dimension score 0–6). Legacy /quiz/?r=... is redirected by an inline
   // script in quiz/index.njk to the canonical URL.
+  //
+  // SHARED_SCORES is truthy ONLY when the URL points at someone ELSE's result
+  // (link shared to the visitor). When the user has just completed the quiz
+  // themselves, the URL also carries ?s=, but localStorage holds their own
+  // completed state — in that case we render the personal result, not the
+  // "shared link" variant (which swaps CTA copy to promote the quiz to a
+  // newcomer).
   var SHARED_SCORES = (function () {
     var params = new URLSearchParams(window.location.search);
     var code = params.get('s') || params.get('r');
@@ -27,6 +34,16 @@
       if (isNaN(v) || v < 0 || v > 6) return null;
       scores.push(v);
     }
+    // Detect own completion: localStorage has full scoredAnswers.
+    try {
+      var stored = JSON.parse(localStorage.getItem('ev_quiz_state'));
+      if (stored && stored.scoredAnswers) {
+        var answered = Object.keys(stored.scoredAnswers).length;
+        // We don't know SCORED_QUESTIONS.length here yet, but ≥10 indicates
+        // the user submitted their own freetext-and-results.
+        if (answered >= 10) return null;
+      }
+    } catch (e) { /* treat as shared */ }
     return scores;
   })();
 
