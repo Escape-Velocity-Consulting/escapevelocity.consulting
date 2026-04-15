@@ -1180,9 +1180,15 @@
         quiz_routing: ROUTING[_routingIdx].label
       });
       submitResults().catch(showSubmissionError);
-      // Navigate to the canonical results URL. Fire-and-forget HubSpot POST
-      // above continues through navigation. On reload, SHARED_SCORES kicks in.
-      window.location.href = '/quiz/check/?s=' + _ds.join('');
+      // Update URL to the canonical results form + render results in place.
+      // Can't use window.location.href: if the URL already carries ?s= (e.g.,
+      // user hit Back from results to the freetext step), the new target
+      // differs only in the hash → browser would NOT reload, leaving the
+      // freetext UI visible. pushState + direct render sidesteps that.
+      var newUrl = '/quiz/check/?s=' + _ds.join('');
+      history.pushState(null, '', newUrl);
+      _lastSyncedHash = '';
+      transition(function () { state.phase = 'results'; });
     });
     $('#freetext-back', el).addEventListener('click', function () {
       transition(function () { state.phase = 'qual'; state.currentQ = QUAL_QUESTIONS.length - 1; });
