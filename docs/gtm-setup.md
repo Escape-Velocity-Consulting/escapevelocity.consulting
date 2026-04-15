@@ -194,6 +194,63 @@ After publish + next deploy, in order:
 10. [ ] X Ads → Pixel → last activity within last 5 min.
 11. [ ] Reject consent on a fresh session. Confirm Network tab shows NO tag requests (gtm.js still loads, tags blocked by Consent Mode).
 
+## Maintenance — Keeping Tags in Sync with Code
+
+This section is the **source of truth** for the dataLayer event contract. Any change to tracking — new quiz events, new tags, removed events — starts here and propagates through the stack.
+
+### The contract (current)
+
+| dataLayer event | Parameters | Fires from (code location) | GTM trigger name | Tags that fire |
+|---|---|---|---|---|
+| *(auto)* `gtm.dom` / `gtm.load` | — | GTM built-in | `PV - Quiz Page` (Page View on `/quiz/`) | GA4 - Quiz View |
+| `ev_quiz_cta_click` | — | `quiz.js` landing CTA click handlers | `CE - ev_quiz_cta_click` | GA4 - Quiz CTA Click |
+| `ev_quiz_contact_submit` | — | `quiz.js` contact modal submit | `CE - ev_quiz_contact_submit` | GA4 - Quiz Contact Submit, X - Quiz Lead |
+| `ev_quiz_start` | — | `quiz.js` phase transition to 'quiz' | `CE - ev_quiz_start` | GA4 - Quiz Start |
+| `ev_quiz_answer` | `quiz_question_id`, `quiz_question_type`, `quiz_answer_index` | `quiz.js` scored + qual option click | `CE - ev_quiz_answer` | GA4 - Quiz Answer |
+| `ev_quiz_section_complete` | `quiz_section` (`'scored'` \| `'qual'`) | `quiz.js` after last question of a section | `CE - ev_quiz_section_complete` | GA4 - Quiz Section Complete |
+| `ev_quiz_complete` | `quiz_score_total`, `quiz_bottleneck`, `quiz_routing` | `quiz.js` freetext submit | `CE - ev_quiz_complete` | GA4 - Quiz Complete, X - Quiz Completed |
+| `ev_quiz_book_meeting` | — | `quiz.js` results HubSpot meeting link click | `CE - ev_quiz_book_meeting` | GA4 - Quiz Book Meeting, X - Meeting Booked |
+| `ev_quiz_share` | — | `quiz.js` "Link teilen" button | `CE - ev_quiz_share` | GA4 - Quiz Share |
+| `ev_quiz_restart` | — | `quiz.js` "Nochmal machen" button | `CE - ev_quiz_restart` | GA4 - Quiz Restart |
+
+**No PII rule:** email, name, freetext, HubSpot form field values **never** go into dataLayer. Only structural/behavioral data (scores, categories, question indices). PII flows exclusively through HubSpot Forms API submissions in `quiz.js`.
+
+### When you change the quiz
+
+| Change | Update |
+|---|---|
+| Add a new question (scored or qual) | Nothing — `ev_quiz_answer` auto-indexes via `scored_N` / `qual_N` |
+| Add a new section (beyond scored+qual) | Extend the `quiz_section` enum in this table. Create a new GA4 event tag + trigger for `ev_quiz_section_complete` with the new value if you want separate reporting |
+| Add a new CTA / interaction | New dataLayer event → new Custom Event trigger → new GA4 Event tag (+ optional X/LinkedIn conversion). Update the table above. |
+| Rename an existing event | Rename in `quiz.js`, rename the trigger in GTM, update GA4 event name in the tag. Publish GTM. Reports keep history under the old name. |
+| Remove a step entirely | Delete push in `quiz.js`, pause the trigger + tags in GTM (don't delete — keeps historical data linkable) |
+
+### When you add tracking elsewhere on the site
+
+| Scenario | Steps |
+|---|---|
+| New page that should get a page-specific GA4 event | Add a Page View trigger in GTM with a URL filter, wire a GA4 Event tag to it. No code change needed. |
+| New form / CTA / button to measure | Push `dataLayer.push({event: 'ev_<name>'})` at the event handler. Create `CE - ev_<name>` custom event trigger. Wire tags. |
+| New third-party tag (e.g. Meta Pixel, Bing Ads) | Add tag in GTM UI. Decide consent category (usually Marketing = `ad_storage` + others). Add domain to Caddy CSP: `script-src` for the JS, `connect-src` / `img-src` for pings. Update `datenschutz.njk` with the new tracker + its cookie. Update the cookie-consent banner description in `_includes/cookie-consent.njk` if it lists the tools. |
+| New platform conversion event (e.g. "Newsletter Signup" on X) | 1) Create the conversion event in the platform (X Ads, LinkedIn Campaign Manager, etc.) — copy its ID. 2) Custom HTML tag in GTM firing the platform's `twq('event', ...)` / `lintrk('track', ...)` on an existing or new Custom Event trigger. 3) Set consent requirements matching the base tag. 4) Tag Sequencing: fire after the base pixel. 5) Update the table above. |
+
+### DSGVO checklist for new tags
+
+Any new tag that sets cookies or sends identifying data to a third party needs:
+
+- [ ] A new row in the cookie table in `datenschutz.njk` (section 6)
+- [ ] Mention in the appropriate consent category description (Analyse or Marketing) in `_includes/cookie-consent.njk`
+- [ ] Drittlandtransfer disclosure in `datenschutz.njk` section 7 if the vendor is non-EU and not DPF-certified
+- [ ] Consent Settings on the GTM tag: "Require additional consent for tag to fire" with the appropriate signals
+- [ ] CSP update in Caddy if the tag loads scripts / makes requests to new domains
+
+### Where the authoritative IDs live
+
+Tag IDs and pixel IDs live **in GTM** (not in code). Code only contains:
+- `GTM-GNTWPNNL` — the container ID, in `website/.eleventy.js` and `.eleventy.js` globalData
+- `147929039` — HubSpot portal, used for **Forms API submissions** (not tracking tags), in `quiz.js` + `index.njk` + `v1/index.njk`
+- Base pixel IDs (`G-G29LZCZJSG`, `9635737`, `rbp2n`) appear **only** in this doc and in `datenschutz.njk` for disclosure purposes — they are not hardcoded in any JS
+
 ## Known Gotchas
 
 - **Consent Mode "wait_for_update: 500":** GTM delays tag evaluation by 500ms to let the consent banner decide. If user clicks "Alle akzeptieren" fast, tags fire shortly after. If user doesn't interact, default (denied) sticks.
