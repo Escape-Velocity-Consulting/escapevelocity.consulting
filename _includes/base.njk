@@ -19,6 +19,20 @@ gtag('consent', 'default', {
   'security_storage': 'granted',
   'wait_for_update': 500
 });
+// If the user previously accepted cookies, apply that consent state
+// BEFORE GTM loads — otherwise the update arrives after wait_for_update
+// (500ms) and tags with required-consent will already have been skipped.
+try {
+  var _evConsent = JSON.parse(localStorage.getItem('ev_consent'));
+  if (_evConsent && typeof _evConsent === 'object') {
+    gtag('consent', 'update', {
+      'ad_storage':         _evConsent.marketing ? 'granted' : 'denied',
+      'ad_user_data':       _evConsent.marketing ? 'granted' : 'denied',
+      'ad_personalization': _evConsent.marketing ? 'granted' : 'denied',
+      'analytics_storage':  _evConsent.analytics ? 'granted' : 'denied'
+    });
+  }
+} catch (e) { /* no prior consent or malformed — fall through to banner */ }
 </script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
