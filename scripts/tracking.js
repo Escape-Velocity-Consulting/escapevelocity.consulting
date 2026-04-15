@@ -1,73 +1,33 @@
-/* ===== ESCAPE VELOCITY — TRACKING LOADER ===== */
-/* Scripts are loaded dynamically ONLY after consent. */
+/* ===== ESCAPE VELOCITY — CONSENT MODE v2 BRIDGE =====
+ *
+ * GTM container + Consent Mode v2 defaults are wired inline in base.njk <head>.
+ * This file exposes window.updateConsent() so cookie-consent.js can propagate
+ * user decisions (Alle akzeptieren / Nur notwendige / per-category toggles)
+ * to Google's Consent Mode v2 API.
+ *
+ * Consent model — our 3 categories → Google Consent Mode v2 signals:
+ *   necessary  → functionality_storage + security_storage  (always granted, in head)
+ *   analytics  → analytics_storage
+ *   marketing  → ad_storage + ad_user_data + ad_personalization
+ *
+ * Individual tags (GA4, LinkedIn, HubSpot, X) are configured in the GTM UI,
+ * not in code. See website/docs/gtm-setup.md for the GTM container config.
+ */
 
-// Tracking IDs — replace with your actual IDs
-const TRACKING = {
-  GA_ID: 'G-G29LZCZJSG',            // Google Analytics 4
-  LINKEDIN_PARTNER_ID: '9635737',  // LinkedIn Insight Tag
-  HUBSPOT_PORTAL_ID: '147929039',  // HubSpot Portal
-  X_PIXEL_ID: 'rbp2n',            // X (Twitter) Conversion
-};
-
-// Guard flags against double-loading
-const loaded = { ga: false, linkedin: false, hubspot: false, x: false };
-
-function loadTracking(consent) {
-  if (consent.analytics) loadGA();
-  if (consent.marketing) {
-    loadLinkedIn();
-    loadHubSpot();
-    loadX();
-  }
-}
-
-function loadGA() {
-  if (loaded.ga || TRACKING.GA_ID === 'G-XXXXXXXXXX') return;
-  loaded.ga = true;
-
-  const s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + TRACKING.GA_ID;
-  document.head.appendChild(s);
-
+(function () {
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
-  window.gtag = gtag;
-  gtag('js', new Date());
-  gtag('config', TRACKING.GA_ID, { anonymize_ip: true });
-}
 
-function loadLinkedIn() {
-  if (loaded.linkedin || TRACKING.LINKEDIN_PARTNER_ID === '0000000') return;
-  loaded.linkedin = true;
+  function updateConsent(consent) {
+    gtag('consent', 'update', {
+      ad_storage:         consent.marketing ? 'granted' : 'denied',
+      ad_user_data:       consent.marketing ? 'granted' : 'denied',
+      ad_personalization: consent.marketing ? 'granted' : 'denied',
+      analytics_storage:  consent.analytics ? 'granted' : 'denied'
+    });
+  }
 
-  window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-  window._linkedin_data_partner_ids.push(TRACKING.LINKEDIN_PARTNER_ID);
-
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
-  document.head.appendChild(s);
-}
-
-function loadHubSpot() {
-  if (loaded.hubspot) return;
-  loaded.hubspot = true;
-
-  var s = document.createElement('script');
-  s.async = true;
-  s.defer = true;
-  s.id = 'hs-script-loader';
-  s.src = 'https://js-eu1.hs-scripts.com/' + TRACKING.HUBSPOT_PORTAL_ID + '.js';
-  document.head.appendChild(s);
-}
-
-function loadX() {
-  if (loaded.x || TRACKING.X_PIXEL_ID === 'xxxxx') return;
-  loaded.x = true;
-
-  !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
-  },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
-  a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-  twq('config', TRACKING.X_PIXEL_ID);
-}
+  window.updateConsent = updateConsent;
+  // Back-compat: any lingering loadTracking() call also routes through Consent Mode.
+  window.loadTracking = updateConsent;
+})();

@@ -1,4 +1,7 @@
 module.exports = function(eleventyConfig) {
+  // Global data — available in all templates as {{ gtmId }}
+  eleventyConfig.addGlobalData("gtmId", "GTM-GNTWPNNL");
+
   eleventyConfig.addPassthroughCopy("styles");
   eleventyConfig.addPassthroughCopy("scripts");
   eleventyConfig.addPassthroughCopy("fonts");

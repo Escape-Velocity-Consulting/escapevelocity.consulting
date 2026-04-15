@@ -20,6 +20,21 @@
     return scores;
   })();
 
+  // ─── ANALYTICS (dataLayer / GTM) ────────────────────────────────
+  // Fires ev_quiz_* events consumed by Custom Event triggers in GTM.
+  // No PII (email, name, freetext) is ever pushed — those go to HubSpot
+  // via the Forms API, not through analytics.
+  function track(eventName, params) {
+    try {
+      window.dataLayer = window.dataLayer || [];
+      var payload = { event: eventName };
+      if (params) {
+        for (var k in params) if (Object.prototype.hasOwnProperty.call(params, k)) payload[k] = params[k];
+      }
+      window.dataLayer.push(payload);
+    } catch (e) { /* analytics must never break the quiz */ }
+  }
+
   // ─── DATA ───────────────────────────────────────────────────────
   var DIMENSIONS = [
     'Prozesse & Workflows',
@@ -797,6 +812,7 @@
     var ctas = el.querySelectorAll('.landing-cta');
     for (var i = 0; i < ctas.length; i++) {
       ctas[i].addEventListener('click', function () {
+        track('ev_quiz_cta_click');
         openContactModal();
       });
     }
@@ -844,8 +860,10 @@
 
     // Submit
     submitBtn.addEventListener('click', function () {
+      track('ev_quiz_contact_submit');
       submitContact().catch(showSubmissionError);
       closeContactModal();
+      track('ev_quiz_start');
       transition(function () { state.phase = 'quiz'; state.currentQ = 0; });
     });
 
@@ -908,6 +926,11 @@
       btn.addEventListener('click', function () {
         var idx = parseInt(btn.dataset.idx);
         state.scoredAnswers[state.currentQ] = idx;
+        track('ev_quiz_answer', {
+          quiz_question_id: 'scored_' + state.currentQ,
+          quiz_question_type: 'scored',
+          quiz_answer_index: idx
+        });
         // Briefly highlight then advance
         $$('.option-btn', el).forEach(function (b) {
           b.classList.remove('selected');
@@ -919,6 +942,7 @@
           if (state.currentQ < SCORED_QUESTIONS.length - 1) {
             transition(function () { state.currentQ++; });
           } else {
+            track('ev_quiz_section_complete', { quiz_section: 'scored' });
             submitScoredAnswers().catch(showSubmissionError);
             transition(function () { state.phase = 'qual'; state.currentQ = 0; });
           }
@@ -963,6 +987,11 @@
       btn.addEventListener('click', function () {
         var idx = parseInt(btn.dataset.idx);
         state.qualAnswers[state.currentQ] = idx;
+        track('ev_quiz_answer', {
+          quiz_question_id: 'qual_' + state.currentQ,
+          quiz_question_type: 'qual',
+          quiz_answer_index: idx
+        });
         $$('.option-btn', el).forEach(function (b) {
           b.classList.remove('selected');
           b.setAttribute('aria-selected', 'false');
@@ -973,6 +1002,7 @@
           if (state.currentQ < QUAL_QUESTIONS.length - 1) {
             transition(function () { state.currentQ++; });
           } else {
+            track('ev_quiz_section_complete', { quiz_section: 'qual' });
             submitQualAnswers().catch(showSubmissionError);
             transition(function () { state.phase = 'freetext'; });
           }
@@ -1011,6 +1041,16 @@
 
     $('#freetext-input', el).addEventListener('input', function (e) { state.freetext = e.target.value; });
     $('#freetext-submit', el).addEventListener('click', function () {
+      // Compute once for analytics; submitResults() recomputes for HubSpot (cheap, avoids coupling)
+      var _ds = scoreDimensions(state.scoredAnswers);
+      var _bn = getBottleneckData(_ds);
+      var _bnLabel = _bn.type === 'equal' ? _bn.title : _bn.type === 'cluster' ? _bn.label : _bn.type === 'single' ? _bn.title : _bn.weakDims.map(function (i) { return DIM_SHORT[i]; }).join(', ');
+      var _routingIdx = state.qualAnswers[3] !== undefined ? state.qualAnswers[3] : 3;
+      track('ev_quiz_complete', {
+        quiz_score_total: _ds.reduce(function (a, b) { return a + b; }, 0),
+        quiz_bottleneck: _bnLabel,
+        quiz_routing: ROUTING[_routingIdx].label
+      });
       submitResults().catch(showSubmissionError);
       transition(function () { state.phase = 'results'; });
     });
@@ -1257,10 +1297,19 @@
         '</div>' +
       '</div>';
 
+    // Meeting booking CTA — track before the new tab opens
+    var bookBtns = el.querySelectorAll('a[href*="meetings-eu1.hubspot.com"]');
+    for (var bi = 0; bi < bookBtns.length; bi++) {
+      bookBtns[bi].addEventListener('click', function () {
+        track('ev_quiz_book_meeting');
+      });
+    }
+
     // Share link button
     var shareBtn = el.querySelector('.results-share');
     if (shareBtn) {
       shareBtn.addEventListener('click', function () {
+        track('ev_quiz_share');
         var shareUrl = window.location.origin + window.location.pathname + '?r=' + dimScores.join('');
         navigator.clipboard.writeText(shareUrl).then(function () {
           shareBtn.textContent = 'Link kopiert!';
@@ -1270,6 +1319,7 @@
     }
 
     el.querySelector('.results-restart').addEventListener('click', function () {
+      track('ev_quiz_restart');
       if (SHARED_SCORES) {
         window.location.href = '/quiz/';
         return;

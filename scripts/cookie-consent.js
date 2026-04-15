@@ -130,7 +130,7 @@
     saveConsent({ analytics: true, marketing: true }, action);
     hideBanner();
     hideSettings();
-    loadTracking({ analytics: true, marketing: true });
+    if (window.updateConsent) window.updateConsent({ analytics: true, marketing: true });
   }
 
   function rejectOptional() {
@@ -156,7 +156,7 @@
     if (hadConsent) {
       window.location.reload();
     } else {
-      loadTracking(categories);
+      if (window.updateConsent) window.updateConsent(categories);
     }
   }
 
@@ -172,8 +172,8 @@
   function initConsent() {
     var consent = getConsent();
     if (consent) {
-      // Returning visitor — load scripts per consent, no banner
-      loadTracking(consent);
+      // Returning visitor — restore consent state, no banner
+      if (window.updateConsent) window.updateConsent(consent);
     } else {
       // First visit — show banner
       showBanner();
