@@ -35,6 +35,4 @@
   }
 
   window.updateConsent = updateConsent;
-  // Back-compat: any lingering loadTracking() call also routes through Consent Mode.
-  window.loadTracking = updateConsent;
 })();
