@@ -1,35 +1,71 @@
-# Cookie Consent & Self-Hosted Fonts
+# Cookie Consent & Tracking Architecture
 
-## Overview
-
-DSGVO-konformes Cookie-Consent-System mit 3 Kategorien. Alle Tracking-Scripts werden erst nach Einwilligung dynamisch geladen. Fonts werden lokal gehostet (kein Google CDN).
+DSGVO-konformes Cookie-Consent-System. Tracking-Tags laufen über **Google Tag Manager** (GTM-GNTWPNNL) mit **Google Consent Mode v2** — Signals sind default-denied und werden vom Banner live aktualisiert. Fonts werden lokal gehostet (kein Google CDN).
 
 ## Architektur
 
 ```
 website/
-├── _includes/cookie-consent.njk   ← Banner HTML + CSS
-├── scripts/cookie-consent.js      ← Consent-Logik (~150 Zeilen)
-├── scripts/tracking.js            ← Script-Loader (GA, LinkedIn, HubSpot)
-├── fonts/                         ← 6 woff2-Dateien (self-hosted)
-└── styles/base.css                ← @font-face Deklarationen
+├── _includes/base.njk              ← GTM snippet + Consent Mode default + localStorage restore (head)
+├── _includes/cookie-consent.njk    ← Banner HTML + CSS
+├── scripts/cookie-consent.js       ← Consent-Logik, ruft window.updateConsent()
+├── scripts/tracking.js             ← Consent Mode v2 Bridge (window.updateConsent)
+├── fonts/                          ← 6 woff2-Dateien (self-hosted)
+├── styles/base.css                 ← @font-face Deklarationen
+└── docs/gtm-setup.md               ← GTM UI configuration guide
 ```
+
+**Laufzeit-Flow:**
+
+```
+1. base.njk <head>:
+   a. gtag('consent', 'default', {...all tracking denied..., wait_for_update: 500})
+   b. IF localStorage.ev_consent exists → gtag('consent', 'update', {...stored state})
+   c. GTM container (GTM-GNTWPNNL) loads
+
+2. GTM evaluates tags with granted/denied state → fires or blocks tags
+
+3. cookie-consent.js at end of body:
+   - returning visitor: updateConsent() fires again (idempotent)
+   - new visitor: banner shows, user interaction triggers updateConsent()
+   - POST /api/consent-log (DSGVO evidence trail)
+```
+
+**Warum Consent Mode v2 statt Hard-Gating?**
+
+- GA4 liefert "cookieless pings" bei denied — modellierte Konversionen bleiben trackbar
+- Für Google Ads EEA-Traffic ab März 2024 verpflichtend
+- Consent-Änderungen während der Session wirken sofort, ohne Reload (außer bei Downgrade)
 
 ## Consent-Kategorien
 
-| Kategorie | Dienste | Default | Änderbar |
-|-----------|---------|---------|----------|
-| Notwendig | Consent-Cookie | An | Nein |
-| Analyse | Google Analytics 4 | Aus | Ja |
-| Marketing | LinkedIn Insight Tag, HubSpot Tracking | Aus | Ja |
+| Kategorie | Google Consent Mode v2 Signals | Default | Änderbar |
+|-----------|--------------------------------|---------|----------|
+| Notwendig | `functionality_storage`, `security_storage` | Granted | Nein |
+| Analyse | `analytics_storage` | Denied | Ja |
+| Marketing | `ad_storage`, `ad_user_data`, `ad_personalization` | Denied | Ja |
+
+Einzelne Tags (GA4, LinkedIn, HubSpot, X) werden **in der GTM UI** konfiguriert, nicht im Code. Siehe [`gtm-setup.md`](gtm-setup.md).
 
 ## UX-Flow
 
 1. **Erstbesuch:** Banner am unteren Rand. 3 Buttons: "Alle akzeptieren" (Terracotta), "Nur notwendige" (Outline), "Einstellungen" (Text-Link)
 2. **Einstellungen:** Klappt Toggles auf (Notwendig disabled/an, Analyse, Marketing). "Auswahl speichern" Button
-3. **Wiederkehrend:** Kein Banner. Scripts laden gemäß gespeichertem Consent
+3. **Wiederkehrend:** Kein Banner. Consent wird inline im `<head>` aus localStorage wiederhergestellt, bevor GTM lädt
 4. **Ändern:** "Cookie-Einstellungen" im Footer oder Button auf der Datenschutz-Seite
-5. **Widerruf:** Page Reload nach Änderung (Scripts können nicht entladen werden)
+5. **Reload:** Nur bei Downgrade (granted → denied für Analyse oder Marketing) — dann werden geladene Drittskripte entfernt. Upgrades (denied → granted) und Same-Level laufen ohne Reload
+
+## In-Session Consent-Updates
+
+Alle drei Banner-Aktionen propagieren live zu `window.updateConsent()` → `gtag('consent', 'update', ...)`:
+
+| Aktion | updateConsent | Reload |
+|---|---|---|
+| Alle akzeptieren | ✓ granted | Nein |
+| Nur notwendige (neu) | ✓ denied | Nein |
+| Nur notwendige (nach Accept) | ✓ denied | Ja (wenn Downgrade) |
+| Auswahl speichern — Upgrade | ✓ neue State | Nein |
+| Auswahl speichern — Downgrade | ✓ neue State | Ja |
 
 ## Consent-Speicherung
 
@@ -51,21 +87,18 @@ website/
 - `consentId` wird client-seitig generiert (`crypto.randomUUID()`) — Zuordnung ohne personenbezogene Daten
 - Banner funktioniert auch wenn Endpoint down ist
 
-## Tracking IDs eintragen
+## Tag-Konfiguration
 
-Datei: `website/scripts/tracking.js`, Zeile 4-7:
+Tags werden **nicht im Code** konfiguriert. Tracking-IDs leben in der GTM UI:
 
-```js
-const TRACKING = {
-  GA_ID: 'G-XXXXXXXXXX',           // ← GA4 Measurement ID
-  LINKEDIN_PARTNER_ID: '0000000',  // ← LinkedIn Partner ID
-  HUBSPOT_PORTAL_ID: '147929039',  // ← bereits korrekt
-};
-```
+| Tag | ID | Consent Signals |
+|---|---|---|
+| GA4 Configuration | `G-G29LZCZJSG` | Built-in `analytics_storage` (+ cookieless pings bei denied) |
+| LinkedIn Insight | `9635737` | `ad_storage`, `ad_user_data` |
+| HubSpot Tracking | `147929039` | `ad_storage` |
+| X Pixel | `rbp2n` | `ad_storage`, `ad_personalization` |
 
-- GA4 ID findest du unter: Google Analytics > Admin > Data Streams > Measurement ID
-- LinkedIn Partner ID findest du unter: LinkedIn Campaign Manager > Insight Tag
-- Scripts mit Platzhalter-IDs werden nicht geladen (Guard im Code)
+Full setup guide: [`gtm-setup.md`](gtm-setup.md).
 
 ## Self-Hosted Fonts
 
@@ -84,27 +117,57 @@ Variable Fonts — eine Datei pro Familie deckt alle Gewichte ab. `@font-face` D
 
 **Hinweis:** `brand.njk` lädt weiterhin JetBrains Mono von Google CDN (nur CI-Referenzseite, nicht öffentlich).
 
+## CSP-Anforderungen
+
+Caddy liefert den `Content-Security-Policy` Header. Für GTM + alle Tag-Hosts aktuell benötigt:
+
+```
+script-src:  'self' 'unsafe-inline' https://*.googletagmanager.com https://*.google-analytics.com
+             https://snap.licdn.com https://js-eu1.hs-scripts.com https://*.hs-analytics.net
+             https://*.hscollectedforms.net https://*.usemessages.com https://*.hs-banner.com
+             https://*.hsforms.net https://*.hsappstatic.net https://static.ads-twitter.com
+
+connect-src: 'self' https://*.googletagmanager.com https://*.google-analytics.com https://analytics.google.com
+             https://px.ads.linkedin.com https://*.hsforms.com https://*.hsforms.net https://*.hs-analytics.net
+             https://*.hscollectedforms.net https://*.usemessages.com https://*.hs-banner.com
+             https://*.hubspot.com https://*.hsappstatic.net
+
+img-src:     'self' data: https: (permissives Wildcard deckt Pixel Fires ab)
+
+frame-src:   'self' https://*.hsforms.com https://*.hsforms.net https://*.hubspot.com
+
+style-src:   'self' 'unsafe-inline' https://fonts.googleapis.com  (HubSpot Chat lädt DM Sans/Serif von dort)
+```
+
+Offene Punkte / empfohlene Erweiterungen:
+- **`connect-src`** sollte `https://*.googletagmanager.com` enthalten (GTM Debug/Preview Mode benötigt es — Tag Assistant warnt sonst)
+- **`style-src`** sollte `https://fonts.googleapis.com` enthalten (HubSpot Chat Widget Fonts)
+- Optional für Google Ads Enhanced Conversions: `connect-src` + `img-src` um `https://www.google.com`
+
+Änderungen erfordern Zugriff auf Caddy-Config auf der VM.
+
 ## Lokales Testen
 
 ```bash
-cd website && npx @11ty/eleventy --serve --port=3000
+npx @11ty/eleventy --config C:/Users/tommi/business/.eleventy.js --serve --port=3000
 ```
 
 1. DevTools > Application > Local Storage > `ev_consent` löschen
-2. Seite neu laden → Banner erscheint
-3. Network Tab prüfen: keine Tracking-Requests vor Consent
-4. "Alle akzeptieren" klicken → GA/LinkedIn/HubSpot Scripts im Network Tab (nur mit echten IDs)
-5. Seite neu laden → kein Banner, Scripts laden automatisch
-6. Footer > "Cookie-Einstellungen" → Panel öffnet sich, Toggles zeigen gespeicherten State
-7. "Nur notwendige" → Reload → keine Tracking-Scripts
+2. Seite neu laden → Banner erscheint, `consent default` in dataLayer
+3. Network Tab: nur GTM-Container lädt, keine Tag-Requests (GA4, LinkedIn, HubSpot, X blockiert)
+4. "Alle akzeptieren" klicken → `consent update` in dataLayer, Tags laden
+5. Footer > "Cookie-Einstellungen" → Panel öffnet sich, Toggles zeigen gespeicherten State
+6. Marketing-Toggle deaktivieren → "Auswahl speichern" → Reload (Downgrade)
+7. Nach Reload: Head restored consent inline, Tags für Marketing laden nicht mehr
 
-## Dateien die geändert wurden
+## Dateien
 
-| Datei | Änderung |
-|-------|----------|
-| `_includes/base.njk` | Google Fonts CDN Link entfernt. Consent-Partial + Scripts vor `</body>` |
-| `_includes/footer.njk` | "Cookie-Einstellungen" Link eingefügt |
-| `styles/base.css` | `@font-face` Deklarationen am Anfang |
-| `.eleventy.js` (CI) | Passthrough für `scripts/` und `fonts/` |
-| `../../.eleventy.js` (Dev) | Passthrough für `scripts/` und `fonts/` |
-| `datenschutz.njk` | Abschnitte 4.4 (GA4), 4.5 (LinkedIn), Cookie-Tabelle, Settings-Button, Drittlandtransfers |
+| Datei | Rolle |
+|-------|-------|
+| `_includes/base.njk` | GTM snippet, Consent Mode default, localStorage restore |
+| `_includes/cookie-consent.njk` | Banner UI |
+| `scripts/cookie-consent.js` | Banner-Logik, ruft updateConsent |
+| `scripts/tracking.js` | Consent Mode v2 Bridge |
+| `styles/base.css` | `@font-face` Deklarationen |
+| `.eleventy.js` (Root und `website/`) | Passthrough für `scripts/`, `fonts/`, `gtmId` globalData |
+| `datenschutz.njk` | DSGVO-Text: GA4, LinkedIn, HubSpot, X Tracking, Cookie-Tabelle |
