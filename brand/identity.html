@@ -221,6 +221,81 @@ h3:first-child { margin-top: 0; }
 .voice-dos li::before { background: var(--color-green); }
 .voice-donts li::before { background: var(--color-terracotta); }
 .voice-patterns li::before { background: var(--color-subtle); }
+
+/* ===== Logo Grid ===== */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.logo-grid.square-row { grid-template-columns: repeat(4, 1fr); }
+.logo-tile {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+.logo-preview {
+  aspect-ratio: 2 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.logo-preview.square { aspect-ratio: 1 / 1; }
+.logo-preview.wide { aspect-ratio: 600 / 140; }
+.logo-preview.on-dark { background: var(--color-black); }
+.logo-preview.on-cream { background: var(--color-cream); }
+.logo-preview.on-checker {
+  background-color: #fff;
+  background-image:
+    linear-gradient(45deg, rgba(0,0,0,0.06) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(0,0,0,0.06) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.06) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.06) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+.logo-preview img { max-width: 100%; max-height: 100%; display: block; }
+.logo-meta {
+  padding: 10px 12px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.logo-name {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--color-text);
+}
+.logo-file {
+  font-family: monospace;
+  font-size: 10px;
+  color: var(--color-subtle);
+  margin-top: 2px;
+}
+.logo-downloads { display: flex; flex-wrap: wrap; gap: 6px; }
+.logo-download {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-terracotta);
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid rgba(212, 120, 74, 0.3);
+  border-radius: 4px;
+  padding: 3px 8px;
+  letter-spacing: 0.5px;
+}
+.logo-download:hover { color: white; background: var(--color-terracotta); border-color: var(--color-terracotta); }
+@media (max-width: 768px) {
+  .logo-grid, .logo-grid.square-row { grid-template-columns: repeat(2, 1fr); }
+}
 </style>
 </head>
 <body>
@@ -243,7 +318,149 @@ h3:first-child { margin-top: 0; }
   </div>
 </nav>
 
-<!-- 1. Color Palette -->
+<!-- 1. Logo -->
+<section>
+  <div class="container">
+    <div class="eyebrow">Logo</div>
+    <h2>Logo Variants</h2>
+
+    <h3>Wordmark — horizontal</h3>
+    <div class="logo-grid">
+      <div class="logo-tile">
+        <div class="logo-preview on-dark"><img src="assets/logos/logo-dark.svg" alt="Logo on dark"></div>
+        <div class="logo-meta">
+          <div>
+            <div class="logo-name">On dark</div>
+            <div class="logo-file">logo-dark.svg</div>
+          </div>
+          <div class="logo-downloads"><a class="logo-download" href="assets/logos/logo-dark.svg" download>SVG</a><a class="logo-download" href="assets/logos/logo-dark.png" download>PNG</a><a class="logo-download" href="assets/logos/logo-dark-tight.png" download>PNG tight</a></div>
+        </div>
+      </div>
+      <div class="logo-tile">
+        <div class="logo-preview on-cream"><img src="assets/logos/logo-light.svg" alt="Logo on cream"></div>
+        <div class="logo-meta">
+          <div>
+            <div class="logo-name">On cream</div>
+            <div class="logo-file">logo-light.svg</div>
+          </div>
+          <div class="logo-downloads"><a class="logo-download" href="assets/logos/logo-light.svg" download>SVG</a><a class="logo-download" href="assets/logos/logo-light.png" download>PNG</a><a class="logo-download" href="assets/logos/logo-light-tight.png" download>PNG tight</a></div>
+        </div>
+      </div>
+      <div class="logo-tile">
+        <div class="logo-preview on-checker"><img src="assets/logos/logo-transparent.svg" alt="Logo transparent"></div>
+        <div class="logo-meta">
+          <div>
+            <div class="logo-name">Transparent</div>
+            <div class="logo-file">logo-transparent.svg</div>
+          </div>
+          <div class="logo-downloads"><a class="logo-download" href="assets/logos/logo-transparent.svg" download>SVG</a><a class="logo-download" href="assets/logos/logo-transparent.png" download>PNG</a><a class="logo-download" href="assets/logos/logo-transparent-tight.png" download>PNG tight</a></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Wordmark — square</h3>
+    <div class="logo-grid square-row">
+      <div class="logo-tile">
+        <div class="logo-preview square on-dark"><img src="assets/logos/logo-dark-square.svg" alt="Square logo on dark"></div>
+        <div class="logo-meta">
+          <div>
+            <div class="logo-name">On dark</div>
+            <div class="logo-file">logo-dark-square.svg</div>
+          </div>
+          <div class="logo-downloads"><a class="logo-download" href="assets/logos/logo-dark-square.svg" download>SVG</a><a class="logo-download" href="assets/logos/logo-dark-square.png" download>PNG</a><a class="logo-download" href="assets/logos/logo-dark-square-tight.png" download>PNG tight</a></div>
+        </div>
+      </div>
+      <div class="logo-tile">
+        <div class="logo-preview square on-cream"><img src="assets/logos/logo-light-square.svg" alt="Square logo on cream"></div>
+        <div class="logo-meta">
+          <div>
+            <div class="logo-name">On cream</div>
+            <div class="logo-file">logo-light-square.svg</div>
+          </div>
+          <div class="logo-downloads"><a class="logo-download" href="assets/logos/logo-light-square.svg" download>SVG</a><a class="logo-download" href="assets/logos/logo-light-square.png" download>PNG</a><a class="logo-download" href="assets/logos/logo-light-square-tight.png" download>PNG tight</a></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Wordmark — wide (single line)</h3>
+    <div class="logo-grid">
+      <div class="logo-tile" style="grid-column: span 2;">
+        <div class="logo-preview wide on-dark"><img src="assets/logos/logo-dark-wide.svg" alt="Wide logo on dark"></div>
+        <div class="logo-meta">
+          <div>
+            <div class="logo-name">On dark</div>
+            <div class="logo-file">logo-dark-wide.svg</div>
+          </div>
+          <div class="logo-downloads"><a class="logo-download" href="assets/logos/logo-dark-wide.svg" download>SVG</a><a class="logo-download" href="assets/logos/logo-dark-wide.png" download>PNG</a><a class="logo-download" href="assets/logos/logo-dark-wide-tight.png" download>PNG tight</a></div>
+        </div>
+      </div>
+      <div class="logo-tile" style="grid-column: span 2;">
+        <div class="logo-preview wide on-cream"><img src="assets/logos/logo-light-wide.svg" alt="Wide logo on cream"></div>
+        <div class="logo-meta">
+          <div>
+            <div class="logo-name">On cream</div>
+            <div class="logo-file">logo-light-wide.svg</div>
+          </div>
+          <div class="logo-downloads"><a class="logo-download" href="assets/logos/logo-light-wide.svg" download>SVG</a><a class="logo-download" href="assets/logos/logo-light-wide.png" download>PNG</a><a class="logo-download" href="assets/logos/logo-light-wide-tight.png" download>PNG tight</a></div>
+        </div>
+      </div>
+      <div class="logo-tile" style="grid-column: span 2;">
+        <div class="logo-preview wide on-checker"><img src="assets/logos/logo-transparent-wide.svg" alt="Wide logo transparent"></div>
+        <div class="logo-meta">
+          <div>
+            <div class="logo-name">Transparent</div>
+            <div class="logo-file">logo-transparent-wide.svg</div>
+          </div>
+          <div class="logo-downloads"><a class="logo-download" href="assets/logos/logo-transparent-wide.svg" download>SVG</a><a class="logo-download" href="assets/logos/logo-transparent-wide.png" download>PNG</a><a class="logo-download" href="assets/logos/logo-transparent-wide-tight.png" download>PNG tight</a></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Monogram — EV</h3>
+    <div class="logo-grid square-row">
+      <div class="logo-tile">
+        <div class="logo-preview square on-dark"><img src="assets/logos/ev-wordmark.svg" alt="EV monogram on dark"></div>
+        <div class="logo-meta">
+          <div>
+            <div class="logo-name">On dark</div>
+            <div class="logo-file">ev-wordmark.svg</div>
+          </div>
+          <div class="logo-downloads"><a class="logo-download" href="assets/logos/ev-wordmark.svg" download>SVG</a><a class="logo-download" href="assets/logos/ev-wordmark.png" download>PNG</a><a class="logo-download" href="assets/logos/ev-wordmark-tight.png" download>PNG tight</a></div>
+        </div>
+      </div>
+      <div class="logo-tile">
+        <div class="logo-preview square on-cream"><img src="assets/logos/ev-wordmark-light.svg" alt="EV monogram on cream"></div>
+        <div class="logo-meta">
+          <div>
+            <div class="logo-name">On cream</div>
+            <div class="logo-file">ev-wordmark-light.svg</div>
+          </div>
+          <div class="logo-downloads"><a class="logo-download" href="assets/logos/ev-wordmark-light.svg" download>SVG</a><a class="logo-download" href="assets/logos/ev-wordmark-light.png" download>PNG</a><a class="logo-download" href="assets/logos/ev-wordmark-light-tight.png" download>PNG tight</a></div>
+        </div>
+      </div>
+      <div class="logo-tile">
+        <div class="logo-preview square on-checker"><img src="assets/logos/ev-wordmark-transparent.svg" alt="EV monogram transparent"></div>
+        <div class="logo-meta">
+          <div>
+            <div class="logo-name">Transparent</div>
+            <div class="logo-file">ev-wordmark-transparent.svg</div>
+          </div>
+          <div class="logo-downloads"><a class="logo-download" href="assets/logos/ev-wordmark-transparent.svg" download>SVG</a><a class="logo-download" href="assets/logos/ev-wordmark-transparent.png" download>PNG</a><a class="logo-download" href="assets/logos/ev-wordmark-transparent-tight.png" download>PNG tight</a></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Usage Rules</h3>
+    <ul class="rules-list">
+      <li>"Velocity" (or "V") always in terracotta; "Escape" (or "E") in light/dark depending on background</li>
+      <li>Use the horizontal wordmark as default; square for avatars, app icons, favicons; monogram only when space forces it</li>
+      <li>Transparent variants for overlays on imagery or colored backgrounds — ensure sufficient contrast</li>
+      <li>Do not recolor, rotate, or apply effects. Do not place the wordmark on low-contrast backgrounds.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 2. Color Palette -->
 <section>
   <div class="container">
     <div class="eyebrow">Colors</div>
@@ -378,7 +595,7 @@ h3:first-child { margin-top: 0; }
   </div>
 </section>
 
-<!-- 2. Typography Scale -->
+<!-- 3. Typography Scale -->
 <section>
   <div class="container">
     <div class="eyebrow">Typography</div>
@@ -513,7 +730,7 @@ h3:first-child { margin-top: 0; }
   </div>
 </section>
 
-<!-- 3. Spacing & Layout -->
+<!-- 4. Spacing & Layout -->
 <section>
   <div class="container">
     <div class="eyebrow">Spacing</div>
@@ -582,7 +799,7 @@ h3:first-child { margin-top: 0; }
   </div>
 </section>
 
-<!-- 4. Voice & Copy -->
+<!-- 5. Voice & Copy -->
 <section>
   <div class="container">
     <div class="eyebrow">Voice</div>
