@@ -4,15 +4,21 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy("styles");
   eleventyConfig.addPassthroughCopy("scripts");
-  eleventyConfig.addPassthroughCopy("fonts");
   eleventyConfig.addPassthroughCopy("favicon.svg");
   eleventyConfig.addPassthroughCopy("vortrag.jpg");
   eleventyConfig.addPassthroughCopy("hi/*.vcf");
   eleventyConfig.addPassthroughCopy("qr.png");
   eleventyConfig.addPassthroughCopy("qr-lockscreen.png");
-  eleventyConfig.addPassthroughCopy("brand");
+
+  // Brand System — consumed via git submodule at _brand/.
+  // _brand/dist/site/ must exist before building (cd _brand && npm ci && npm run build:dist).
+  // CI does this in .github/workflows/deploy.yml. See CLAUDE.md for details.
+  eleventyConfig.addPassthroughCopy({ "_brand/dist/site":            "brand"             });
+  eleventyConfig.addPassthroughCopy({ "_brand/dist/site/fonts":      "fonts"             });
+  eleventyConfig.addPassthroughCopy({ "_brand/dist/site/tokens.css": "styles/tokens.css" });
 
   eleventyConfig.ignores.add("reference/**");
+  eleventyConfig.ignores.add("_brand/**");
 
   return {
     dir: {
@@ -20,7 +26,10 @@ module.exports = function(eleventyConfig) {
       output: "_site",
       includes: "_includes"
     },
-    templateFormats: ["njk", "html", "md"],
+    // Intentionally excludes "html" — the brand submodule contains many .html
+    // files (templates/, dist/site/*.html) that are passed through, not rendered.
+    // If a future website page wants .html, add the format and re-verify ignores.
+    templateFormats: ["njk", "md"],
     htmlTemplateEngine: "njk"
   };
 };
