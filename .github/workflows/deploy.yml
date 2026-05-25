@@ -23,6 +23,13 @@ jobs:
         run: npm ci
         working-directory: _brand
 
+      - name: Install Playwright (chromium)
+        # build:dist now runs Playwright in build:assets, build:kit, and the
+        # brand-guide PDF generator. Without this step the build fails with
+        # "Executable doesn't exist".
+        run: npx playwright install --with-deps chromium
+        working-directory: _brand
+
       - name: Build Brand Distribution
         run: npm run build:dist
         working-directory: _brand
