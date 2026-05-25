@@ -9,13 +9,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: Install website dependencies
         run: npm ci
+
+      - name: Install brand dependencies
+        run: npm ci
+        working-directory: _brand
+
+      - name: Build Brand Distribution
+        run: npm run build:dist
+        working-directory: _brand
 
       - name: Build site
         run: npx @11ty/eleventy
@@ -26,16 +36,18 @@ jobs:
 
       - uses: google-github-actions/setup-gcloud@v2
 
+      - name: Pack site
+        # tar + single scp is dramatically faster + more reliable through IAP than
+        # `scp --recurse` of hundreds of small files (which we now have because the
+        # brand submodule contributes fonts, logos, raster previews, etc).
+        run: tar -czf site.tar.gz -C _site .
+
       - name: Deploy static files
         run: |
-          gcloud compute ssh web-server \
-            --zone=us-central1-a --tunnel-through-iap \
-            --command="mkdir -p /tmp/escapevelocity-deploy"
-
-          gcloud compute scp --recurse _site/* \
-            web-server:/tmp/escapevelocity-deploy/ \
+          gcloud compute scp site.tar.gz \
+            web-server:/tmp/escapevelocity-deploy.tar.gz \
             --zone=us-central1-a --tunnel-through-iap
 
           gcloud compute ssh web-server \
             --zone=us-central1-a --tunnel-through-iap \
-            --command="sudo rm -rf /mnt/pd/data/services/static/escapevelocity/* && sudo cp -r /tmp/escapevelocity-deploy/* /mnt/pd/data/services/static/escapevelocity/ && rm -rf /tmp/escapevelocity-deploy"
+            --command="sudo rm -rf /mnt/pd/data/services/static/escapevelocity/* && sudo tar -xzf /tmp/escapevelocity-deploy.tar.gz -C /mnt/pd/data/services/static/escapevelocity/ && rm -f /tmp/escapevelocity-deploy.tar.gz"
